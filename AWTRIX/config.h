@@ -55,6 +55,21 @@ int    UPDATE_INTERVAL_SECS=       600;
 
 #define BUZZER_PIN                  0
 
+// -----------------------------------------------------------------------------
+// YOUTUBE
+// -----------------------------------------------------------------------------
+
+const char* YTchannel = "UCFo2uTuDWU-klP58hE34iLg";   // YT user id
+
+// -----------------------------------------------------------------------------
+// MQTT
+// -----------------------------------------------------------------------------
+
+const char* mqttServer = "m14.cloudmqtt.com";
+const int mqttPort = 18422;
+const char* mqttUser = "qhesfmkc";
+const char* mqttPassword = "tIyVJka59iDw";
+
 
 
 

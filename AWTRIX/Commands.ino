@@ -20,7 +20,7 @@ void doJob(char data[]){
       sendMSG(loadConfig());
       Serial.println("Send Config");
     }
-    else if(payload=="restore")
+    else if(payload=="D")
     {
       restoreSettings();
     }else{      

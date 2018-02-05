@@ -22,6 +22,8 @@ const long interval = 1000;
 void setup() {
   Serial.begin(115200);
   loadConfig();
+//--------------------------------------------------------------------------------
+
   otaSetup();
   pinMode(BUTTTON_RESET_CONFIG, INPUT);
   matrixSetup();
@@ -33,20 +35,21 @@ void setup() {
   matrixClear();
 
   //display_panOrBounceBitmap(24);
-  play();
+
   weatherUpdate();
+  getYTSubs(YTchannel);
+  mqttSetup();
 }
 
 
 //--------------------------------------------------------------------------------
 // AWTRIX Loop
-//--------------------------------------------------------------------------------
-
 void loop() {
      otaLoop();
      if (!OTA){
      udpLoop();
      tcpLoop();
+     MQTTloop();
      if (!GOL & !PET  & !WEATHER & !NOTIFICATION){
      const unsigned long Minutes = 1 * 1 * 1000UL;
      static unsigned long lastSampleTime = 0 - Minutes;  

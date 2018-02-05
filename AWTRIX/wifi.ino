@@ -7,7 +7,6 @@
 
 #define MAX_SRV_CLIENTS 3
 ESP8266WebServer  server (80);
-WiFiClient client;
 WiFiUDP Udp;
 String IP_ADRESS;
 
@@ -32,12 +31,6 @@ void wifiSetup() {
     Serial.println("mDNS responder started");
     if (SHOW_IP_ON_BOOT) {matrixBoot(IP_ADRESS);};
     MDNS.addService("http", "tcp", 80);
-    server.begin();
-      server.on("/config/set", HTTP_POST, [](){
-    StaticJsonBuffer<200> newBuffer;
-    JsonObject& newjson = newBuffer.parseObject(server.arg("plain"));
-
-  });
  }
 
  
