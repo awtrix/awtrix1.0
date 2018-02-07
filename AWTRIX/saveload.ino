@@ -64,8 +64,6 @@ void restoreSettings(){
 void parsesettings(char json[]){
   StaticJsonBuffer<200> jsonBuffer;
   JsonObject& root = jsonBuffer.parseObject(json);
-
-
   if (!root.success()) {
     Serial.println("parseObject() failed");
     return;
@@ -90,7 +88,6 @@ void parsesettings(char json[]){
 bool saveConfig() {
   StaticJsonBuffer<200> jsonBuffer;
   JsonObject& json = jsonBuffer.createObject();
-  
   json["SHOW_IP_ON_BOOT"] = SHOW_IP_ON_BOOT;
   json["ENABLE_HEARTBEAT"] = ENABLE_HEARTBEAT;
   json["AUTO_BRIGHTNESS"] = AUTO_BRIGHTNESS;
@@ -104,8 +101,6 @@ bool saveConfig() {
   json["WUNDERGROUND_CITY"] = WUNDERGROUND_CITY;
   json["WUNDERGROUND_ZMW_CODE"] = WUNDERGROUND_ZMW_CODE;
   json["UPDATE_INTERVAL_SECS"] = UPDATE_INTERVAL_SECS;
-
-  
   
   File configFile = SPIFFS.open("/config.json", "w");
   if (!configFile) {

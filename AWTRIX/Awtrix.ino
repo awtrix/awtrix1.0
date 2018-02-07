@@ -1,6 +1,12 @@
 #include <EEPROM.h>
 #include <stdint.h>
 #include "config.h"
+#include "Ticker.h"
+
+void doUpdates();
+void checkLight();
+void sTime();
+
 
 //--------------------------------------------------------------------------------
 // Process Variables
@@ -15,6 +21,10 @@ int  PET_MOOD = 1;
 unsigned long previousMillis = 0;
 const long interval = 1000; 
 
+Ticker updateData(doUpdates, 10000,0, MILLIS);
+Ticker autoBrightness(checkLight, 2000,0, MILLIS);
+Ticker Time(sTime, 2000,0, MILLIS);
+
 //--------------------------------------------------------------------------------
 // Programm Setup
 //--------------------------------------------------------------------------------
@@ -22,23 +32,18 @@ const long interval = 1000;
 void setup() {
   Serial.begin(115200);
   loadConfig();
-//--------------------------------------------------------------------------------
-
   otaSetup();
   pinMode(BUTTTON_RESET_CONFIG, INPUT);
   matrixSetup();
-    wifiSetup();
+  wifiSetup();
   soundSetup();
   Serial.println("Awtrix successfully started");
-  if (ENABLE_HEARTBEAT){setupHeartbeat();};
-  prepareUpdates();
   matrixClear();
-
-  //display_panOrBounceBitmap(24);
-
-  weatherUpdate();
-  getYTSubs(YTchannel);
   mqttSetup();
+  doUpdates();
+  updateData.start();
+  autoBrightness.start();
+  Time.start();
 }
 
 
@@ -50,36 +55,22 @@ void loop() {
      udpLoop();
      tcpLoop();
      MQTTloop();
-     if (!GOL & !PET  & !WEATHER & !NOTIFICATION){
-     const unsigned long Minutes = 1 * 1 * 1000UL;
-     static unsigned long lastSampleTime = 0 - Minutes;  
-     unsigned long now = millis();
-     if (now - lastSampleTime >= Minutes)
-         {
-         lastSampleTime += Minutes;
-         showTime();
-         
-         }
-                                                }
-     if (PET &!GOL & !WEATHER & !NOTIFICATION)vPetLoop();
-
-     if (AUTO_BRIGHTNESS){
-        unsigned long currentMillis = millis();
-        if (currentMillis - previousMillis >= interval) {
-          previousMillis = currentMillis;
-          checkLight();
-        }
-      }else{
-        matrixBrightness(BRIGHTNESS);
-      }
+     updateData.update();
+     autoBrightness.update();
+     Time.update();
     } 
 }
-void prepareUpdates(){
-    setupTimeUpdate();
- 
+
+void doUpdates(){
+    timeUpdate();
+    getYTSubs(YTchannel);
+    weatherUpdate();
 }
 
 
+void sTime(){
+ showTime(); 
+}
 
 
 
