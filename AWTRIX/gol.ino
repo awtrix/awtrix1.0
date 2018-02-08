@@ -2,7 +2,7 @@
 // Game of Life
 // -----------------------------------------------------------------------------
 
-Ticker gameOfLifeTicker;
+
 byte numCells = 0;
 byte prevCells = 0;
 byte autoResetCount = 0;
@@ -17,6 +17,8 @@ bool gameOfLifeStatus[MATRIX_WIDTH][MATRIX_HEIGHT] = {false};
 #define GAMEOFLIFE_AUTORESET        50
 #define GAMEOFLIFE_NEW              matrix.Color(0, 255, 0)
 #define GAMEOFLIFE_OLD              matrix.Color(0, 0, 255)
+
+Ticker gameOfLifeTicker(gameOfLifeLoop, GAMEOFLIFE_INTERVAL,0, MILLIS);
 
 bool isAlive(int x, int y) {
    if (x < 0) x += MATRIX_WIDTH;
@@ -72,8 +74,9 @@ void gameOfLifeInit() {
 void gameOfLifeStart() {
     PET=false;
     GOL=true;
+    gameOfLifeTicker.start();
     gameOfLifeInit();
-    gameOfLifeTicker.attach_ms(GAMEOFLIFE_INTERVAL, gameOfLifeLoop);
+  
 
   }
    
@@ -149,6 +152,6 @@ void gameOfLifeLoop() {
 
 void gameOfLifeStop() {
     GOL=false;
-    gameOfLifeTicker.detach();
+    gameOfLifeTicker.stop();
     matrixClear();
 }

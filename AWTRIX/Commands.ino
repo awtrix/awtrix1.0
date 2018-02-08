@@ -4,6 +4,7 @@ static unsigned char mask1[]={ 0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff};
 static unsigned char FBF[]={0x7,0xf,0xc,0x1e,0x1e,0xc,0xc,0xc};
 
 
+
 void doJob(char data[]){
   String dat;
   String command;
@@ -20,7 +21,7 @@ void doJob(char data[]){
       sendMSG(loadConfig());
       Serial.println("Send Config");
     }
-    else if(payload=="D")
+    else if(payload=="restore")
     {
       restoreSettings();
     }else{      

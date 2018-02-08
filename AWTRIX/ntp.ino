@@ -1,8 +1,10 @@
 #include "TimeClient.h"
 TimeClient timeClient(UTC_OFFSET);
-
+String ntp;
+ 
 void timeUpdate(){
    timeClient.updateTime();
+   ntp=timeClient.getFormattedTime();
 }
 
 void setupTimeUpdate(){
@@ -11,9 +13,7 @@ void setupTimeUpdate(){
 }
 
 void showTime(){
-  String time = timeClient.getFormattedTime();
-  matrixText(true,time,1,0,255,255,255);
+  matrixText(true,ntp,1,0,255,255,255);
 }
-
 
 

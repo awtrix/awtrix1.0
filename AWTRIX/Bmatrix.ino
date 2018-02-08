@@ -1,7 +1,6 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_NeoMatrix.h>
 #include <Adafruit_NeoPixel.h>
-#include <Ticker.h>
 #include <Fonts/FreeMono9pt7b.h>
 
 Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_PIN,  MATRIX_MODE,MATRIX_TYPE);
@@ -98,30 +97,7 @@ uint16_t *decodeColorData(unsigned char* data) {
   return pixels;
 }
 
-// -----------------------------------------------------------------------------
-// Heartbeat
-// -----------------------------------------------------------------------------
 
-Ticker heartBeat;
-bool beat = true;
-
-void setupHeartbeat(){
-  heartBeat.attach_ms(1000, heartBeatLoop);
-}
-
-void endHeartbeat(){
- heartBeat.detach();
-}
-
-void heartBeatLoop() {
-  if (beat) {
-    matrix.drawPixel(MATRIX_WIDTH-1,MATRIX_HEIGHT-1,matrix.Color(0, 255, 0));
-  }else{
-    matrix.drawPixel(MATRIX_WIDTH-1,MATRIX_HEIGHT-1,matrix.Color(0, 0, 0));
-  }
-  matrix.show();
-    beat = !beat;
-}
 
 
 
