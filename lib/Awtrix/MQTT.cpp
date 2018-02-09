@@ -1,9 +1,4 @@
 #include <MQTT.h>
-#include <ESP8266WiFi.h>
-#include <PubSubClient.h>
-
-WiFiClient espClient;
-PubSubClient mqttClient(espClient);
 
 void MQTT::setup() {
     while (!mqttClient.connected()) {
@@ -28,6 +23,7 @@ void MQTT::loop() {
     mqttClient.loop();
 }
 
+/*
 void callback(char* topic, byte* payload, unsigned int length) {
     Serial.print("Message arrived [");
     Serial.print(topic);
@@ -58,3 +54,4 @@ void reconnect() {
         //}
     }
 }
+*/

@@ -6,15 +6,13 @@
 class AwtrixWiFi
 {
     private:
-        void udpLoop();
         void tcpLoop();
 
-        WiFiUDP udp;
         ESP8266WebServer webserver;
         String address;
 
     public:
-        AwtrixWiFi();
+        AwtrixWiFi() : webserver(80) {};
         void setup();
         void loop();
 };
