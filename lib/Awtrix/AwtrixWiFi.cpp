@@ -1,52 +1,48 @@
-#include <ESP8266WiFi.h>
-#include <ESP8266HTTPClient.h>
-#include <EEPROM.h>
-#include <DNSServer.h>            // Local DNS Server used for redirecting all rs to the configuration portal
-#include <WiFiManager.h>          // https://github.com/tzapu/WiFiManager WiFi Configuration Magic
+#include <AwtrixWiFi.h>
+#include <WiFiManager.h>
 #include <ESP8266mDNS.h> 
 
-#define MAX_SRV_CLIENTS 3
-ESP8266WebServer  server (80);
-WiFiUDP Udp;
-String IP_ADRESS;
+AwtrixWiFi::AwtrixWiFi() : webserver(80) {
+    // ...
+}
 
-int localUdpPort = 52829;  // local port to listen on
-char inputBuffer[512];     // buffer for incoming packets
-
-void wifiSetup() {
+void AwtrixWiFi::setup() {
     Serial.println("Setup WiFi");
-    matrixText(true, "WiFi", 5, 0, 0, 0, 255);
+    // matrixText(true, "WiFi", 5, 0, 0, 0, 255);
     WiFiManager wifiManager;
     wifiManager.setTimeout(120);
     wifiManager.autoConnect("AWTRIX");
+
     Serial.println("WiFi connected");
     Serial.println("IP address: ");
-    IP_ADRESS = WiFi.localIP().toString();
-    Serial.println(IP_ADRESS);
-    Udp.begin(localUdpPort);
+
+    address = WiFi.localIP().toString();
+    Serial.println(address);
+    udp.begin(52829);   // TODO: Define this somewhere else
+
     if (!MDNS.begin("awtrix")) { 
         Serial.println("Error setting up MDNS responder!");
     }
+
     Serial.println("mDNS responder started");
-    if (SHOW_IP_ON_BOOT) {
-        matrixBoot(IP_ADRESS);
+    if (false) { // SHOW_IP_ON_BOOT
+        // matrixBoot(address);
     }
         
     MDNS.addService("http", "tcp", 80);
 }
 
-void wifiReset() {
-    Serial.println("Reset");
-    WiFi.disconnect();
-    delay(500);
-    ESP.reset();
-    delay(5000);
+void AwtrixWiFi::loop() {
+    udpLoop();
+    tcpLoop();
 }
 
-void udpLoop() {
-    int packetSize = Udp.parsePacket();
+void AwtrixWiFi::udpLoop() {
+    int packetSize = udp.parsePacket();
+    char inputBuffer[512];
+
     if (packetSize) {
-        Udp.read(inputBuffer, 256);
+        udp.read(inputBuffer, 255);
         Serial.println("Contents:");
         Serial.println(inputBuffer);
 
@@ -54,14 +50,22 @@ void udpLoop() {
             inputBuffer[packetSize] = 0;
         }
 
-        doJob(inputBuffer);
+        // doJob(inputBuffer);
     }
-
-    delay(10);
 }
 
-void tcpLoop() {
-    server.handleClient();
+void AwtrixWiFi::tcpLoop() {
+    webserver.handleClient();
+}
+
+
+
+void wifiReset() {
+    Serial.println("Reset");
+    WiFi.disconnect();
+    delay(500);
+    ESP.reset();
+    delay(5000);
 }
 
 void sendMSG(String msg) {

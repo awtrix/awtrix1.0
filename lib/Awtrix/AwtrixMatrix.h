@@ -1,3 +1,6 @@
+#ifndef AwtrixMatrix_h
+#define AwtrixMatrix_h
+
 #include <Adafruit_NeoMatrix.h>
 
 typedef struct { char red; char green; char blue; } AwtrixColor;
@@ -27,3 +30,5 @@ class AwtrixMatrix
         void setup();
         uint32_t color(AwtrixColor);
 };
+
+#endif
