@@ -1,7 +1,7 @@
 #ifndef AwtrixWiFi_h
 #define AwtrixWiFi_h
 
-#include <WiFiManager.h>
+#include <ESP8266WebServer.h>
 
 class AwtrixWiFi
 {

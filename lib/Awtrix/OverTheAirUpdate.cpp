@@ -1,5 +1,5 @@
 #include <OverTheAirUpdate.h>
-#include <AwtrixMatrix.h>
+#include <DisplayManager.h>
 #include <ArduinoOTA.h>
 
 void OverTheAirUpdate::setup() {
@@ -9,7 +9,7 @@ void OverTheAirUpdate::setup() {
         Serial.println("OTA Start");
         updating = true;
 
-        AwtrixMatrix::getInstance().clear();
+        DisplayManager::getInstance().clear();
     });
 
     ArduinoOTA.onEnd([]() {
@@ -17,7 +17,7 @@ void OverTheAirUpdate::setup() {
     });
 
     ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
-        // AwtrixMatrix::getInstance().loading(progress, total);
+        // DisplayManager::getInstance().loading(progress, total);
     });
 
     ArduinoOTA.onError([](ota_error_t error) {

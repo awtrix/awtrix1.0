@@ -1,6 +1,6 @@
 #include <AwtrixWiFi.h>
+#include <ESP8266mDNS.h>
 #include <WiFiManager.h>
-#include <ESP8266mDNS.h> 
 
 void AwtrixWiFi::setup() {
     Serial.println("Setup WiFi");

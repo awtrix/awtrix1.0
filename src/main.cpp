@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <AwtrixMatrix.h>
+#include <DisplayManager.h>
 #include <AwtrixWiFi.h>
 #include <OverTheAirUpdate.h>
 #include <MQTT.h>
@@ -9,7 +9,7 @@
 OverTheAirUpdate ota;
 AwtrixWiFi wifi;
 MQTT mqtt;
-AwtrixMatrix& matrix = AwtrixMatrix::getInstance();
+DisplayManager& display = DisplayManager::getInstance();
 
 void setup() {
     Serial.begin(115200);

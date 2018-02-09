@@ -1,16 +1,20 @@
-#ifndef AwtrixMatrix_h
-#define AwtrixMatrix_h
+#ifndef DisplayManager_h
+#define DisplayManager_h
 
 #include <Adafruit_NeoMatrix.h>
 
 typedef struct { char red; char green; char blue; } AwtrixColor;
 typedef struct { char x; char y; } AwtrixPosition;
 
-class AwtrixMatrix
+enum command_t { 
+    settings_get, settings_set, settings_reset, brightness, text, color, screen
+};
+
+class DisplayManager
 {
     public:
-        static AwtrixMatrix& getInstance() {
-            static AwtrixMatrix instance;
+        static DisplayManager& getInstance() {
+            static DisplayManager instance;
             return instance;
         }
 
@@ -18,11 +22,13 @@ class AwtrixMatrix
         void setBrightness(int);
         void drawText(String, AwtrixPosition, AwtrixColor, boolean);
 
+        bool executeCommand(command_t, String);
+
     private:
         // Singleton setup
-        AwtrixMatrix();
-        AwtrixMatrix(AwtrixMatrix const&);
-        void operator = (AwtrixMatrix const&);
+        DisplayManager();
+        DisplayManager(DisplayManager const&);
+        void operator = (DisplayManager const&);
 
         Adafruit_NeoMatrix matrix;
         int brightness;

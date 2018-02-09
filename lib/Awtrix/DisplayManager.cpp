@@ -1,4 +1,4 @@
-#include <AwtrixMatrix.h>
+#include <DisplayManager.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_NeoMatrix.h>
 #include <Adafruit_NeoPixel.h>
@@ -10,11 +10,11 @@
 #define MATRIX_TYPE         NEO_GRB + NEO_KHZ800
 #define BRIGHTNESS          150
 
-AwtrixMatrix::AwtrixMatrix() : matrix(MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_PIN, MATRIX_MODE, MATRIX_TYPE) {
+DisplayManager::DisplayManager() : matrix(MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_PIN, MATRIX_MODE, MATRIX_TYPE) {
     setup();
 }
 
-void AwtrixMatrix::setup() {
+void DisplayManager::setup() {
     matrix.begin();
     matrix.setTextWrap(false);
     matrix.setFont();
@@ -24,18 +24,18 @@ void AwtrixMatrix::setup() {
     clear();
 }
 
-void AwtrixMatrix::clear() {
+void DisplayManager::clear() {
     matrix.fillScreen(0);
     matrix.show();
 }
 
-void AwtrixMatrix::setBrightness(int value) {
+void DisplayManager::setBrightness(int value) {
     brightness = value;
     matrix.setBrightness(brightness);
     matrix.show();
 }
 
-void AwtrixMatrix::drawText(String text, AwtrixPosition position, AwtrixColor color, boolean refresh) {
+void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor color, boolean refresh) {
     //matrix.setTextColor(matrix.Color(red, green, blue));
     if (refresh) {
         matrix.clear();
@@ -46,7 +46,36 @@ void AwtrixMatrix::drawText(String text, AwtrixPosition position, AwtrixColor co
     matrix.show();
 }
 
-uint32_t AwtrixMatrix::color(AwtrixColor color)
+bool DisplayManager::executeCommand(command_t command, String payload)
+{
+    switch (command) {
+        case command_t::settings_get:
+            break;
+            
+        case command_t::settings_set:
+            break;
+
+        case command_t::settings_reset:
+            break;
+
+        case command_t::brightness:
+            brightness = payload.toInt();
+            break;
+
+        case command_t::text:
+            break;
+
+        case command_t::color:
+            break;
+
+        case command_t::screen:
+            break;
+    }
+    
+    return true;
+}
+
+uint32_t DisplayManager::color(AwtrixColor color)
 {
     return matrix.Color(color.red, color.green, color.blue);
 }
