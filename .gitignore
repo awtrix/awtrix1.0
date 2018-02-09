@@ -4,3 +4,7 @@
 .vscode
 .vscode/c_cpp_properties.json
 .vscode/launch.json
+
+# We don't want some platformio generated files.
+.travis.yml
+lib/readme.txt
