@@ -25,10 +25,10 @@ void reconnect() {
 
 void mqttSetup(){
 
- while (!mqttClient.connected()) {
+    while (!mqttClient.connected()) {
     Serial.println("Connecting to MQTT...");
- mqttClient.setServer(mqttServer, mqttPort);
-      mqttClient.setCallback(callback); 
+    mqttClient.setServer(mqttServer, mqttPort);
+    mqttClient.setCallback(callback); 
     if (mqttClient.connect("ESP8266Client", mqttUser, mqttPassword )) {
         Serial.println("MQTT Connected");
     } else {
