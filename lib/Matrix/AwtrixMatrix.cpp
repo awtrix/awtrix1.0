@@ -1,45 +1,63 @@
+#include <AwtrixMatrix.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_NeoMatrix.h>
 #include <Adafruit_NeoPixel.h>
-#include <Ticker.h>
-#include <Fonts/FreeMono9pt7b.h>
 
-Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_PIN,  MATRIX_MODE,MATRIX_TYPE);
+#define MATRIX_PIN          4
+#define MATRIX_WIDTH        32
+#define MATRIX_HEIGHT       8
+#define MATRIX_MODE         NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_ROWS + NEO_MATRIX_ZIGZAG
+#define MATRIX_TYPE         NEO_GRB + NEO_KHZ800
+#define BRIGHTNESS          150
 
-void matrixSetup() {
-    Serial.println("Setup Matrix");
+AwtrixMatrix::AwtrixMatrix() : matrix(MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_PIN, MATRIX_MODE, MATRIX_TYPE) {
+    setup();
+}
+
+void AwtrixMatrix::setup() {
     matrix.begin();
     matrix.setTextWrap(false);
     matrix.setFont();
-    matrix.setTextColor(matrix.Color(255,255, 255));
+    matrix.setTextColor(color({255, 255, 255}));
     matrix.setBrightness(BRIGHTNESS);
-    matrixClear();
+
+    clear();
 }
 
-void matrixClear() {
+void AwtrixMatrix::clear() {
     matrix.fillScreen(0);
     matrix.show();
 }
 
-void matrixBitmap8x8(unsigned char bmp[],int red ,int green, int blue) {
-    matrix.drawBitmap(0, 0, bmp, 8,8,matrix.Color(red, green, blue));
-    matrix.drawLine(8, 0, 8, 8, matrix.Color(0, 0, 0));
-}
-
-void matrixBrightness(int value) {
-    matrix.setBrightness(value);
-    BRIGHTNESS == value;
+void AwtrixMatrix::setBrightness(int value) {
+    brightness = value;
+    matrix.setBrightness(brightness);
     matrix.show();
 }
 
-void matrixText(boolean refresh, String t, int x, int y, int red, int green, int blue) {
+void AwtrixMatrix::drawText(String text, AwtrixPosition position, AwtrixColor color, boolean refresh) {
     //matrix.setTextColor(matrix.Color(red, green, blue));
     if (refresh) {
         matrix.clear();
     }
-    matrix.setCursor(x,y);
-    matrix.print(t);
+
+    matrix.setCursor(position.x, position.y);
+    matrix.print(text);
     matrix.show();
+}
+
+uint32_t AwtrixMatrix::color(AwtrixColor color)
+{
+    return matrix.Color(color.red, color.green, color.blue);
+}
+
+/*
+#include <Ticker.h>
+#include <Fonts/FreeMono9pt7b.h>
+
+void matrixBitmap8x8(unsigned char bmp[],int red ,int green, int blue) {
+    matrix.drawBitmap(0, 0, bmp, 8,8,matrix.Color(red, green, blue));
+    matrix.drawLine(8, 0, 8, 8, matrix.Color(0, 0, 0));
 }
 
 void matrixScrollText() {
@@ -120,3 +138,4 @@ void heartBeatLoop() {
     matrix.show();
     beat = !beat;
 }
+*/

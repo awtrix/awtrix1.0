@@ -1,5 +1,17 @@
 #include <Arduino.h>
+#include <AwtrixMatrix.h>
 
+void setup() {
+    Serial.begin(115200);
+
+    AwtrixMatrix& matrix = AwtrixMatrix::getInstance();
+}
+
+void loop() {
+    
+}
+
+/*
 #include <EEPROM.h>
 #include <stdint.h>
 #include "config.h"
@@ -68,11 +80,4 @@ void loop() {
         }
     } 
 }
-
-
-
-
-
-
-
-
+*/
