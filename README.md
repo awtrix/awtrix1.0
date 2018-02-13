@@ -17,20 +17,23 @@ more functions:
 - Automatic brightness control via LDR
 
 The case is designed in Fusion360 and printed in 3D.
-An 8x32 RGB matrix with WS2812b chipset is used as display.
+You can get the STL-Files from Thingiverse:
+https://www.thingiverse.com/thing:2791276
+
 The code is still in the middle of development and due to my beginnings still very unclean. 
 If you want to support me with my project, you can do this very gladly, I am always ready to learn further.
 
 ## Parts List
 - Wemos D1 Mini (ESP-12E)  
-  https://www.amazon.de/AZDelivery-D1-Mini-Entwicklungsboard-kompatibel/dp/B01N9RXGHY/ref=sr_1_1?ie=UTF8&qid=1517707188&sr=8-1&keywords=WeMos
+  https://www.amazon.de/dp/B01N9RXGHY
 - 8x32 WS2812B RGB Matrix  
-  https://www.amazon.de/Quimat-Eingebaute-ansteuerbare-LED-Licht-beleuchtung/dp/B077397WNW/ref=sr_1_4?ie=UTF8&qid=1517707250&sr=8-4&keywords=32x8+rgb
+  https://www.amazon.de/dp/B077397WNW
 - DC socket  
-  https://www.amazon.de/gp/product/B000M0MP2E/ref=oh_aui_detailpage_o00_s01?ie=UTF8&th=1
+  https://www.amazon.de/gp/product/B000M0MP2E
 - DC plug  
-  https://www.amazon.de/gp/product/B000L0ZOMI/ref=oh_aui_detailpage_o00_s00?ie=UTF8&th=1
+  https://www.amazon.de/gp/product/B000L0ZOMI
 - LDR GL5528  
-  https://www.amazon.de/Qualit%C3%A4t-GL5516-Lichtabh%C3%A4ngige-Widerstand-Fotowiderstand/dp/B00NXW9WZ6/ref=sr_1_6?ie=UTF8&qid=1517707354&sr=8-6&keywords=ldr
+  https://www.amazon.de/dp/B00NXW9WZ6
 - Piezo Buzzer  
-  https://www.amazon.de/Aktiven-Lautsprecher-Buzzer-Drucker-Arduino/dp/B00KBPQMD8/ref=sr_1_17?s=ce-de&ie=UTF8&qid=1517707398&sr=1-17&keywords=buzzer
+  https://www.amazon.de/dp/B00KBPQMD8
+  

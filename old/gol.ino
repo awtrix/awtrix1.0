@@ -3,6 +3,7 @@
 // -----------------------------------------------------------------------------
 
 
+Ticker gameOfLifeTicker;
 byte numCells = 0;
 byte prevCells = 0;
 byte autoResetCount = 0;
@@ -146,6 +147,6 @@ void gameOfLifeLoop() {
 
 void gameOfLifeStop() {
     GOL=false;
-    gameOfLifeTicker.stop();
+    gameOfLifeTicker.detach();
     matrixClear();
 }

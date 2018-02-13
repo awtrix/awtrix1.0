@@ -1,29 +1,10 @@
 #include <MQTT.h>
 
-void MQTT::setup() {
-    while (!mqttClient.connected()) {
-        Serial.println("Connecting to MQTT...");
-        //mqttClient.setServer(mqttServer, mqttPort);
-        //mqttClient.setCallback(callback);
+#define MQTT_SERVER     "m14.cloudmqtt.com"
+#define MQTT_PORT       18422
+#define MQTT_USERNAME   "qhesfmkc"
+#define MQTT_PASSWORD   "tIyVJka59iDw"
 
-        //if (mqttClient.connect("ESP8266Client", mqttUser, mqttPassword )) {
-        //    Serial.println("MQTT Connected");
-        //} else {
-            Serial.print("failed with state ");
-            Serial.print(mqttClient.state());
-            delay(2000);
-        //}
-    }
-
-    mqttClient.publish("awtrix/text", "Hello from ESP8266");
-    mqttClient.subscribe("awtrix/text");
-}
-
-void MQTT::loop() {
-    mqttClient.loop();
-}
-
-/*
 void callback(char* topic, byte* payload, unsigned int length) {
     Serial.print("Message arrived [");
     Serial.print(topic);
@@ -36,6 +17,30 @@ void callback(char* topic, byte* payload, unsigned int length) {
     Serial.println(Payload);
 }
 
+void MQTT::setup() {
+    while (!mqttClient.connected()) {
+        Serial.println("Connecting to MQTT...");
+        mqttClient.setServer(MQTT_SERVER, MQTT_PORT);
+        mqttClient.setCallback(callback);
+
+        if (mqttClient.connect("ESP8266Client", MQTT_USERNAME, MQTT_PASSWORD)) {
+            Serial.println("MQTT Connected");
+        } else {
+            Serial.print("failed with state ");
+            Serial.print(mqttClient.state());
+            delay(2000);
+        }
+    }
+
+    mqttClient.publish("awtrix/text", "Hello from AWTRIX");
+    mqttClient.subscribe("awtrix/text");
+}
+
+void MQTT::loop() {
+    mqttClient.loop();
+}
+
+/*
 void reconnect() {
     // Loop until we're reconnected
     while (!mqttClient.connected()) {
