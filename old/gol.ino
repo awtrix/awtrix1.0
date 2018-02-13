@@ -21,28 +21,27 @@ bool gameOfLifeStatus[MATRIX_WIDTH][MATRIX_HEIGHT] = {false};
 Ticker gameOfLifeTicker(gameOfLifeLoop, GAMEOFLIFE_INTERVAL,0, MILLIS);
 
 bool isAlive(int x, int y) {
-   if (x < 0) x += MATRIX_WIDTH;
-   if (x >= MATRIX_WIDTH) x -= MATRIX_WIDTH;
-   if (y < 0) y += MATRIX_HEIGHT;
-   if (y >= MATRIX_HEIGHT) y -= MATRIX_HEIGHT;
-   return gameOfLifeStatus[x][y];
+    if (x < 0) x += MATRIX_WIDTH;
+    if (x >= MATRIX_WIDTH) x -= MATRIX_WIDTH;
+    if (y < 0) y += MATRIX_HEIGHT;
+    if (y >= MATRIX_HEIGHT) y -= MATRIX_HEIGHT;
+    return gameOfLifeStatus[x][y];
 }
 
 byte countNeighbours(int x, int y) {
-      byte neighbours = 0;
-      if (isAlive(x-1, y-1)) neighbours++;
-      if (isAlive(x-1, y)) neighbours++;
-      if (isAlive(x-1, y+1)) neighbours++;
-      if (isAlive(x, y-1)) neighbours++;
-      if (isAlive(x, y+1)) neighbours++;
-      if (isAlive(x+1, y-1)) neighbours++;
-      if (isAlive(x+1, y)) neighbours++;
-      if (isAlive(x+1, y+1)) neighbours++;
-      return neighbours;
+    byte neighbours = 0;
+    if (isAlive(x-1, y-1)) neighbours++;
+    if (isAlive(x-1, y)) neighbours++;
+    if (isAlive(x-1, y+1)) neighbours++;
+    if (isAlive(x, y-1)) neighbours++;
+    if (isAlive(x, y+1)) neighbours++;
+    if (isAlive(x+1, y-1)) neighbours++;
+    if (isAlive(x+1, y)) neighbours++;
+    if (isAlive(x+1, y+1)) neighbours++;
+    return neighbours;
 }
 
 void gameOfLifeInit() {
-
     byte x,y;
     byte index;
     matrixClear();
@@ -68,7 +67,6 @@ void gameOfLifeInit() {
     }
 
     matrixRefresh();
-
 }
 
 void gameOfLifeStart() {
@@ -76,16 +74,13 @@ void gameOfLifeStart() {
     GOL=true;
     gameOfLifeTicker.start();
     gameOfLifeInit();
-  
-
-  }
-   
+    gameOfLifeTicker.attach_ms(GAMEOFLIFE_INTERVAL, gameOfLifeLoop);
+}
 
 void gameOfLifeLoop() {
     if (NOTIFICATION) return;
     byte x, y;
     unsigned int index;
-
   
     matrix.clear();
 
@@ -130,7 +125,7 @@ void gameOfLifeLoop() {
         }
     }
 
-   matrix.show();
+    matrix.show();
 
     if (numCells == prevCells) autoResetCount++;
     if (autoResetCount == GAMEOFLIFE_AUTORESET) {
@@ -147,7 +142,6 @@ void gameOfLifeLoop() {
             }
         }
     }
-
 }
 
 void gameOfLifeStop() {
