@@ -2,6 +2,8 @@
 
 ![AWTRIX Preview](assets/awtrix.jpg?raw=true "AWTRIX")
 
+Attention: This Code is not working at this time!
+
 AWTRIX is a smart WiFi-capable clock based on an ESP8266.
 It supports different modes:
 - time via NTP server
