@@ -12,7 +12,12 @@ class ApplicationManager
         void operator = (ApplicationManager const&);
 
         unsigned long lastTick = 0l;
-        IApplication **applications;
+        int numberOfApplications = 0;
+        IApplication** applications;
+
+        int activeApplicationIndex;
+
+        void addApplication();
         
     public:
         static ApplicationManager& getInstance() {
