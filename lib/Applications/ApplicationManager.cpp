@@ -12,3 +12,7 @@ void ApplicationManager::loop() {
 
   lastTick = thisTick;
 }
+
+IApplication* ApplicationManager::activeApplication() {
+  return NULL;
+}

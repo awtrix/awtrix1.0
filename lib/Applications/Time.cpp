@@ -1,3 +1,4 @@
+/*
 #include "TimeClient.h"
 TimeClient timeClient(UTC_OFFSET);
 
@@ -14,3 +15,4 @@ void showTime() {
     String time = timeClient.getFormattedTime();
     matrixText(true, time, 1, 0, 255, 255, 255);
 }
+*/

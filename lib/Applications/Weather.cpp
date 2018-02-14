@@ -1,3 +1,4 @@
+/*
 #include <Arduino.h>
 #include <JsonListener.h>
 #include "WundergroundConditions.h"
@@ -26,3 +27,4 @@ void showWeather(){
 
     matrixText(false,conditions.currentTemp+"\xA7",12,0,255,255,255);
 }
+*/

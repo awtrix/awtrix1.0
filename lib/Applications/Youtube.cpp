@@ -1,3 +1,4 @@
+/*
 static unsigned char play[]={0x00,0x00,0x10,0x18,0x1c,0x18,0x10,0x00}; //Bitmap Playsymbol
 static unsigned char rond[]={0x00,0x7e,0xff,0xff,0xff,0xff,0xff,0x7e}; // Bitmap Round Icon
 const char* ytHost = "www.youtube.com";
@@ -35,3 +36,4 @@ void getYTSubs(const char *channelId) {
         }
     }
 }
+*/

@@ -7,7 +7,7 @@ class ApplicationManager
 {
     private:
         // Singleton setup
-        ApplicationManager();
+        ApplicationManager() {}
         ApplicationManager(ApplicationManager const&);
         void operator = (ApplicationManager const&);
 
