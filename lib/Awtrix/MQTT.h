@@ -1,5 +1,5 @@
-#ifndef MQTT_h
-#define MQTT_h
+#ifndef AwtrixMQTT_h
+#define AwtrixMQTT_h
 
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>

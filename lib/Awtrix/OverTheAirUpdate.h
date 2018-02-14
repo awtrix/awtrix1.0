@@ -1,5 +1,5 @@
-#ifndef OverTheAirUpdate_h
-#define OverTheAirUpdate_h
+#ifndef AwtrixOverTheAirUpdate_h
+#define AwtrixOverTheAirUpdate_h
 
 class OverTheAirUpdate
 {

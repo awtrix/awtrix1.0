@@ -1,5 +1,5 @@
-#ifndef DisplayManager_h
-#define DisplayManager_h
+#ifndef AwtrixDisplayManager_h
+#define AwtrixDisplayManager_h
 
 #include <Adafruit_NeoMatrix.h>
 

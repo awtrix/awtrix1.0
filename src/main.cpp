@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <DisplayManager.h>
+#include <ApplicationManager.h>
 #include <AwtrixWiFi.h>
 #include <OverTheAirUpdate.h>
 #include <MQTT.h>
@@ -9,7 +9,7 @@
 OverTheAirUpdate ota;
 AwtrixWiFi wifi;
 MQTT mqtt;
-DisplayManager& display = DisplayManager::getInstance();
+ApplicationManager& applications = ApplicationManager::getInstance();
 
 void setup() {
     Serial.begin(115200);
@@ -27,9 +27,6 @@ void setup() {
     if (ENABLE_HEARTBEAT) {
         setupHeartbeat();
     }
-    setupTimeUpdate();
-    weatherUpdate();
-    getYTSubs(YTchannel);
     */
 }
 
@@ -39,6 +36,7 @@ void loop() {
     if (!ota.isUpdating()) {
         wifi.loop();
         mqtt.loop();
+        applications.loop();
     }
 }
 
