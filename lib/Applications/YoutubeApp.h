@@ -3,7 +3,7 @@
 
 #include <IApplication.h>
 
-class Youtube : public IApplication
+class YoutubeApp : public IApplication
 {
     
 };

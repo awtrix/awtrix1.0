@@ -6,7 +6,7 @@
 
 #define UTC_OFFSET 1
 
-class Time : public IApplication
+class TimeApp : public IApplication
 {
     private:
         TimeClient timeClient;
@@ -14,7 +14,7 @@ class Time : public IApplication
         unsigned long elapsed = 0;
 
     public:
-        Time() : timeClient(UTC_OFFSET) {}
+        TimeApp() : timeClient(UTC_OFFSET) {}
 
         void render(DisplayManager&) override;
         void tick(unsigned long) override;
