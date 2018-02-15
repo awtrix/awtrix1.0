@@ -18,6 +18,7 @@ class ApplicationManager
         int activeApplicationIndex;
 
         void addApplication();
+        void switchApplications();
         
     public:
         static ApplicationManager& getInstance() {

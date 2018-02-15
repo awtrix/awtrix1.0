@@ -5,7 +5,7 @@
 
 class Time : public IApplication
 {
-
-}
+    
+};
 
 #endif

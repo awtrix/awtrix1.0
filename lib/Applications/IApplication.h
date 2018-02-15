@@ -8,7 +8,7 @@ class IApplication
         
         virtual void enable() { }
         virtual void disable() { }
-        virtual void tick() { }
+        virtual void tick(unsigned long) { }
         
         virtual void render() = 0;
 };
