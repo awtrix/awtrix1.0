@@ -23,7 +23,11 @@ void WeatherApp::render(DisplayManager& display) {
         matrixBitmap8x8(sun,255,255,0);
     } */
 
-    display.drawText(conditions.currentTemp + "\xA7", {12, 0}, {255, 255, 255}, false);
+    display.drawText(conditions.currentTemp + "\xA7", {12, 0}, {0xeb, 0xb7, 0x3d}, true);
+}
+
+void WeatherApp::enable() {
+    wunderground.updateConditions(&conditions, WUNDERGROUND_API_KEY, WUNDERGROUND_LANGUAGE, WUNDERGROUND_ZMW_CODE);
 }
 
 void WeatherApp::tick(unsigned long delta) {

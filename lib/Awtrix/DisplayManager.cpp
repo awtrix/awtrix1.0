@@ -8,7 +8,7 @@
 #define MATRIX_HEIGHT       8
 #define MATRIX_MODE         NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_ROWS + NEO_MATRIX_ZIGZAG
 #define MATRIX_TYPE         NEO_GRB + NEO_KHZ800
-#define BRIGHTNESS          50
+#define BRIGHTNESS          20
 
 DisplayManager::DisplayManager() : matrix(MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_PIN, MATRIX_MODE, MATRIX_TYPE) {
     setup();
@@ -35,12 +35,12 @@ void DisplayManager::setBrightness(int value) {
     matrix.show();
 }
 
-void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor color, boolean refresh) {
-    //matrix.setTextColor(matrix.Color(red, green, blue));
+void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor textColor, boolean refresh) {
     if (refresh) {
         matrix.clear();
     }
 
+    matrix.setTextColor(color(textColor));
     matrix.setCursor(position.x, position.y);
     matrix.print(text);
     matrix.show();

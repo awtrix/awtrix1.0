@@ -59,7 +59,10 @@ void ApplicationManager::switchApplications() {
             applications[newIndex]->enable();
 
             activeApplicationIndex = newIndex;
+            DisplayManager::getInstance().clear();
         }
+
+        applicationRuntime = 0;
     }
 }
 
