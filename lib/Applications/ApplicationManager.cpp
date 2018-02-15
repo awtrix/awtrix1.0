@@ -20,12 +20,22 @@ void ApplicationManager::loop() {
 }
 
 void ApplicationManager::switchApplications() {
+    // Always set the last application to active
+    int oldIndex = activeApplicationIndex;
+    int newIndex = numberOfApplications - 1;
 
+    if (oldIndex != newIndex) {
+        if (applications[oldIndex]) {
+            applications[oldIndex]->disable();
+        }
+
+        applications[newIndex]->enable();
+        activeApplicationIndex = newIndex;
+    }
 }
 
 IApplication* ApplicationManager::activeApplication() {
-    // Always return the last one for now
-    return applications[numberOfApplications - 1];
+    return applications[activeApplicationIndex];
 }
 
 void ApplicationManager::addApplication() {
