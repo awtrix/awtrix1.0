@@ -1,10 +1,10 @@
-#include <Time.h>
+#include <TimeApp.h>
 
 const unsigned long UpdateThreshold = 3000l;
 
 void Time::render(DisplayManager& display) {
     String time = timeClient.getFormattedTime();
-    display.drawText(time, {1, 0}, {255, 255, 255});
+    display.drawText(time, {1, 0}, {255, 255, 255}, true);
 }
 
 void Time::tick(unsigned long delta) {
