@@ -20,6 +20,8 @@ void setup() {
     wifi.setup();
     mqtt.setup();
 
+    applications.addApplication("Time");
+
     /*
     loadConfig();
     soundSetup();

@@ -1,6 +1,26 @@
 #include <ApplicationManager.h>
 #include <Arduino.h>
 
+#include <TimeApp.h>
+#include <WeatherApp.h>
+#include <YoutubeApp.h>
+
+IApplication* ApplicationManager::getApplicationWithName(String name) {
+    if (name == "Time") {
+        return new TimeApp();
+    }
+
+    if (name == "Weather") {
+        return NULL;
+    }
+
+    if (name == "Youtube") {
+        return NULL;
+    }
+
+    return NULL;
+} 
+
 void ApplicationManager::loop() {
     unsigned long thisTick = millis();
     unsigned long delta = thisTick - lastTick;
@@ -38,7 +58,12 @@ IApplication* ApplicationManager::activeApplication() {
     return applications[activeApplicationIndex];
 }
 
-void ApplicationManager::addApplication() {
+bool ApplicationManager::addApplication(String name) {
+    IApplication* applicationToAdd = getApplicationWithName(name);
+    if (!applicationToAdd) {
+        return false;
+    }
+
     size_t size = numberOfApplications + 1;
 
     IApplication** newList = new IApplication*[size];
@@ -47,4 +72,8 @@ void ApplicationManager::addApplication() {
     numberOfApplications++;
     delete[] applications;
     applications = newList;
+
+    applications[numberOfApplications - 1] = applicationToAdd;
+
+    return true;
 }

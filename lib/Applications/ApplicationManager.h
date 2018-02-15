@@ -13,12 +13,13 @@ class ApplicationManager
 
         unsigned long lastTick = 0l;
 
-        int activeApplicationIndex;
+        int activeApplicationIndex = 0;
         int numberOfApplications = 0;
         IApplication** applications;
 
-        void addApplication();
         void switchApplications();
+        IApplication* activeApplication();
+        IApplication* getApplicationWithName(String);
         
     public:
         static ApplicationManager& getInstance() {
@@ -27,7 +28,7 @@ class ApplicationManager
         }
 
         void loop();
-        IApplication* activeApplication();
+        bool addApplication(String);
 };
 
 #endif
