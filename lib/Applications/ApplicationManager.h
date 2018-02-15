@@ -12,10 +12,10 @@ class ApplicationManager
         void operator = (ApplicationManager const&);
 
         unsigned long lastTick = 0l;
-        int numberOfApplications = 0;
-        IApplication** applications;
 
         int activeApplicationIndex;
+        int numberOfApplications = 0;
+        IApplication** applications;
 
         void addApplication();
         void switchApplications();

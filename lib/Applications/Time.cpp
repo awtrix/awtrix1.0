@@ -1,18 +1,17 @@
-/*
-#include "TimeClient.h"
-TimeClient timeClient(UTC_OFFSET);
+#include <Time.h>
 
-void timeUpdate() {
-    timeClient.updateTime();
-}
+const unsigned long UpdateThreshold = 3000l;
 
-void setupTimeUpdate() {
-    timeUpdate();
-    showTime();
-}
-
-void showTime() {
+void Time::render(DisplayManager& display) {
     String time = timeClient.getFormattedTime();
-    matrixText(true, time, 1, 0, 255, 255, 255);
+    display.drawText(time, {1, 0}, {255, 255, 255});
 }
-*/
+
+void Time::tick(unsigned long delta) {
+    elapsed += delta;
+
+    if (elapsed >= UpdateThreshold) {
+        timeClient.updateTime();
+        elapsed = 0;
+    }
+}

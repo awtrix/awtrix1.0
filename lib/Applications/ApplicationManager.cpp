@@ -13,7 +13,7 @@ void ApplicationManager::loop() {
 
     IApplication* application = activeApplication();
     if (application) {
-        application->render();
+        application->render(DisplayManager::getInstance());
     }
 
     lastTick = thisTick;
