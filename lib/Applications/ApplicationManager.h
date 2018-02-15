@@ -13,7 +13,8 @@ class ApplicationManager
 
         unsigned long lastTick = 0l;
 
-        int activeApplicationIndex = 0;
+        unsigned long applicationRuntime = 0l;
+        int activeApplicationIndex = -1;
         int numberOfApplications = 0;
         IApplication** applications;
 

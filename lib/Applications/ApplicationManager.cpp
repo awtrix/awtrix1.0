@@ -25,6 +25,7 @@ void ApplicationManager::loop() {
     unsigned long thisTick = millis();
     unsigned long delta = thisTick - lastTick;
 
+    applicationRuntime += delta;
     switchApplications();
 
     for (int i = 0; i < numberOfApplications; i++) {
@@ -40,17 +41,25 @@ void ApplicationManager::loop() {
 }
 
 void ApplicationManager::switchApplications() {
-    // Always set the last application to active
-    int oldIndex = activeApplicationIndex;
-    int newIndex = numberOfApplications - 1;
+    if (activeApplicationIndex < 0 && numberOfApplications > 0) {
+        // TODO: Check for nullptr
+        applications[0]->enable();
+        activeApplicationIndex = 0;
+        return;
+    }
 
-    if (oldIndex != newIndex) {
-        if (applications[oldIndex]) {
-            applications[oldIndex]->disable();
+    if (applicationRuntime >= activeApplication()->defaultDisplayTime) {
+        int newIndex = activeApplicationIndex + 1;
+        if (newIndex >= numberOfApplications) {
+            newIndex = 0;
         }
 
-        applications[newIndex]->enable();
-        activeApplicationIndex = newIndex;
+        if (newIndex != activeApplicationIndex) {
+            applications[activeApplicationIndex]->disable();
+            applications[newIndex]->enable();
+
+            activeApplicationIndex = newIndex;
+        }
     }
 }
 

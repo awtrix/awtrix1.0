@@ -13,6 +13,8 @@ class IApplication
         virtual void tick(unsigned long) {}
         
         virtual void render(DisplayManager&) = 0;
+
+        unsigned long const defaultDisplayTime = 10000l;
 };
 
 #endif
