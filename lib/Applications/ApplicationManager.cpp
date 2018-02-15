@@ -11,7 +11,7 @@ IApplication* ApplicationManager::getApplicationWithName(String name) {
     }
 
     if (name == "Weather") {
-        return NULL;
+        return new WeatherApp();
     }
 
     if (name == "Youtube") {
@@ -19,7 +19,7 @@ IApplication* ApplicationManager::getApplicationWithName(String name) {
     }
 
     return NULL;
-} 
+}
 
 void ApplicationManager::loop() {
     unsigned long thisTick = millis();

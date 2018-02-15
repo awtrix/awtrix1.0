@@ -8,7 +8,7 @@
 #define MATRIX_HEIGHT       8
 #define MATRIX_MODE         NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_ROWS + NEO_MATRIX_ZIGZAG
 #define MATRIX_TYPE         NEO_GRB + NEO_KHZ800
-#define BRIGHTNESS          150
+#define BRIGHTNESS          50
 
 DisplayManager::DisplayManager() : matrix(MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_PIN, MATRIX_MODE, MATRIX_TYPE) {
     setup();
@@ -51,7 +51,7 @@ bool DisplayManager::executeCommand(command_t command, String payload)
     switch (command) {
         case command_t::settings_get:
             break;
-            
+
         case command_t::settings_set:
             break;
 
@@ -71,7 +71,7 @@ bool DisplayManager::executeCommand(command_t command, String payload)
         case command_t::screen:
             break;
     }
-    
+
     return true;
 }
 
@@ -102,7 +102,7 @@ void matrixBoot(String IP) {
         delay(40);
     }
 }
-    
+
 void checkLight() {
     int reading = analogRead(A0);
     int brightness = map(reading, 0, 1024, 10, 200);
@@ -110,7 +110,7 @@ void checkLight() {
 }
 
 void matrixRefresh() {
-   matrix.drawPixel(0, MATRIX_HEIGHT - 1, matrix.Color(0, 0, 255)); 
+   matrix.drawPixel(0, MATRIX_HEIGHT - 1, matrix.Color(0, 0, 255));
    matrix.show();
 }
 

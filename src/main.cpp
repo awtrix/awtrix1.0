@@ -21,6 +21,7 @@ void setup() {
     mqtt.setup();
 
     applications.addApplication("Time");
+    applications.addApplication("Weather");
 
     /*
     loadConfig();
@@ -55,7 +56,7 @@ bool PET;
 bool OTA;
 int  PET_MOOD = 1;
 unsigned long previousMillis = 0;
-const long interval = 1000; 
+const long interval = 1000;
 
 const unsigned long Minutes = 1 * 1 * 1000UL;
 static unsigned long lastSampleTime = 0 - Minutes;

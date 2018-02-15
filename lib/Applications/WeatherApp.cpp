@@ -1,6 +1,6 @@
 #include <WeatherApp.h>
 
-const unsigned long UpdateThreshold = 100000l;
+const unsigned long UpdateThreshold = 10000l;
 
 #define WUNDERGROUND_API_KEY      "b9cd2ae34c2974b6"
 #define WUNDERGROUND_LANGUAGE     "DL"
