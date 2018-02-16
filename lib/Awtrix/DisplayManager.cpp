@@ -46,6 +46,12 @@ void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor 
     matrix.show();
 }
 
+void DisplayManager::drawBitmap8x8(unsigned char bmp[],AwtrixColor bmpColor) {
+    matrix.drawBitmap(0, 0, bmp, 8,8,color(bmpColor));
+    matrix.drawLine(8, 0, 8, 8, matrix.Color(0, 0, 0));
+}
+
+
 bool DisplayManager::executeCommand(command_t command, String payload)
 {
     switch (command) {
