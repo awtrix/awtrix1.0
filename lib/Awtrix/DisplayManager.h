@@ -6,7 +6,6 @@
 typedef struct { char red; char green; char blue; } AwtrixColor;
 typedef struct { char x; char y; } AwtrixPosition;
 
-
 enum command_t { 
     settings_get, settings_set, settings_reset, brightness, text, color, screen
 };
@@ -19,14 +18,15 @@ class DisplayManager
             return instance;
         }
 
-        void clear();
-        void setBrightness(int);
-        void drawText(String, AwtrixPosition, AwtrixColor, boolean);
-        void scrollIP(String);
-        void flashProgress(unsigned int, unsigned int);
-        void drawBitmap8x8(unsigned char[], AwtrixColor);
         bool executeCommand(command_t, String);
 
+        void clear();
+        void setBrightness(int);
+
+        void drawText(String, AwtrixPosition, AwtrixColor, boolean);
+        void drawBitmap(unsigned char[], AwtrixPosition, AwtrixColor, int16_t, int16_t);
+        void scrollIP(String);
+        void flashProgress(unsigned int, unsigned int);
 
     private:
         // Singleton setup

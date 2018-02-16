@@ -16,17 +16,16 @@ void setup() {
 
     pinMode(BUTTON_RESET_CONFIG, INPUT);
 
-   
     wifi.setup();
     mqtt.setup();
     ota.setup();
+
     applications.addApplication("Time");
     applications.addApplication("Weather");
 
     /*
     loadConfig();
     soundSetup();
-    Serial.println("Awtrix successfully started");
     if (ENABLE_HEARTBEAT) {
         setupHeartbeat();
     }
@@ -44,35 +43,8 @@ void loop() {
 }
 
 /*
-#include <EEPROM.h>
-#include <stdint.h>
-#include "config.h"
-
-bool GOL;
-bool NOTIFICATION;
-bool TIME;
-bool WEATHER;
-bool PET;
-bool OTA;
-int  PET_MOOD = 1;
-unsigned long previousMillis = 0;
-const long interval = 1000;
-
-const unsigned long Minutes = 1 * 1 * 1000UL;
-static unsigned long lastSampleTime = 0 - Minutes;
-
 void loop() {
-    if (!GOL && !PET && !WEATHER && !NOTIFICATION) {
-        unsigned long now = millis();
-        if (now - lastSampleTime >= Minutes)
-        {
-            lastSampleTime += Minutes;
-            showTime();
-        }
-    }
-
-    if (PET && !GOL && !WEATHER && !NOTIFICATION) vPetLoop();
-
+    // This code probably belongs in the DisplayManager
     if (AUTO_BRIGHTNESS) {
         unsigned long currentMillis = millis();
         if (currentMillis - previousMillis >= interval) {
