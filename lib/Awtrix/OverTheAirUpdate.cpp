@@ -17,7 +17,7 @@ void OverTheAirUpdate::setup() {
     });
 
     ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
-        // DisplayManager::getInstance().loading(progress, total);
+         DisplayManager::getInstance().flashProgress(progress, total);
     });
 
     ArduinoOTA.onError([](ota_error_t error) {

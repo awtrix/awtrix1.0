@@ -22,6 +22,8 @@ class DisplayManager
         void clear();
         void setBrightness(int);
         void drawText(String, AwtrixPosition, AwtrixColor, boolean);
+        void scrollIP(String);
+        void flashProgress(unsigned int, unsigned int);
         void drawBitmap8x8(unsigned char[], AwtrixColor);
         bool executeCommand(command_t, String);
 

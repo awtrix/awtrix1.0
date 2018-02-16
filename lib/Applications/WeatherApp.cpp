@@ -1,6 +1,6 @@
 #include <WeatherApp.h>
 
-const unsigned long UpdateThreshold = 10000l;
+const unsigned long UpdateThreshold = 100000l;
 
 #define WUNDERGROUND_API_KEY      "b9cd2ae34c2974b6"
 #define WUNDERGROUND_LANGUAGE     "DL"
@@ -28,7 +28,7 @@ void WeatherApp::render(DisplayManager& display) {
     }else if(conditions.weatherIcon == "snow"){
         display.drawBitmap8x8(snow,{255, 255, 255});
     }else if(conditions.weatherIcon == "tstorms"){
-        
+
     } else {
         display.drawBitmap8x8(sun,{255, 255, 0});
     } 

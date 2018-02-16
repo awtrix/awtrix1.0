@@ -52,6 +52,34 @@ void DisplayManager::drawBitmap8x8(unsigned char bmp[],AwtrixColor bmpColor) {
 }
 
 
+void DisplayManager::flashProgress(unsigned int progress, unsigned int total) {
+    unsigned long color = matrix.Color(0, 255, 0);
+    long num = MATRIX_WIDTH * MATRIX_HEIGHT * progress / total;
+    for (unsigned char y = 0; y < MATRIX_HEIGHT; y++) {
+        for (unsigned char x = 0; x < MATRIX_WIDTH; x++) {
+            if (num-- > 0) matrix.drawPixel(x, MATRIX_HEIGHT-y-1, color);
+        }
+    }
+
+    matrix.setCursor(1, 0);
+    matrix.print(F("FLASH"));
+    matrix.setTextColor(matrix.Color(255, 0, 0));
+    matrix.show();
+}
+
+
+void DisplayManager::scrollIP(String IP) {
+    for (int x = MATRIX_WIDTH; x > -60 - MATRIX_WIDTH; x--) {
+        
+        matrix.setCursor(x, 0);
+        matrix.print(IP);
+        matrix.show();
+        delay(40);
+    }
+}
+
+
+
 bool DisplayManager::executeCommand(command_t command, String payload)
 {
     switch (command) {

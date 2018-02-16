@@ -15,3 +15,7 @@ void TimeApp::tick(unsigned long delta) {
         elapsed = 0;
     }
 }
+
+void TimeApp::enable() {
+    timeClient.updateTime();
+}

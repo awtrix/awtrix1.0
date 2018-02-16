@@ -18,6 +18,7 @@ class TimeApp : public IApplication
 
         void render(DisplayManager&) override;
         void tick(unsigned long) override;
+        void enable() override;
 };
 
 #endif

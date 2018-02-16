@@ -13,7 +13,8 @@ void AwtrixWiFi::setup() {
     Serial.println("WiFi connected");
     Serial.print("IP address: ");
     Serial.println(address);
-
+ 
+    
     if (false) { // SHOW_IP_ON_BOOT
         // matrixBoot(address);
     }

@@ -16,10 +16,10 @@ void setup() {
 
     pinMode(BUTTON_RESET_CONFIG, INPUT);
 
-    ota.setup();
+   
     wifi.setup();
     mqtt.setup();
-
+    ota.setup();
     applications.addApplication("Time");
     applications.addApplication("Weather");
 
