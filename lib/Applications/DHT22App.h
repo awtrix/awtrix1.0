@@ -3,8 +3,8 @@
 
 #include <IApplication.h>
 #include "DHT.h"
-
-#define SENSOR_PIN D4
+#define DHTTYPE DHT22
+#define DHTPIN 2
 
 class DHT22App : public IApplication
 {

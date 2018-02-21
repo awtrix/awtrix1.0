@@ -14,7 +14,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
         Payload += (char)payload[i];
     }
 
-    Serial.println(Payload);
 }
 
 void MQTT::setup() {
