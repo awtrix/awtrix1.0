@@ -8,11 +8,11 @@ AWTRIX is a smart WiFi-capable clock based on an ESP8266.
 It supports different modes:
 - time via NTP server
 - current weather via Wonderground API
-- Simulation of a virtual "pet" with different emotions
-- Game of Life
-- Youtube Counter
+- Simulation of a virtual "pet" with different emotions (Not fully implemented yet)
+- Game of Life (Not fully implemented yet)
+- Youtube Counter (Not fully implemented yet)
 
-more functions:
+more functions: (Not fully implemented yet)
 - Control and configuration via Android app (via UDP)
 - Changing the text color
 - Display of user-defined texts
