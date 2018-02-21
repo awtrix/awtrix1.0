@@ -4,12 +4,12 @@
 #include <IApplication.h>
 #include "DHT.h"
 
-#define SENSOR_PIN 9
+#define SENSOR_PIN D4
 
 class DHT22App : public IApplication
 {
     private:
-        DHT dht;
+        
         unsigned long elapsed = 0;
     public:
         void render(DisplayManager&) override;

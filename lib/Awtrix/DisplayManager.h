@@ -37,7 +37,7 @@ class DisplayManager
 
         Adafruit_NeoMatrix matrix;
         int brightness;
-
+        int fontsize;
         void setup();
         uint32_t color(AwtrixColor);
 };

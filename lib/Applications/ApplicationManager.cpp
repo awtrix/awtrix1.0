@@ -20,7 +20,7 @@ IApplication* ApplicationManager::getApplicationWithName(String name) {
     }
 
     if (name == "Youtube") {
-        return NULL;
+        return new YoutubeApp();
     }
 
     return NULL;

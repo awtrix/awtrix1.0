@@ -3,18 +3,19 @@
 const unsigned long UpdateThreshold = 100000l;
 float humidity;
 float temperature;
-
-static unsigned char temp[]={0x1c22221414141408};
-static unsigned char hum[]={0x63,0x55,0x36,0x8,0x36,0x55,0x63,0x0};
-
+DHT dht;
+static unsigned char temp[]={0x10,0x28,0x28,0x28,0x28,0x44,0x44,0x38};
+static unsigned char tempInner[]={0x00,0x10,0x10,0x10,0x10,0x38,0x38,0x00};
 
 void DHT22App::render(DisplayManager& display) {
     display.drawBitmap(temp, {0, 0}, {255, 0, 0}, 8, 8);
-    display.drawText(String(temperature) + "\xA7", {12, 0}, {0xeb, 0xb7, 0x3d}, false);
+    display.drawBitmap(tempInner, {0, 0}, {0, 50, 255}, 8, 8);
+    display.drawText(String(temperature), {9, 0}, {200, 50, 0}, false);
+
 }
 
 void DHT22App::enable() {
-    dht.setup(SENSOR_PIN);
+    dht.setup(2);
     humidity= dht.getHumidity();
     temperature= dht.getTemperature();
 }

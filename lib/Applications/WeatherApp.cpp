@@ -31,7 +31,7 @@ void WeatherApp::render(DisplayManager& display) {
         display.drawBitmap(sun, {0, 0}, {255, 255, 0}, 8, 8);
     } 
 
-    display.drawText(conditions.currentTemp + "\xA7", {12, 0}, {0xeb, 0xb7, 0x3d}, false);
+    display.drawText(conditions.currentTemp + "\xA7", {9, 0}, {255, 255, 255}, false);
 }
 
 void WeatherApp::enable() {

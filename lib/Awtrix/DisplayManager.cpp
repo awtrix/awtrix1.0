@@ -2,13 +2,16 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_NeoMatrix.h>
 #include <Adafruit_NeoPixel.h>
-
+#include <Fonts/TomThumb.h>
 #define MATRIX_PIN          4
 #define MATRIX_WIDTH        32
 #define MATRIX_HEIGHT       8
-#define MATRIX_MODE         NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_ROWS + NEO_MATRIX_ZIGZAG
+#define SMALLFONT           0 //experimental
+#define MATRIX_MODE         NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG
 #define MATRIX_TYPE         NEO_GRB + NEO_KHZ800
-#define BRIGHTNESS          20
+#define BRIGHTNESS          50
+
+
 
 DisplayManager::DisplayManager() : matrix(MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_PIN, MATRIX_MODE, MATRIX_TYPE) {
     setup();
@@ -17,7 +20,14 @@ DisplayManager::DisplayManager() : matrix(MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_PI
 void DisplayManager::setup() {
     matrix.begin();
     matrix.setTextWrap(false);
-    matrix.setFont();
+    if (SMALLFONT){
+        matrix.setFont(&TomThumb);
+        fontsize= 5;
+        }else{
+        matrix.setFont();
+        fontsize=0;
+    };
+    
     matrix.setTextColor(color({255, 255, 255}));
     matrix.setBrightness(BRIGHTNESS);
 
@@ -46,7 +56,7 @@ void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor 
     }
 
     matrix.setTextColor(color(textColor));
-    matrix.setCursor(position.x, position.y);
+    matrix.setCursor(position.x, position.y+fontsize);
     matrix.print(text);
     matrix.show();
 }
