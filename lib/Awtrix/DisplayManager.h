@@ -21,6 +21,7 @@ class DisplayManager
         bool executeCommand(command_t, String);
 
         void clear();
+        void refresh();
         void setBrightness(int);
 
         void drawText(String, AwtrixPosition, AwtrixColor, boolean);

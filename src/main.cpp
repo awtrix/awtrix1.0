@@ -22,7 +22,7 @@ void setup() {
 
     applications.addApplication("Time");
     applications.addApplication("Weather");
-
+    applications.addApplication("DHT22");
     /*
     loadConfig();
     soundSetup();

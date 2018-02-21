@@ -4,6 +4,7 @@
 #include <TimeApp.h>
 #include <WeatherApp.h>
 #include <YoutubeApp.h>
+#include <DHT22App.h>
 
 IApplication* ApplicationManager::getApplicationWithName(String name) {
     if (name == "Time") {
@@ -12,6 +13,10 @@ IApplication* ApplicationManager::getApplicationWithName(String name) {
 
     if (name == "Weather") {
         return new WeatherApp();
+    }
+
+    if (name == "DHT22") {
+        return new DHT22App();
     }
 
     if (name == "Youtube") {

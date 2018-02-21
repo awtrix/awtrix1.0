@@ -1,6 +1,6 @@
 #include <TimeApp.h>
 
-const unsigned long UpdateThreshold = 3000l;
+const unsigned long UpdateThreshold = 30000l;
 
 void TimeApp::render(DisplayManager& display) {
     String time = timeClient.getFormattedTime();
