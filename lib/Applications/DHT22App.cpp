@@ -10,7 +10,7 @@ static unsigned char tempInner[]={0x00,0x10,0x10,0x10,0x10,0x38,0x38,0x00};
 void DHT22App::render(DisplayManager& display) {
     display.drawBitmap(temp, {0, 0}, {255, 0, 0}, 8, 8);
     display.drawBitmap(tempInner, {0, 0}, {0, 50, 255}, 8, 8);
-    display.drawText(String(temperature), {9, 0}, {200, 50, 0}, false);
+    display.drawText(String(temperature), {9, 0}, {200, 50, 0}, false,false);
 
 }
 

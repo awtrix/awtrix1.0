@@ -42,7 +42,7 @@ void getYTSubs() {
 void YoutubeApp::render(DisplayManager& display) {
     display.drawBitmap(rond, {0, 0}, {255, 0, 0}, 8, 8);
     display.drawBitmap(play, {0, 0}, {255, 255, 255}, 8, 8);
-    display.drawText(val, {9, 0}, {200, 50, 0}, false);
+    display.drawText(val, {9, 0}, {200, 50, 0}, false,false);
 }
 
 void YoutubeApp::enable() {

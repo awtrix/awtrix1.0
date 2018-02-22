@@ -6,7 +6,7 @@
 class PetApp : public IApplication
 {
     private:
-        
+        int PET_MOOD = 0;
         unsigned long elapsed = 0;
     public:
         void render(DisplayManager&) override;

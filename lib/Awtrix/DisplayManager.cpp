@@ -89,21 +89,31 @@ void DisplayManager::refresh() {
    matrix.show();
 }
 
+void DisplayManager::show() {
+   matrix.show();
+}
+
 void DisplayManager::setBrightness(int value) {
     brightness = value;
     matrix.setBrightness(brightness);
     matrix.show();
 }
 
-void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor textColor, boolean refresh) {
+void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor textColor, boolean refresh,boolean small) {
     if (refresh) {
         matrix.clear();
+}
+  if (small) {
+        matrix.setFont(&TomThumb);
+           }else{
+        matrix.setFont();
 }
 
     matrix.setTextColor(color(textColor));
     matrix.setCursor(position.x, position.y+fontsize);
     matrix.print(text);
     matrix.show();
+    matrix.setFont();
 }
 
 void DisplayManager::drawBitmap(unsigned char bmp[], AwtrixPosition position, AwtrixColor bmpColor, int16_t width, int16_t height) {

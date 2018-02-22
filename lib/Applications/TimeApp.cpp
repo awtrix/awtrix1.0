@@ -4,7 +4,7 @@ const unsigned long UpdateThreshold = 30000l;
 
 void TimeApp::render(DisplayManager& display) {
     String time = timeClient.getFormattedTime();
-    display.drawText(time, {2, 0}, {0x4c, 0xb2, 0xd4}, true);
+    display.drawText(time, {2, 0}, {255, 0, 0}, true,false);
 }
 
 void TimeApp::tick(unsigned long delta) {

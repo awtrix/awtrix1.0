@@ -22,9 +22,10 @@ class DisplayManager
 
         void clear();
         void refresh();
+        void show();
         void setBrightness(int);
 
-        void drawText(String, AwtrixPosition, AwtrixColor, boolean);
+        void drawText(String, AwtrixPosition, AwtrixColor, boolean,boolean);
         void drawBitmap(unsigned char[], AwtrixPosition, AwtrixColor, int16_t, int16_t);
         void scrollIP(String);
         void flashProgress(unsigned int, unsigned int);
