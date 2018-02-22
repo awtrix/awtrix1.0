@@ -28,7 +28,17 @@ class DisplayManager
         void drawBitmap(unsigned char[], AwtrixPosition, AwtrixColor, int16_t, int16_t);
         void scrollIP(String);
         void flashProgress(unsigned int, unsigned int);
-
+        void drawRect(uint16_t ,uint16_t ,uint16_t ,uint16_t ,AwtrixColor);
+        void drawPixel(uint16_t ,uint16_t ,AwtrixColor);
+        void fillRect(uint16_t ,uint16_t ,uint16_t ,uint16_t ,AwtrixColor);
+        void drawLine(uint16_t ,uint16_t ,uint16_t ,uint16_t ,AwtrixColor);
+        void drawCircle(uint16_t ,uint16_t ,uint16_t ,AwtrixColor);
+        void fillCircle(uint16_t ,uint16_t ,uint16_t ,AwtrixColor);
+        void drawRoundRect(uint16_t ,uint16_t ,uint16_t,uint16_t,uint16_t ,AwtrixColor);
+        void fillRoundRect(uint16_t ,uint16_t ,uint16_t,uint16_t,uint16_t ,AwtrixColor);
+        void drawTriangle(uint16_t ,uint16_t ,uint16_t,uint16_t,uint16_t,uint16_t ,AwtrixColor);
+        void fillTriangle(uint16_t ,uint16_t ,uint16_t,uint16_t,uint16_t,uint16_t ,AwtrixColor);
+        void drawChar(uint16_t, uint16_t, char, AwtrixColor, uint16_t, uint8_t);
     private:
         // Singleton setup
         DisplayManager();
