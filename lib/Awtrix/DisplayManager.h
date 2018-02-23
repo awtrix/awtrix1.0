@@ -24,10 +24,11 @@ class DisplayManager
         void refresh();
         void show();
         void setBrightness(int);
-
+        void scrollText(String);
         void drawText(String, AwtrixPosition, AwtrixColor, boolean,boolean);
         void drawBitmap(unsigned char[], AwtrixPosition, AwtrixColor, int16_t, int16_t);
         void scrollIP(String);
+        void colorWipe(AwtrixColor);
         void flashProgress(unsigned int, unsigned int);
         void drawRect(uint16_t ,uint16_t ,uint16_t ,uint16_t ,AwtrixColor);
         void drawPixel(uint16_t ,uint16_t ,AwtrixColor);

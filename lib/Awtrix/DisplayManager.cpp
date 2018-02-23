@@ -145,6 +145,34 @@ void DisplayManager::scrollIP(String IP) {
     }
 }
 
+void DisplayManager::scrollText(String text) {
+    int x = 32;
+  
+  // Account for 6 pixel wide characters plus a space
+  int pixelsInText = text.length() * 7;
+  
+  matrix.setCursor(x, 0);
+  matrix.print(text);
+  matrix.show();
+  
+  while(x > (matrix.width() - pixelsInText)) {
+    matrix.setCursor(--x, 0);
+    matrix.print(text);
+    matrix.show();
+    delay(150);
+  }
+}
+
+void DisplayManager::colorWipe(AwtrixColor wipeColor) {
+  for(uint16_t row=0; row < 8; row++) {
+    for(uint16_t column=0; column < 32; column++) {
+      matrix.drawPixel(column, row, color(wipeColor));
+      matrix.show();
+      
+    }
+  }
+}
+
 bool DisplayManager::executeCommand(command_t command, String payload)
 {
     switch (command) {
@@ -178,6 +206,8 @@ uint32_t DisplayManager::color(AwtrixColor color)
 {
     return matrix.Color(color.red, color.green, color.blue);
 }
+
+
 
 /*
 void checkLight() {

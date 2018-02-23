@@ -1,15 +1,14 @@
-#ifndef AwtrixGolApplication_h
-#define AwtrixGolApplication_h
+#ifndef AwtrixPlasmaApplication_h
+#define AwtrixPlasmaApplication_h
 
 #include <IApplication.h>
 
-class GolApp : public IApplication
+class PlasmaApp : public IApplication
 {
     private:
         
         const unsigned long UpdateThreshold = 30000l;
     public:
-       void gameOfLifeInit();
         void render(DisplayManager&) override;
         void update() override;
 };

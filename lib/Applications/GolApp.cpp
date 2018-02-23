@@ -110,7 +110,7 @@ void GolApp::render(DisplayManager& display) {
     }
     prevCells = numCells;
     if (numCells == 0) {
-        gameOfLifeInit();
+        //gameOfLifeInit();
     } else {
         for (x=0; x<32; x++) {
             for (y=0; y<8; y++) {

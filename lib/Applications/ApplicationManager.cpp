@@ -7,6 +7,7 @@
 #include <DHT22App.h>
 #include <PetApp.h>
 #include <GolApp.h>
+#include <PlasmaApp.h>
 
 IApplication* ApplicationManager::getApplicationWithName(String name) {
     if (name == "Time") {
@@ -31,6 +32,10 @@ IApplication* ApplicationManager::getApplicationWithName(String name) {
 
     if (name == "Gol") {
         return new GolApp();
+    }
+
+    if (name == "Plasma") {
+        return new PlasmaApp();
     }
     return NULL;
 }
@@ -73,6 +78,7 @@ void ApplicationManager::switchApplications() {
             applications[newIndex]->enable();
 
             activeApplicationIndex = newIndex;
+            //DisplayManager::getInstance().colorWipe({101,119,176});
             DisplayManager::getInstance().clear();
         }
 
