@@ -68,7 +68,7 @@ void AwtrixWiFi::setup() {
     Serial.println("WiFi connected");
     Serial.print("IP address: ");
     Serial.println(address); 
-    DisplayManager::getInstance().scrollText(address);
+    DisplayManager::getInstance().scrollText(address,{255,0,255});
    
      httpUpdater.setup(&webserver);
     webserver.begin();

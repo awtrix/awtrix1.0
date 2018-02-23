@@ -135,17 +135,8 @@ void DisplayManager::flashProgress(unsigned int progress, unsigned int total) {
     matrix.show();
 }
 
-void DisplayManager::scrollIP(String IP) {
-    // TODO: Move to different section
-    for (int x = MATRIX_WIDTH; x > -60 - MATRIX_WIDTH; x--) {
-        matrix.setCursor(x, 0);
-        matrix.print(IP);
-        matrix.show();
-        delay(40);
-    }
-}
 
-void DisplayManager::scrollText(String text) {
+void DisplayManager::scrollText(String text, AwtrixColor textColor) {
     int x = 32;
   
   // Account for 6 pixel wide characters plus a space
@@ -158,6 +149,7 @@ void DisplayManager::scrollText(String text) {
     matrix.clear();
     matrix.setCursor(--x, 0);
     matrix.print(text);
+    matrix.setTextColor(color(textColor));
     matrix.show();
     delay(20);
   }
