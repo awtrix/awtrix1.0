@@ -2,7 +2,7 @@
 #include <ApplicationManager.h>
 #include <AwtrixWiFi.h>
 #include <OverTheAirUpdate.h>
-#include <Settings.h>
+#include <settings.h>
 #include <MQTT.h>
 
 #define BUTTON_RESET_CONFIG  D3
@@ -11,7 +11,7 @@ OverTheAirUpdate ota;
 AwtrixWiFi wifi;
 MQTT mqtt;
 ApplicationManager& applications = ApplicationManager::getInstance();
-Settings& settings = Settings::getInstance();
+AwtrixSettings& settings = AwtrixSettings::getInstance();
 
 void setup() {
     Serial.begin(115200);
@@ -19,6 +19,9 @@ void setup() {
     pinMode(BUTTON_RESET_CONFIG, INPUT);
 
     wifi.setup();
+    settings.initialise();
+    settings.set("wundergroundLanguage","nl");
+    Serial.println(settings.get<String>("wundergroundLanguage"));
     mqtt.setup();
     ota.setup();
 

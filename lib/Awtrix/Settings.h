@@ -3,12 +3,12 @@
 
 #include <ArduinoJson.h>
 
-class Settings {
+class AwtrixSettings {
     private:
         // Singleton setup
-        Settings();
-        Settings(Settings const&);
-        void operator = (Settings const&);
+        AwtrixSettings(){}
+        AwtrixSettings(AwtrixSettings const&);
+        void operator = (AwtrixSettings const&);
 
         void loadDefaultSettings();
         bool saveSettings();
@@ -18,21 +18,22 @@ class Settings {
         const String filename = "/config.json";
 
     public:
-        static Settings& getInstance() {
-            static Settings instance;
+        static AwtrixSettings& getInstance() {
+            static AwtrixSettings instance;
             return instance;
         }
 
         template <typename TValue, typename TString>
         bool set(const TString& key, const TValue& value) {
             dataObject->set(key, value);
-            saveSettings();
+            //saveSettings();
         }
 
         template <typename TValue, typename TString>
         typename Internals::JsonVariantAs<TValue>::type get(const TString& key){
             return dataObject->get<TValue>(key);
         }
+        void initialise();
 };
 
 #endif

@@ -1,7 +1,7 @@
 #include <Settings.h>
 #include "FS.h"
 
-Settings::Settings() {
+void AwtrixSettings::initialise() {
     if (!SPIFFS.begin()) {
         Serial.println("Failed to mount file system");
         // TODO: Add exception
@@ -33,9 +33,10 @@ Settings::Settings() {
     if (!dataObject->success()) {
         Serial.println("Failed to parse config file");
     }
+    dataObject->printTo(Serial);
 }
 
-void Settings::loadDefaultSettings() {
+void AwtrixSettings::loadDefaultSettings() {
     DynamicJsonBuffer jsonBuffer(bufferSize);
     dataObject = &jsonBuffer.createObject();
 
@@ -53,7 +54,7 @@ void Settings::loadDefaultSettings() {
     (*dataObject)["wundergroundZmwCode"] = "de";
 }
 
-bool Settings::saveSettings() {
+bool AwtrixSettings::saveSettings() {
     File configFile = SPIFFS.open(filename, "w");
     if (!configFile) {
         Serial.println("Failed to open config file for writing");
