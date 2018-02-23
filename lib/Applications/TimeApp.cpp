@@ -2,7 +2,7 @@
 
 void TimeApp::render(DisplayManager& display) {
     String time = timeClient.getFormattedTime();
-    display.drawText(time, {2, 0}, {255, 0, 0}, true,false);
+    display.drawText(time, {2, 0}, {115, 116, 174}, true,false);
 }
 
 void TimeApp::update() {

@@ -6,6 +6,7 @@
 #include <YoutubeApp.h>
 #include <DHT22App.h>
 #include <PetApp.h>
+#include <GolApp.h>
 
 IApplication* ApplicationManager::getApplicationWithName(String name) {
     if (name == "Time") {
@@ -28,6 +29,9 @@ IApplication* ApplicationManager::getApplicationWithName(String name) {
         return new PetApp();
     }
 
+    if (name == "Gol") {
+        return new GolApp();
+    }
     return NULL;
 }
 
