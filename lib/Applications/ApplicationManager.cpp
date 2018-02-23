@@ -58,7 +58,7 @@ void ApplicationManager::switchApplications() {
         return;
     }
 
-    if (applicationRuntime >= activeApplication()->defaultDisplayTime) {
+    if (applicationRuntime >= activeApplication()->DefaultDisplayTime) {
         int newIndex = activeApplicationIndex + 1;
         if (newIndex >= numberOfApplications) {
             newIndex = 0;

@@ -5,16 +5,32 @@
 
 class IApplication
 {
+    protected:
+        const unsigned long UpdateThreshold = 10000l;
+        const bool UpdateOnEnable = true;
+
+        unsigned long elapsed = 0;
+
     public:
+        unsigned long const DefaultDisplayTime = 10000l;
+
         virtual ~IApplication() {}
-        
-        virtual void enable() {}
         virtual void disable() {}
-        virtual void tick(unsigned long) {}
-        
+        virtual void update() {}
         virtual void render(DisplayManager&) = 0;
 
-        unsigned long const defaultDisplayTime = 10000l;
+        virtual void tick(unsigned long delta) {
+            elapsed += delta;
+
+            if (elapsed >= UpdateThreshold) {
+                update();
+                elapsed = 0;
+            }
+        }
+
+        virtual void enable() {
+            if (UpdateOnEnable) update();
+        }
 };
 
 #endif

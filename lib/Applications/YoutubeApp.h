@@ -2,16 +2,18 @@
 #define AwtrixYoutubeApplication_h
 
 #include <IApplication.h>
+#include <WiFiClientSecure.h>
 
 class YoutubeApp : public IApplication
 {
     private:
+        const bool UpdateOnEnable = false;
+        WiFiClientSecure client;
+        String val;
         
-        unsigned long elapsed = 0;
     public:
         void render(DisplayManager&) override;
-        void tick(unsigned long) override;
-        void enable() override;    
+        void update() override;    
 };
 
 #endif

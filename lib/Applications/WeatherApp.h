@@ -9,15 +9,14 @@ class WeatherApp : public IApplication
     private:
         WGConditions conditions;
         WundergroundConditions wunderground;
-
-        unsigned long elapsed = 0;
+        
+        const unsigned long UpdateThreshold = 150000l;
 
     public:
         WeatherApp() : wunderground(true) {}
 
         void render(DisplayManager&) override;
-        void tick(unsigned long) override;
-        void enable() override;
+        void update() override;
 };
 
 #endif

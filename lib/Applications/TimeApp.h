@@ -10,15 +10,13 @@ class TimeApp : public IApplication
 {
     private:
         TimeClient timeClient;
-
-        unsigned long elapsed = 0;
+        const unsigned long UpdateThreshold = 30000l;
 
     public:
         TimeApp() : timeClient(UTC_OFFSET) {}
 
         void render(DisplayManager&) override;
-        void tick(unsigned long) override;
-        void enable() override;
+        void update() override;
 };
 
 #endif

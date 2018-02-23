@@ -132,11 +132,3 @@ if (PET_MOOD == 3){
  delay(30);
     display.show();
 }
-
-void PetApp::enable() {
-   
-}
-
-void PetApp::tick(unsigned long delta) {
-  
-}

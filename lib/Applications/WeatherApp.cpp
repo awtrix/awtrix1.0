@@ -1,7 +1,5 @@
 #include <WeatherApp.h>
 
-const unsigned long UpdateThreshold = 100000l;
-
 #define WUNDERGROUND_API_KEY      "b9cd2ae34c2974b6"
 #define WUNDERGROUND_LANGUAGE     "DL"
 #define WUNDERGROUND_ZMW_CODE     "00000.215.10348"
@@ -33,15 +31,6 @@ void WeatherApp::render(DisplayManager& display) {
     display.drawText(conditions.currentTemp + "\xA7", {9, 0}, {255, 255, 255}, false,false);
 }
 
-void WeatherApp::enable() {
+void WeatherApp::update() {
     wunderground.updateConditions(&conditions, WUNDERGROUND_API_KEY, WUNDERGROUND_LANGUAGE, WUNDERGROUND_ZMW_CODE);
-}
-
-void WeatherApp::tick(unsigned long delta) {
-    elapsed += delta;
-
-    if (elapsed >= UpdateThreshold) {
-        wunderground.updateConditions(&conditions, WUNDERGROUND_API_KEY, WUNDERGROUND_LANGUAGE, WUNDERGROUND_ZMW_CODE);
-        elapsed = 0;
-    }
 }

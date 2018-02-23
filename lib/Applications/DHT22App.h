@@ -3,18 +3,18 @@
 
 #include <IApplication.h>
 #include "DHT.h"
-#define DHTTYPE DHT22
-#define DHTPIN 2
 
 class DHT22App : public IApplication
 {
     private:
+        float humidity;
+        float temperature;
+        DHT dht;
         
-        unsigned long elapsed = 0;
     public:
+        DHT22App();    
         void render(DisplayManager&) override;
-        void tick(unsigned long) override;
-        void enable() override;
+        void update() override;
 };
 
 #endif
