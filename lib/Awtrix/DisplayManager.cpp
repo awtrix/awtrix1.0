@@ -102,15 +102,15 @@ void DisplayManager::setBrightness(int value) {
 void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor textColor, boolean refresh,boolean small) {
     if (refresh) {
         matrix.clear();
-}
-  if (small) {
+    }
+    if (small) {
         matrix.setFont(&TomThumb);
-           }else{
+    }else{
         matrix.setFont();
-}
+    }
 
     matrix.setTextColor(color(textColor));
-    matrix.setCursor(position.x, position.y+fontsize);
+    matrix.setCursor(position.x, position.y);
     matrix.print(text);
     matrix.show();
     matrix.setFont();
@@ -129,7 +129,6 @@ void DisplayManager::flashProgress(unsigned int progress, unsigned int total) {
             if (num-- > 0) matrix.drawPixel(x, MATRIX_HEIGHT - y - 1, pixelColor);
         }
     }
-
     matrix.setCursor(1, 0);
     matrix.print(F("FLASH"));
     matrix.setTextColor(color({255, 0, 0}));

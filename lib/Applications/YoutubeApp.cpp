@@ -46,12 +46,13 @@ void YoutubeApp::render(DisplayManager& display) {
 }
 
 void YoutubeApp::enable() {
-    getYTSubs();
+   
 }
+
 
 void YoutubeApp::tick(unsigned long delta) {
     elapsed += delta;
-
+    
     if (elapsed >= UpdateThreshold) {
         getYTSubs();
         elapsed = 0;

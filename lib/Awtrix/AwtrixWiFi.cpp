@@ -2,7 +2,7 @@
 #include <ESP8266mDNS.h>
 #include <WiFiManager.h>
 #include <DisplayManager.h>
-const int FW_VERSION = 8;
+const int FW_VERSION = 2;
 const char* fwUrlBase = "http://blueforcer.de/awtrix/";
 ESP8266HTTPUpdateServer httpUpdater;
 

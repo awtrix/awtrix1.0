@@ -22,7 +22,6 @@ void WeatherApp::render(DisplayManager& display) {
         display.drawBitmap(cloud, {0, 0}, {255, 255, 255}, 8, 8);
     } else if (conditions.weatherIcon == "rain") {
         display.drawBitmap(rain, {0, 0}, {0, 0, 255}, 8, 8);
-        display.drawBitmap(cloud, {0, 0}, {255, 255, 255}, 8, 8);
     } else if (conditions.weatherIcon == "snow") {
         display.drawBitmap(snow, {0, 0}, {255, 255, 255}, 8, 8);
     } else if (conditions.weatherIcon == "tstorms") {
