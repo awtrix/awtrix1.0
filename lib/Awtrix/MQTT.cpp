@@ -1,4 +1,5 @@
 #include <MQTT.h>
+#include <DisplayManager.h>
 
 #define MQTT_SERVER     "m14.cloudmqtt.com"
 #define MQTT_PORT       18422
@@ -13,7 +14,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     for (int i = 0; i < length; i++) {
         Payload += (char)payload[i];
     }
-
+    //DisplayManager::getInstance().executeCommand(topic,Payload)
 }
 
 void MQTT::setup() {

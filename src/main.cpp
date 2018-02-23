@@ -23,7 +23,7 @@ void setup() {
     applications.addApplication("Time");
     applications.addApplication("Weather");
     applications.addApplication("Pet");
-    applications.addApplication("Plasma");
+    //applications.addApplication("Plasma");
     applications.addApplication("Pet");
     //applications.addApplication("Youtube");
     applications.addApplication("DHT22");

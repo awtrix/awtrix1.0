@@ -67,12 +67,9 @@ void AwtrixWiFi::setup() {
     address = WiFi.localIP().toString();
     Serial.println("WiFi connected");
     Serial.print("IP address: ");
-    Serial.println(address);
- 
-    
-    if (false) { // SHOW_IP_ON_BOOT
-        // matrixBoot(address);
-    }
+    Serial.println(address); 
+    DisplayManager::getInstance().scrollText(address);
+   
      httpUpdater.setup(&webserver);
     webserver.begin();
    

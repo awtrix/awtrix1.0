@@ -52,6 +52,7 @@ class DisplayManager
         int fontsize;
         void setup();
         uint32_t color(AwtrixColor);
+        
 };
 
 #endif

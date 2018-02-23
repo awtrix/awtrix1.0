@@ -149,17 +149,17 @@ void DisplayManager::scrollText(String text) {
     int x = 32;
   
   // Account for 6 pixel wide characters plus a space
-  int pixelsInText = text.length() * 7;
-  
+  int pixelsInText = (text.length() * 7) + 32;
   matrix.setCursor(x, 0);
   matrix.print(text);
   matrix.show();
   
-  while(x > (matrix.width() - pixelsInText)) {
+  while(x > (32 - pixelsInText)) {
+    matrix.clear();
     matrix.setCursor(--x, 0);
     matrix.print(text);
     matrix.show();
-    delay(150);
+    delay(20);
   }
 }
 
@@ -206,6 +206,8 @@ uint32_t DisplayManager::color(AwtrixColor color)
 {
     return matrix.Color(color.red, color.green, color.blue);
 }
+
+
 
 
 
