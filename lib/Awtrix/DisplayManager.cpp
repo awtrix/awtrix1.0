@@ -3,6 +3,7 @@
 #include <Adafruit_NeoMatrix.h>
 #include <Adafruit_NeoPixel.h>
 #include <Fonts/TomThumb.h>
+
 #define MATRIX_PIN          4
 #define MATRIX_WIDTH        32
 #define MATRIX_HEIGHT       8
@@ -10,8 +11,6 @@
 #define MATRIX_MODE         NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG
 #define MATRIX_TYPE         NEO_GRB + NEO_KHZ800
 #define BRIGHTNESS          50
-
-
 
 DisplayManager::DisplayManager() : matrix(MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_PIN, MATRIX_MODE, MATRIX_TYPE) {
     setup();
@@ -27,13 +26,10 @@ void DisplayManager::setup() {
         matrix.setFont();
         fontsize=0;
     };
-    
     matrix.setTextColor(color({255, 255, 255}));
     matrix.setBrightness(BRIGHTNESS);
-
     clear();
 }
-
 
 void DisplayManager::drawRect(uint16_t  x0, uint16_t  y0,uint16_t  x1,uint16_t  y1, AwtrixColor rectColor) {
     matrix.drawRect(x0, y0, x1, y1, color(rectColor));
@@ -138,31 +134,28 @@ void DisplayManager::flashProgress(unsigned int progress, unsigned int total) {
 
 void DisplayManager::scrollText(String text, AwtrixColor textColor) {
     int x = 32;
-  
-  // Account for 6 pixel wide characters plus a space
-  int pixelsInText = (text.length() * 7) + 32;
-  matrix.setCursor(x, 0);
-  matrix.print(text);
-  matrix.show();
-  
-  while(x > (32 - pixelsInText)) {
-    matrix.clear();
-    matrix.setCursor(--x, 0);
+    int pixelsInText = (text.length() * 7) + 32;
+    matrix.setCursor(x, 0);
     matrix.print(text);
-    matrix.setTextColor(color(textColor));
     matrix.show();
-    delay(20);
-  }
+    
+    while(x > (32 - pixelsInText)) {
+        matrix.clear();
+        matrix.setCursor(--x, 0);
+        matrix.print(text);
+        matrix.setTextColor(color(textColor));
+        matrix.show();
+        delay(20);
+    }
 }
 
 void DisplayManager::colorWipe(AwtrixColor wipeColor) {
-  for(uint16_t row=0; row < 8; row++) {
-    for(uint16_t column=0; column < 32; column++) {
-      matrix.drawPixel(column, row, color(wipeColor));
-      matrix.show();
-      
+    for(uint16_t row=0; row < 8; row++) {
+        for(uint16_t column=0; column < 32; column++) {
+        matrix.drawPixel(column, row, color(wipeColor));
+        matrix.show();
+        }
     }
-  }
 }
 
 bool DisplayManager::executeCommand(command_t command, String payload)
