@@ -2,6 +2,7 @@
 #include <ApplicationManager.h>
 #include <AwtrixWiFi.h>
 #include <OverTheAirUpdate.h>
+#include <Settings.h>
 #include <MQTT.h>
 
 #define BUTTON_RESET_CONFIG  D3
@@ -10,6 +11,7 @@ OverTheAirUpdate ota;
 AwtrixWiFi wifi;
 MQTT mqtt;
 ApplicationManager& applications = ApplicationManager::getInstance();
+Settings& settings = Settings::getInstance();
 
 void setup() {
     Serial.begin(115200);

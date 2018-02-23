@@ -12,6 +12,18 @@ enum command_t {
 
 class DisplayManager
 {
+    private:
+        // Singleton setup
+        DisplayManager();
+        DisplayManager(DisplayManager const&);
+        void operator = (DisplayManager const&);
+
+        Adafruit_NeoMatrix matrix;
+        int brightness;
+        int fontsize;
+        void setup();
+        uint32_t color(AwtrixColor);
+    
     public:
         static DisplayManager& getInstance() {
             static DisplayManager instance;
@@ -40,18 +52,6 @@ class DisplayManager
         void drawTriangle(uint16_t ,uint16_t ,uint16_t,uint16_t,uint16_t,uint16_t ,AwtrixColor);
         void fillTriangle(uint16_t ,uint16_t ,uint16_t,uint16_t,uint16_t,uint16_t ,AwtrixColor);
         void drawChar(uint16_t, uint16_t, char, AwtrixColor, uint16_t, uint8_t);
-    private:
-        // Singleton setup
-        DisplayManager();
-        DisplayManager(DisplayManager const&);
-        void operator = (DisplayManager const&);
-
-        Adafruit_NeoMatrix matrix;
-        int brightness;
-        int fontsize;
-        void setup();
-        uint32_t color(AwtrixColor);
-        
 };
 
 #endif
