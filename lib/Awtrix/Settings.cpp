@@ -36,22 +36,42 @@ void AwtrixSettings::initialise() {
     dataObject->printTo(Serial);
 }
 
+void AwtrixSettings::parseSettings(char json[]) {
+    StaticJsonBuffer<200> jsonBuffer;
+    JsonObject& root = jsonBuffer.parseObject(json);
+
+    if (!root.success()) {
+        Serial.println("parseObject() failed");
+        return;
+    }
+
+    if (root.containsKey("brightness")) (*dataObject)["brightness"] = root["brightness"];
+    if (root.containsKey("showIpOnBoot")) (*dataObject)["showIpOnBoot"] = root["showIpOnBoot"];
+    if (root.containsKey("enableHeartbeat")) (*dataObject)["enableHeartbeat"] = root["enableHeartbeat"];
+    if (root.containsKey("enableAutoBrightness")) (*dataObject)["enableAutoBrightness"] = root["enableAutoBrightness"];
+    if (root.containsKey("scrollInterval")) (*dataObject)["scrollInterval"] = root["scrollInterval"];
+    if (root.containsKey("utcOffset")) (*dataObject)["utcOffset"] = root["utcOffset"];
+    if (root.containsKey("isMetric")) (*dataObject)["isMetric"] = root["isMetric"];
+    if (root.containsKey("wundergroundApiKey")) (*dataObject)["wundergroundApiKey"] = root["wundergroundApiKey"];
+    if (root.containsKey("wundergroundLanguage")) (*dataObject)["wundergroundLanguage"] = root["wundergroundLanguage"];
+    if (root.containsKey("wundergroundZmwCode")) (*dataObject)["wundergroundZmwCode"] = root["wundergroundZmwCode"];
+    saveSettings();
+}
+
 void AwtrixSettings::loadDefaultSettings() {
     DynamicJsonBuffer jsonBuffer(bufferSize);
     dataObject = &jsonBuffer.createObject();
 
-    (*dataObject)["brightness"] = 0;
+    (*dataObject)["brightness"] = 100;
     (*dataObject)["showIpOnBoot"] = false;
     (*dataObject)["enableHeartbeat"] = false;
     (*dataObject)["enableAutoBrightness"] = false;
     (*dataObject)["scrollInterval"] = 75;
     (*dataObject)["utcOffset"] = 1;
     (*dataObject)["isMetric"] = false;
-    (*dataObject)["wundergroundApiKey"] = "123";
-    (*dataObject)["wundergroundLanguage"] = "de";
-    (*dataObject)["wundergroundCity"] = "de";
-    (*dataObject)["wundergroundCountry"] = "de";
-    (*dataObject)["wundergroundZmwCode"] = "de";
+    (*dataObject)["wundergroundApiKey"] = "b9cd2ae34c2974b6";
+    (*dataObject)["wundergroundLanguage"] = "DE";
+    (*dataObject)["wundergroundZmwCode"] = "0000.2150.10348";
 }
 
 bool AwtrixSettings::saveSettings() {

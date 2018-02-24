@@ -3,10 +3,12 @@
 
 #include <IApplication.h>
 #include <WundergroundConditions.h>
+#include <Settings.h>
 
 class WeatherApp : public IApplication
 {
     private:
+        AwtrixSettings& settings = AwtrixSettings::getInstance();
         WGConditions conditions;
         WundergroundConditions wunderground;
         

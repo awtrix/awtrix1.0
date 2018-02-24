@@ -21,7 +21,7 @@ const char* WUNDERGRROUND_API_KEY=      "b9cd2ae34c2974b6";
 const char* WUNDERGRROUND_LANGUAGE=     "DL";
 const char* WUNDERGROUND_COUNTRY=       "DE";
 const char* WUNDERGROUND_CITY=          "Maintal";
-const char* WUNDERGROUND_ZMW_CODE=      "00000.215.10348";
+const char* WUNDERGROUND_ZMW_CODE=      "0000.2150.10348";
 int    UPDATE_INTERVAL_SECS=       600;
 
 //--------------------------------------------------------------------------------

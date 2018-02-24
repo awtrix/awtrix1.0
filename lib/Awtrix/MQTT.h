@@ -3,10 +3,12 @@
 
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
+#include <Settings.h>
 
 class MQTT
 {
     private:
+        AwtrixSettings& settings = AwtrixSettings::getInstance();
         WiFiClient espClient;
         PubSubClient mqttClient;
 

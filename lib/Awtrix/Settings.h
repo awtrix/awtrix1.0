@@ -11,6 +11,7 @@ class AwtrixSettings {
         void operator = (AwtrixSettings const&);
 
         void loadDefaultSettings();
+        
         bool saveSettings();
         JsonObject* dataObject;
 
@@ -18,6 +19,7 @@ class AwtrixSettings {
         const String filename = "/config.json";
 
     public:
+        void parseSettings(char []);
         static AwtrixSettings& getInstance() {
             static AwtrixSettings instance;
             return instance;

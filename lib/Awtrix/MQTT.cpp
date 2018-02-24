@@ -14,7 +14,10 @@ void callback(char* topic, byte* payload, unsigned int length) {
     for (int i = 0; i < length; i++) {
         Payload += (char)payload[i];
     }
-    //DisplayManager::getInstance().executeCommand(topic,Payload)
+    if (topic=="settings"){
+       
+    }
+
 }
 
 void MQTT::setup() {

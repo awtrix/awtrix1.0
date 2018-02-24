@@ -2,7 +2,7 @@
 #define AwtrixDisplayManager_h
 
 #include <Adafruit_NeoMatrix.h>
-
+#include <Settings.h>
 typedef struct { char red; char green; char blue; } AwtrixColor;
 typedef struct { char x; char y; } AwtrixPosition;
 
@@ -16,6 +16,7 @@ class DisplayManager
         // Singleton setup
         DisplayManager();
         DisplayManager(DisplayManager const&);
+        AwtrixSettings& settings = AwtrixSettings::getInstance();
         void operator = (DisplayManager const&);
 
         Adafruit_NeoMatrix matrix;

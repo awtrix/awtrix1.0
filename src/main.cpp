@@ -15,13 +15,10 @@ AwtrixSettings& settings = AwtrixSettings::getInstance();
 
 void setup() {
     Serial.begin(115200);
-
+    settings.initialise();
     pinMode(BUTTON_RESET_CONFIG, INPUT);
 
     wifi.setup();
-    settings.initialise();
-    settings.set("wundergroundLanguage","nl");
-    Serial.println(settings.get<String>("wundergroundLanguage"));
     mqtt.setup();
     ota.setup();
 
