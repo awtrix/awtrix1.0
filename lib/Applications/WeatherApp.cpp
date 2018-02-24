@@ -1,5 +1,9 @@
 #include <WeatherApp.h>
 
+#define WUNDERGROUND_API_KEY      "b9cd2ae34c2974b6"
+#define WUNDERGROUND_LANGUAGE     "DL"
+#define WUNDERGROUND_ZMW_CODE     "00000.215.10348"
+
 static unsigned char sun[]={0x24,0x18,0xbd,0x7e,0x7e,0xbd,0x18,0x24};
 static unsigned char mask[]={0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff};
 static unsigned char cloud[]={0x00,0x00,0x00,0x06,0x6f,0xef,0xff,0x7e};
@@ -28,5 +32,5 @@ void WeatherApp::render(DisplayManager& display) {
 }
 
 void WeatherApp::update() {
-    wunderground.updateConditions(&conditions, settings.get<String>("wundergroundApiKey"), settings.get<String>("wundergroundLanguage"), settings.get<String>("wundergroundZmwCode"));
+    wunderground.updateConditions(&conditions, WUNDERGROUND_API_KEY, WUNDERGROUND_LANGUAGE, WUNDERGROUND_ZMW_CODE);
 }
