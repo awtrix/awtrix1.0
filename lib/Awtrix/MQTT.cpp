@@ -43,6 +43,10 @@ void MQTT::loop() {
     mqttClient.loop();
 }
 
+int MQTT::publish(char* topic, char* payload) {
+ mqttClient.publish(topic, payload);
+}
+
 /*
 void reconnect() {
     // Loop until we're reconnected

@@ -10,3 +10,4 @@
 lib/readme.txt
 .clang_complete
 .gcc-flags.json
+.vscode/*.db

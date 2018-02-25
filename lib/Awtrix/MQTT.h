@@ -9,11 +9,13 @@ class MQTT
 {
     private:
         AwtrixSettings& settings = AwtrixSettings::getInstance();
+        
         WiFiClient espClient;
         PubSubClient mqttClient;
 
     public:
         MQTT() : mqttClient(espClient) {};
+        int publish(char*,char*);
         void setup();
         void loop();
 };

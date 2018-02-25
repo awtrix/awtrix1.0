@@ -3,7 +3,7 @@
 #include <Adafruit_NeoMatrix.h>
 #include <Adafruit_NeoPixel.h>
 #include <Fonts/TomThumb.h>
-
+#include <Settings.h>
 
 #define MATRIX_PIN          4
 #define MATRIX_WIDTH        32
@@ -30,6 +30,18 @@ void DisplayManager::setup() {
     matrix.setTextColor(color({255, 255, 255}));
     matrix.setBrightness(BRIGHTNESS);
     clear();
+}
+
+uint32_t DisplayManager::Wheel(byte WheelPos, int pos) {
+  if(WheelPos < 85) {
+   return matrix.Color((WheelPos * 3)-pos, (255 - WheelPos * 3)-pos, 0);
+  } else if(WheelPos < 170) {
+   WheelPos -= 85;
+   return matrix.Color((255 - WheelPos * 3)-pos, 0, (WheelPos * 3)-pos);
+  } else {
+   WheelPos -= 170;
+   return matrix.Color(0, (WheelPos * 3)-pos, (255 - WheelPos * 3)-pos);
+  }
 }
 
 void DisplayManager::drawRect(uint16_t  x0, uint16_t  y0,uint16_t  x1,uint16_t  y1, AwtrixColor rectColor) {
@@ -123,12 +135,12 @@ void DisplayManager::flashProgress(unsigned int progress, unsigned int total) {
     long num = MATRIX_WIDTH * MATRIX_HEIGHT * progress / total;
     for (unsigned char y = 0; y < MATRIX_HEIGHT; y++) {
         for (unsigned char x = 0; x < MATRIX_WIDTH; x++) {
-            if (num-- > 0) matrix.drawPixel(x, MATRIX_HEIGHT - y - 1, pixelColor);
+            if (num-- > 0) matrix.drawPixel(x, MATRIX_HEIGHT - y - 1, Wheel((num*16) & 255,0));
         }
     }
     matrix.setCursor(1, 0);
     matrix.print(F("FLASH"));
-    matrix.setTextColor(color({255, 0, 0}));
+    matrix.setTextColor(color({255, 255, 255}));
     matrix.show();
 }
 
@@ -191,8 +203,23 @@ bool DisplayManager::executeCommand(command_t command, String payload)
 uint32_t DisplayManager::color(AwtrixColor color)
 {
     return matrix.Color(color.red, color.green, color.blue);
+    
 }
 
+
+
+void DisplayManager::rotate(int wait){
+
+
+    
+for(uint16_t i=0; i<32+1; i++) {
+      matrix.drawFastVLine(i, 0, 8, Wheel((i*8) & 255,0));
+     matrix.drawFastVLine(i-1, 0, 8, 0);
+
+      matrix.show();
+      delay(20);
+  }
+  }
 
 
 

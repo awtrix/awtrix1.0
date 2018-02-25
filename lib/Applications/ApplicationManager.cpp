@@ -78,7 +78,7 @@ void ApplicationManager::switchApplications() {
             applications[newIndex]->enable();
 
             activeApplicationIndex = newIndex;
-            //DisplayManager::getInstance().colorWipe({101,119,176});
+            DisplayManager::getInstance().rotate({500});
             DisplayManager::getInstance().clear();
         }
 
