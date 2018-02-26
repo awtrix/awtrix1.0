@@ -11,7 +11,7 @@
 #define SMALLFONT           0 //experimental
 #define MATRIX_MODE         NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG
 #define MATRIX_TYPE         NEO_GRB + NEO_KHZ800
-#define BRIGHTNESS          150
+#define BRIGHTNESS          100
 
 DisplayManager::DisplayManager() : matrix(MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_PIN, MATRIX_MODE, MATRIX_TYPE) {
     setup();
