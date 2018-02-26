@@ -236,18 +236,14 @@ uint32_t DisplayManager::color(AwtrixColor color)
 
 
 
-void DisplayManager::rotate(int wait){
-
-
-    
+void DisplayManager::wipe(int wait){  
 for(uint16_t i=0; i<32+1; i++) {
-      matrix.drawFastVLine(i, 0, 8, Wheel((i*8) & 255,0));
-     matrix.drawFastVLine(i-1, 0, 8, 0);
-
-      matrix.show();
-      delay(20);
+    matrix.drawFastVLine(i, 0, 8, Wheel((i*8) & 255,0));
+    matrix.drawFastVLine(i-1, 0, 8, 0);
+    matrix.show();
+    delay(20);
   }
-  }
+}
 
 
 

@@ -36,7 +36,7 @@ class DisplayManager
         void drawApp(const uint16_t[], String,AwtrixPosition, AwtrixColor, bool, bool, int, int);
         void clear();
         void refresh();
-        void rotate(int);
+        void wipe(int);
         void show();
         void setBrightness(int);
         void scrollText(String,AwtrixColor);

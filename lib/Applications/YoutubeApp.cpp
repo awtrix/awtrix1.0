@@ -6,9 +6,7 @@ static unsigned char play[]={0x00,0x00,0x10,0x18,0x1c,0x18,0x10,0x00}; // Bitmap
 static unsigned char rond[]={0x00,0x7e,0xff,0xff,0xff,0xff,0xff,0x7e}; // Bitmap Round Icon
 
 void YoutubeApp::update() {
-    if (!client.connect("www.youtube.com", 443)) {
-        // ...
-    }
+    client.connect("www.youtube.com", 443);
 
     client.print(String("GET /channel/") + String(channelId) + "/about HTTP/1.1\r\n" + "Host:www.youtube.com\r\nConnection: close\r\n\r\n");
     int repeatCounter = 10;
@@ -28,6 +26,7 @@ void YoutubeApp::update() {
             val = line.substring(idxS + 3, idxE);
           
             client.stop();
+           
             break;
         }
     }
