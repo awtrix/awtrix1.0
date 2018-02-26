@@ -7,10 +7,11 @@
 class DHT22App : public IApplication
 {
     private:
-        float humidity;
-        float temperature;
+        int humidity;
+        int temperature;
         DHT dht;
         
+        const unsigned long UpdateThreshold = 160000l;
     public:
         DHT22App();    
         void render(DisplayManager&) override;

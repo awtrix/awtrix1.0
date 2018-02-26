@@ -11,7 +11,7 @@
 #define SMALLFONT           0 //experimental
 #define MATRIX_MODE         NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG
 #define MATRIX_TYPE         NEO_GRB + NEO_KHZ800
-#define BRIGHTNESS          50
+#define BRIGHTNESS          150
 
 DisplayManager::DisplayManager() : matrix(MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_PIN, MATRIX_MODE, MATRIX_TYPE) {
     setup();
@@ -125,7 +125,35 @@ void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor 
     matrix.setFont();
 }
 
-void DisplayManager::drawBitmap(unsigned char bmp[], AwtrixPosition position, AwtrixColor bmpColor, int16_t width, int16_t height) {
+void DisplayManager::drawApp(const uint16_t bmp[], String text, AwtrixPosition position, AwtrixColor textColor, bool scroll,bool autoScroll,int speed, int wait) {
+    int pixelsInText = (text.length() * 7);
+    int x = 32;
+if (autoScroll) {
+    if (text.length()>4){
+        while(x > (32 - (pixelsInText+32))){
+        matrix.clear();
+        matrix.setCursor(--x, 0);
+        matrix.print(text);
+        matrix.setTextColor(color(textColor));
+        matrix.drawRGBBitmap(0,0,bmp,8,8);
+        matrix.drawFastVLine(8, 0, 8, 0);
+        matrix.show();
+        delay(speed);
+        }
+    }else{
+        matrix.setTextColor(color(textColor));
+        matrix.setCursor(position.x+9, position.y);
+        matrix.print(text);
+        matrix.drawRGBBitmap(0,0,bmp,8,8);
+        matrix.show();
+        matrix.setFont();
+        }
+    }
+    delay(wait);
+}
+
+
+void DisplayManager::drawBitmap(unsigned char bmp[], AwtrixPosition position , AwtrixColor bmpColor, int16_t width, int16_t height) {
     matrix.drawBitmap(position.x, position.y, bmp, width, height, color(bmpColor));
 }
 
@@ -208,18 +236,14 @@ uint32_t DisplayManager::color(AwtrixColor color)
 
 
 
-void DisplayManager::rotate(int wait){
-
-
-    
+void DisplayManager::wipe(int wait){  
 for(uint16_t i=0; i<32+1; i++) {
-      matrix.drawFastVLine(i, 0, 8, Wheel((i*8) & 255,0));
-     matrix.drawFastVLine(i-1, 0, 8, 0);
-
-      matrix.show();
-      delay(20);
+    matrix.drawFastVLine(i, 0, 8, Wheel((i*8) & 255,0));
+    matrix.drawFastVLine(i-1, 0, 8, 0);
+    matrix.show();
+    delay(20);
   }
-  }
+}
 
 
 

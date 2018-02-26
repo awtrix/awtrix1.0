@@ -27,7 +27,7 @@ void setup() {
     //applications.addApplication("Pet");
     //applications.addApplication("Plasma");
     //applications.addApplication("Pet");
-    //applications.addApplication("Youtube");
+    applications.addApplication("Youtube");
     applications.addApplication("DHT22");
     /*
     loadConfig();

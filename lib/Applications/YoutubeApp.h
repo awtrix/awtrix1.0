@@ -7,7 +7,7 @@
 class YoutubeApp : public IApplication
 {
     private:
-        //const bool UpdateOnEnable = true;
+        const bool UpdateOnEnable = true;
         WiFiClientSecure client;
         String val;
         
