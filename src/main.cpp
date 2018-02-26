@@ -24,18 +24,11 @@ void setup() {
 
     applications.addApplication("Time");
     applications.addApplication("Weather");
-    //applications.addApplication("Pet");
-    //applications.addApplication("Plasma");
-    //applications.addApplication("Pet");
-    applications.addApplication("Youtube");
+    applications.addApplication("Pet");
     applications.addApplication("DHT22");
-    /*
-    loadConfig();
-    soundSetup();
-    if (ENABLE_HEARTBEAT) {
-        setupHeartbeat();
-    }
-    */
+
+    //applications.addApplication("Plasma");
+    applications.addApplication("Youtube");
 }
 
 void loop() {
@@ -48,17 +41,4 @@ void loop() {
     }
 }
 
-/*
-void loop() {
-    // This code probably belongs in the DisplayManager
-    if (AUTO_BRIGHTNESS) {
-        unsigned long currentMillis = millis();
-        if (currentMillis - previousMillis >= interval) {
-            previousMillis = currentMillis;
-            checkLight();
-        }
-    } else {
-        matrixBrightness(BRIGHTNESS);
-    }
-}
-*/
+

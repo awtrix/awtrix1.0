@@ -79,8 +79,7 @@ void ApplicationManager::switchApplications() {
 
             activeApplicationIndex = newIndex;
             DisplayManager::getInstance().wipe({500});
-            DisplayManager::getInstance().clear();
-        }
+           }
 
         applicationRuntime = 0;
     }

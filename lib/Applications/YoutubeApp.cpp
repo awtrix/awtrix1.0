@@ -2,17 +2,17 @@
 #include <ESP8266WiFi.h>
 
 const char *channelId = "UCpGLALzRO0uaasWTsm9M99w";
-static unsigned char play[]={0x00,0x00,0x10,0x18,0x1c,0x18,0x10,0x00}; // Bitmap Playsymbol
-static unsigned char rond[]={0x00,0x7e,0xff,0xff,0xff,0xff,0xff,0x7e}; // Bitmap Round Icon
+static const uint16_t yt[] {0x0, 0xc986, 0xc986, 0xc986, 0xc986, 0xc986, 0xc986, 0x0, 0xc986, 0xc986, 0xc986, 0xffff, 0xc986, 0xc986, 0xc986, 0xc986, 0xc986, 0xc986, 0xc986, 0xffff, 0xffff, 0xc986, 0xc986, 0xc986, 0xc986, 0xc986, 0xc986, 0xffff, 0xffff, 0xffff, 0xc986, 0xc986, 0xc986, 0xc986, 0xc986, 0xffff, 0xffff, 0xffff, 0xc986, 0xc986, 0xc986, 0xc986, 0xc986, 0xffff, 0xffff, 0xc986, 0xc986, 0xc986, 0xc986, 0xc986, 0xc986, 0xffff, 0xc986, 0xc986, 0xc986, 0xc986, 0x0, 0xc986, 0xc986, 0xc986, 0xc986, 0xc986, 0xc986, 0x0 };
 
 void YoutubeApp::update() {
-    client.connect("www.youtube.com", 443);
+    while (!client.connect("www.youtube.com", 443)){
+    };
 
     client.print(String("GET /channel/") + String(channelId) + "/about HTTP/1.1\r\n" + "Host:www.youtube.com\r\nConnection: close\r\n\r\n");
-    int repeatCounter = 10;
+    int repeatCounter = 5;
 
     while (!client.available() && repeatCounter--) {
-        Serial.println("Get SubCounter"); delay(300);
+        delay(100);
     }
 
     int idxS, idxE, statsFound = 0;
@@ -33,7 +33,5 @@ void YoutubeApp::update() {
 }
 
 void YoutubeApp::render(DisplayManager& display) {
-    display.drawBitmap(rond, {0, 0}, {255, 0, 0}, 8, 8);
-    display.drawBitmap(play, {0, 0}, {255, 255, 255}, 8, 8);
-    display.drawText(val, {9, 0}, {200, 50, 0}, false, false);
+     display.drawApp(yt,val,{0,0},{255, 255, 255},false,true,30,200);
 }

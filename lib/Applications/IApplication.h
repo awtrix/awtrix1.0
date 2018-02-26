@@ -6,13 +6,13 @@
 class IApplication
 {
     protected:
-        const unsigned long UpdateThreshold = 10000l;
+        const unsigned long UpdateThreshold = 100000l;
         const bool UpdateOnEnable = true;
 
         unsigned long elapsed = 0;
 
     public:
-        unsigned long const DefaultDisplayTime = 10000l;
+        unsigned long const DefaultDisplayTime = 30000l;
 
         virtual ~IApplication() {}
         virtual void disable() {}

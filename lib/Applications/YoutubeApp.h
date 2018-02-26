@@ -11,6 +11,7 @@ class YoutubeApp : public IApplication
         WiFiClientSecure client;
         String val;
         
+        const unsigned long UpdateThreshold = 1500000l;
     public:
         void render(DisplayManager&) override;
         void update() override;    

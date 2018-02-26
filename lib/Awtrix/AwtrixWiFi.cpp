@@ -84,7 +84,7 @@ void AwtrixWiFi::setup() {
 }
 
 void AwtrixWiFi::loop() {
-    webserver.handleClient();
+    //webserver.handleClient();
 }
 
 

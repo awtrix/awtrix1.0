@@ -26,7 +26,7 @@ void MQTT::setup() {
         mqttClient.setServer(MQTT_SERVER, MQTT_PORT);
         mqttClient.setCallback(callback);
 
-        if (mqttClient.connect("ESP8266Client", MQTT_USERNAME, MQTT_PASSWORD)) {
+        if (mqttClient.connect("AWTRIX", MQTT_USERNAME, MQTT_PASSWORD)) {
             Serial.println("MQTT Connected");
         } else {
             Serial.print("failed with state ");
@@ -35,8 +35,8 @@ void MQTT::setup() {
         }
     }
 
-    mqttClient.publish("awtrix/text", "Hello from AWTRIX");
-    mqttClient.subscribe("awtrix/text");
+    //mqttClient.publish("awtrix/text", "Hello from AWTRIX");
+    //mqttClient.subscribe("awtrix/text");
 }
 
 void MQTT::loop() {
