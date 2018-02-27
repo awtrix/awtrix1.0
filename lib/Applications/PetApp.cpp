@@ -4,7 +4,7 @@ uint8_t
 blinkIndex[] = { 1, 2, 3, 4, 3, 2, 1 },
 blinkCountdown = 100, // Countdown to next blink (in frames)
 gazeCountdown  =  200, // Countdown to next eye movement
-gazeFrames     =  3000; // Duration of eye movement (smaller = faster)
+gazeFrames     =  300; // Duration of eye movement (smaller = faster)
 int8_t
 eyeX = 9, eyeY = 3,   // Current eye position
 newX = 9, newY = 3,   // Next eye position
