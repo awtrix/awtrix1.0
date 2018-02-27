@@ -23,7 +23,7 @@ void WeatherApp::render(DisplayManager& display) {
     } else if (conditions.weatherIcon == "tstorms") {
 
     } else {
-        display.drawApp(FPSTR(sun), conditions.currentTemp + "\xA7",{0,0},{255, 255, 255},false,true,50,200);
+        display.drawApp(sun, conditions.currentTemp + "\xA7",{0,0},{255, 255, 255},false,true,40,200);
     } 
 }
 
