@@ -125,7 +125,7 @@ void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor 
     matrix.setFont();
 }
 
-void DisplayManager::drawApp(const uint16_t bmp[], String text, AwtrixPosition position, AwtrixColor textColor, bool scroll,bool autoScroll,int speed, int wait) {
+void DisplayManager::drawApp(const uint16_t bmp[], String text, AwtrixPosition position, AwtrixColor textColor, bool autoScroll,int speed, int wait) {
     int pixelsInText = (text.length() * 7);
     int x = 32;
 if (autoScroll) {

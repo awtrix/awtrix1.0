@@ -33,7 +33,7 @@ class DisplayManager
         }
 
         bool executeCommand(command_t, String);
-        void drawApp(const uint16_t[], String,AwtrixPosition, AwtrixColor, bool, bool, int, int);
+        void drawApp(const uint16_t[], String,AwtrixPosition, AwtrixColor, bool, int, int);
         void clear();
         void refresh();
         void wipe(int);

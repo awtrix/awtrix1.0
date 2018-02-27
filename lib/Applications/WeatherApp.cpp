@@ -13,17 +13,17 @@ static const uint16_t cloud1[]PROGMEM ={0xb0c3, 0xff2c, 0x0, 0x0, 0x0, 0x0, 0x0,
 void WeatherApp::render(DisplayManager& display) {
 
     if (conditions.weatherIcon == "cloudy") {
-         display.drawApp(cloudy, conditions.currentTemp + "\xA7",{0,0},{255, 255, 255},false,true,50,200);
+         display.drawApp(cloudy, conditions.currentTemp + "\xA7",{0,0},{255, 255, 255},true,50,200);
     } else if (conditions.weatherIcon == "partlycloudy") {
-        display.drawApp(partlycloudy, conditions.currentTemp + "\xA7",{0,0},{255, 255, 255},false,true,50,200);
+        display.drawApp(partlycloudy, conditions.currentTemp + "\xA7",{0,0},{255, 255, 255},true,50,200);
     } else if (conditions.weatherIcon == "rain") {
-        display.drawApp(rain, conditions.currentTemp + "\xA7",{0,0},{255, 255, 255},false,true,50,200);
+        display.drawApp(rain, conditions.currentTemp + "\xA7",{0,0},{255, 255, 255},true,50,200);
     } else if (conditions.weatherIcon == "snow") {
         //display.drawBitmap(snow, {0, 0}, {255, 255, 255}, 8, 8);
     } else if (conditions.weatherIcon == "tstorms") {
 
     } else {
-        display.drawApp(sun, conditions.currentTemp + "\xA7",{0,0},{255, 255, 255},false,true,40,200);
+        display.drawApp(sun, conditions.currentTemp + "\xA7",{0,0},{255, 255, 255},true,40,200);
     } 
 }
 
