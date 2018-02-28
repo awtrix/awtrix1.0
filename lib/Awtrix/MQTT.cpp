@@ -31,7 +31,7 @@ void MQTT::setup() {
         } else {
             Serial.print("failed with state ");
             Serial.print(mqttClient.state());
-            delay(2000);
+            delay(100);
         }
     }
 
@@ -40,7 +40,7 @@ void MQTT::setup() {
 }
 
 void MQTT::loop() {
-    mqttClient.loop();
+    //mqttClient.loop();
 }
 
 int MQTT::publish(char* topic, char* payload) {

@@ -28,7 +28,7 @@ void DisplayManager::setup() {
         matrix.setFont();
         fontsize=0;
     };
-    matrix.setTextColor(color({255, 255, 255}));
+    matrix.setTextColor(color(defaultTextColor));
     matrix.setBrightness(BRIGHTNESS);
     clear();
 }
@@ -114,6 +114,13 @@ void DisplayManager::setBrightness(int value) {
     matrix.setBrightness(BRIGHTNESS);
 }
 
+void DisplayManager::setColor(AwtrixColor textColor) {
+    defaultTextColor=textColor;
+    matrix.setTextColor(color(textColor));
+
+}
+
+
 void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor textColor, boolean refresh,boolean small) {
     if (refresh) {
         matrix.clear();
@@ -124,7 +131,7 @@ void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor 
         matrix.setFont();
     }
 
-    matrix.setTextColor(color(textColor));
+    matrix.setTextColor(color(defaultTextColor));
     matrix.setCursor(position.x, position.y);
     matrix.print(text);
     matrix.show();
@@ -132,22 +139,22 @@ void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor 
 }
 
 void DisplayManager::drawApp(const uint16_t bmp[], String text, AwtrixPosition position, AwtrixColor textColor, bool autoScroll,int speed, int wait) {
-    int pixelsInText = (text.length() * 7);
-    int x = 32;
+    int pixelsInText = (text.length() * 6);
+    int x = 24;
 if (autoScroll) {
     if (text.length()>4){
-        while(x > (32 - (pixelsInText+32))){
+        while(x > (24 - (pixelsInText+24))){
         matrix.clear();
         matrix.setCursor(--x, 0);
         matrix.print(text);
-        matrix.setTextColor(color(textColor));
+        matrix.setTextColor(color(defaultTextColor));
         matrix.drawRGBBitmap(0,0,bmp,8,8);
         matrix.drawFastVLine(8, 0, 8, 0);
         matrix.show();
         delay(speed);
         }
     }else{
-        matrix.setTextColor(color(textColor));
+        matrix.setTextColor(color(defaultTextColor));
         matrix.setCursor(position.x+9, position.y);
         matrix.print(text);
         matrix.drawRGBBitmap(0,0,bmp,8,8);
@@ -190,7 +197,7 @@ void DisplayManager::scrollText(String text, AwtrixColor textColor) {
         matrix.clear();
         matrix.setCursor(--x, 0);
         matrix.print(text);
-        matrix.setTextColor(color(textColor));
+        matrix.setTextColor(color(defaultTextColor));
         matrix.show();
         delay(20);
     }
@@ -218,13 +225,17 @@ bool DisplayManager::executeCommand(command_t command, String payload1, String p
             break;
 
         case command_t::brightness:
-            setBrightness(payload1.toInt());
+            if (payload1.toInt()>0){
+                setBrightness(payload1.toInt());
+            }
+                        
             break;
 
         case command_t::text:
             break;
 
         case command_t::color:
+            
             break;
 
         case command_t::screen:

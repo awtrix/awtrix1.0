@@ -4,7 +4,6 @@
 #include <Adafruit_NeoMatrix.h>
 
 typedef struct { char red; char green; char blue; } AwtrixColor;
-typedef struct { char red; char green; char blue; } AwtrixColorHSV;
 typedef struct { char x; char y; } AwtrixPosition;
 
 enum command_t { 
@@ -21,10 +20,10 @@ class DisplayManager
 
         Adafruit_NeoMatrix matrix;
         int BRIGHTNESS = 150;
+        AwtrixColor defaultTextColor = {255,255,255};
         int fontsize;
         void setup();
         uint32_t color(AwtrixColor);
-        uint32_t colorHSV(AwtrixColorHSV);
         uint32_t Wheel(byte,int);
     public:
         static DisplayManager& getInstance() {
@@ -39,6 +38,7 @@ class DisplayManager
         void wipe(int);
         void show();
         void setBrightness(int);
+        void setColor(AwtrixColor);
         void scrollText(String,AwtrixColor);
         void drawText(String, AwtrixPosition, AwtrixColor, boolean,boolean);
         void drawBitmap(unsigned char[], AwtrixPosition, AwtrixColor, int16_t, int16_t);

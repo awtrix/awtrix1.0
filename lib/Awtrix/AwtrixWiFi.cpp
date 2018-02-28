@@ -7,9 +7,9 @@
 const int FW_VERSION = 2;
 const char* fwUrlBase = "http://blueforcer.de/awtrix/";
 
-#define USERNAME "Blueforcer"
-#define DEVICE_ID "AWTRIX"
-#define DEVICE_CREDENTIAL "8aF$m!dV79hq"
+#define USERNAME "USERNAME"
+#define DEVICE_ID "DEVICE_ID"
+#define DEVICE_CREDENTIAL "DEVICE_CREDENTIAL"
 
 ESP8266HTTPUpdateServer httpUpdater;
 ThingerWifi thing(USERNAME, DEVICE_ID, DEVICE_CREDENTIAL);
@@ -105,6 +105,7 @@ void AwtrixWiFi::setup() {
         int r = in["r"];
         int g = in["g"];
         int b = in["b"];
+        DisplayManager::getInstance().setColor({r,g,b});
     };
 
     thing["Apps"] << [](pson& in){
@@ -119,7 +120,7 @@ void AwtrixWiFi::setup() {
 
 void AwtrixWiFi::loop() {
     //webserver.handleClient();
-     thing.handle();
+     //thing.handle();
 }
 
 
