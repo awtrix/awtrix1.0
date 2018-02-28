@@ -5,6 +5,7 @@
 #include <settings.h>
 #include <MQTT.h>
 
+
 #define BUTTON_RESET_CONFIG  D3
 
 OverTheAirUpdate ota;
@@ -24,11 +25,9 @@ void setup() {
 
     applications.addApplication("Time");
     applications.addApplication("Weather");
-    applications.addApplication("Pet");
-    applications.addApplication("DHT22");
-
-    //applications.addApplication("Plasma");
-    applications.addApplication("Youtube");
+    //applications.addApplication("Pet");
+    //applications.addApplication("DHT22");
+    //applications.addApplication("Youtube");
 }
 
 void loop() {

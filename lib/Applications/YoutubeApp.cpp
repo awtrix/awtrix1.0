@@ -33,5 +33,5 @@ void YoutubeApp::update() {
 }
 
 void YoutubeApp::render(DisplayManager& display) {
-     display.drawApp(yt,val,{0,0},{255, 255, 255},false,true,30,200);
+     display.drawApp(yt,val,{0,0},{255, 255, 255},true,30,200);
 }

@@ -11,7 +11,7 @@
 #define SMALLFONT           0 //experimental
 #define MATRIX_MODE         NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG
 #define MATRIX_TYPE         NEO_GRB + NEO_KHZ800
-#define BRIGHTNESS          200
+
 
 DisplayManager::DisplayManager() : matrix(MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_PIN, MATRIX_MODE, MATRIX_TYPE) {
     setup();
@@ -28,7 +28,7 @@ void DisplayManager::setup() {
         fontsize=0;
     };
     matrix.setTextColor(color({255, 255, 255}));
-    matrix.setBrightness(BRIGHTNESS);
+    matrix.setBrightness(brightness);
     clear();
 }
 
@@ -105,7 +105,6 @@ void DisplayManager::show() {
 void DisplayManager::setBrightness(int value) {
     brightness = value;
     matrix.setBrightness(brightness);
-    matrix.show();
 }
 
 void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor textColor, boolean refresh,boolean small) {

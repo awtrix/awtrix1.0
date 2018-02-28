@@ -20,7 +20,7 @@ class DisplayManager
         void operator = (DisplayManager const&);
 
         Adafruit_NeoMatrix matrix;
-        int brightness;
+        int brightness = 20;
         int fontsize;
         void setup();
         uint32_t color(AwtrixColor);

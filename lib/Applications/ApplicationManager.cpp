@@ -7,7 +7,7 @@
 #include <DHT22App.h>
 #include <PetApp.h>
 #include <GolApp.h>
-#include <PlasmaApp.h>
+
 
 IApplication* ApplicationManager::getApplicationWithName(String name) {
     if (name == "Time") {
@@ -34,9 +34,6 @@ IApplication* ApplicationManager::getApplicationWithName(String name) {
         return new GolApp();
     }
 
-    if (name == "Plasma") {
-        return new PlasmaApp();
-    }
     return NULL;
 }
 

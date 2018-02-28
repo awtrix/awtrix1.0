@@ -2,9 +2,17 @@
 #include <ESP8266mDNS.h>
 #include <WiFiManager.h>
 #include <DisplayManager.h>
+#include <ThingerWifi.h>
+
 const int FW_VERSION = 2;
 const char* fwUrlBase = "http://blueforcer.de/awtrix/";
+
+#define USERNAME "Blueforcer"
+#define DEVICE_ID "AWTRIX"
+#define DEVICE_CREDENTIAL "8aF$m!dV79hq"
+
 ESP8266HTTPUpdateServer httpUpdater;
+ThingerWifi thing(USERNAME, DEVICE_ID, DEVICE_CREDENTIAL);
 
 void checkForUpdates() {
   String fwURL = String( fwUrlBase );
@@ -80,11 +88,38 @@ void AwtrixWiFi::setup() {
     } else {
         Serial.println("Error setting up MDNS responder!");
     }
+
     //checkForUpdates();
+
+
+    // ThingerIO functions
+    thing["Message"] << [](pson& in){
+        DisplayManager::getInstance().scrollText(in,{255,0,255});
+    };
+
+    thing["Brightness"] << [](pson& in){
+        DisplayManager::getInstance().setBrightness(in);
+    };
+
+    thing["Color"] << [](pson& in){
+        int r = in["r"];
+        int g = in["g"];
+        int b = in["b"];
+    };
+
+    thing["Apps"] << [](pson& in){
+        bool Time =  (bool)in["Time"];
+        bool Weather =  (bool)in["Weather"];
+        bool Pet =  (bool)in["Pet"];
+        bool Youtube =  (bool)in["Youtube"];
+        bool DHT =  (bool)in["DHT"];
+    };
+
 }
 
 void AwtrixWiFi::loop() {
     //webserver.handleClient();
+     thing.handle();
 }
 
 
