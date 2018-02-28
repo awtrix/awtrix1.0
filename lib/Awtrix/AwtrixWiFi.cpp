@@ -93,12 +93,12 @@ void AwtrixWiFi::setup() {
 
 
     // ThingerIO functions
-    thing["Message"] << [](pson& in){
-        DisplayManager::getInstance().scrollText(in,{255,0,255});
+    thing["Notification"] << [](pson& in){
+        DisplayManager::getInstance().executeCommand(notification, in["App"], in["Message"]);
     };
 
     thing["Brightness"] << [](pson& in){
-        DisplayManager::getInstance().setBrightness(in);
+        DisplayManager::getInstance().executeCommand(brightness, in,"");
     };
 
     thing["Color"] << [](pson& in){

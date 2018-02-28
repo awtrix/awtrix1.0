@@ -8,7 +8,7 @@ typedef struct { char red; char green; char blue; } AwtrixColorHSV;
 typedef struct { char x; char y; } AwtrixPosition;
 
 enum command_t { 
-    settings_get, settings_set, settings_reset, brightness, text, color, screen
+    settings_get, settings_set, settings_reset, brightness, text, color, screen, notification
 };
 
 class DisplayManager
@@ -20,7 +20,7 @@ class DisplayManager
         void operator = (DisplayManager const&);
 
         Adafruit_NeoMatrix matrix;
-        int brightness = 20;
+        int BRIGHTNESS = 150;
         int fontsize;
         void setup();
         uint32_t color(AwtrixColor);
@@ -32,7 +32,7 @@ class DisplayManager
             return instance;
         }
 
-        bool executeCommand(command_t, String);
+        bool executeCommand(command_t, String, String);
         void drawApp(const uint16_t[], String,AwtrixPosition, AwtrixColor, bool, int, int);
         void clear();
         void refresh();

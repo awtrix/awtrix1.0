@@ -4,6 +4,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <Fonts/TomThumb.h>
 #include <Settings.h>
+#include <BMP.h>
 
 #define MATRIX_PIN          4
 #define MATRIX_WIDTH        32
@@ -28,7 +29,7 @@ void DisplayManager::setup() {
         fontsize=0;
     };
     matrix.setTextColor(color({255, 255, 255}));
-    matrix.setBrightness(brightness);
+    matrix.setBrightness(BRIGHTNESS);
     clear();
 }
 
@@ -103,8 +104,8 @@ void DisplayManager::show() {
 }
 
 void DisplayManager::setBrightness(int value) {
-    brightness = value;
-    matrix.setBrightness(brightness);
+    BRIGHTNESS = value;
+    matrix.setBrightness(BRIGHTNESS);
 }
 
 void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor textColor, boolean refresh,boolean small) {
@@ -198,7 +199,7 @@ void DisplayManager::colorWipe(AwtrixColor wipeColor) {
     }
 }
 
-bool DisplayManager::executeCommand(command_t command, String payload)
+bool DisplayManager::executeCommand(command_t command, String payload1, String payload2)
 {
     switch (command) {
         case command_t::settings_get:
@@ -211,7 +212,7 @@ bool DisplayManager::executeCommand(command_t command, String payload)
             break;
 
         case command_t::brightness:
-            brightness = payload.toInt();
+            setBrightness(payload1.toInt());
             break;
 
         case command_t::text:
@@ -221,6 +222,16 @@ bool DisplayManager::executeCommand(command_t command, String payload)
             break;
 
         case command_t::screen:
+            break;
+
+        case command_t::notification:
+            if (payload1 == "E-Mail"){
+                drawApp(mail,payload2,{0,0},{255, 255, 255},true,30,2000);
+            } else if (payload1 == "Whatsapp") {   
+                drawApp(whatsapp,payload2,{0,0},{255, 255, 255},true,30,2000);
+           }
+
+           //drawApp(whatsapp,payload1,{0,0},{255, 255, 255},true,30,2000);
             break;
     }
 
