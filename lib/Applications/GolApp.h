@@ -2,16 +2,17 @@
 #define AwtrixGolApplication_h
 
 #include <IApplication.h>
+#include <EEPROM.h> 
 
 class GolApp : public IApplication
 {
     private:
+
+     public:
         
-        const unsigned long UpdateThreshold = 30000l;
-    public:
-       void gameOfLifeInit();
         void render(DisplayManager&) override;
-        void update() override;
+        void enable() override;
+  
 };
 
 #endif

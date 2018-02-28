@@ -43,6 +43,7 @@ class DisplayManager
         void drawText(String, AwtrixPosition, AwtrixColor, boolean,boolean);
         void drawBitmap(unsigned char[], AwtrixPosition, AwtrixColor, int16_t, int16_t);
         void colorWipe(AwtrixColor);
+        void fillScreen(int);
         void flashProgress(unsigned int, unsigned int);
         void drawRect(uint16_t ,uint16_t ,uint16_t ,uint16_t ,AwtrixColor);
         void drawPixel(uint16_t ,uint16_t ,AwtrixColor);

@@ -3,11 +3,7 @@
 // -----------------------------------------------------------------------------
 
 
-Ticker gameOfLifeTicker;
-byte numCells = 0;
-byte prevCells = 0;
-byte autoResetCount = 0;
-bool gameOfLifeStatus[MATRIX_WIDTH][MATRIX_HEIGHT] = {false};
+int pattern_size[] = {7, 22};
 
 //--------------------------------------------------------------------------------
 // CONFIGURATION
@@ -43,39 +39,33 @@ byte countNeighbours(int x, int y) {
 }
 
 void gameOfLifeInit() {
-    byte x,y;
-    byte index;
-    matrixClear();
-
-    numCells = 0;
-
-    for (x=0; x<MATRIX_WIDTH; x++) {
-        for (y=0; y<MATRIX_HEIGHT; y++) {
-            gameOfLifeStatus[x][y] = false;
-        }
+   int k = 0;
+  int row = 0;
+  int column = 0;
+  while (pattern_init[k] != '!') {
+    if (pattern_init[k] == ',') {
+      row++;
+      k++;
+      column = 0;
     }
-
-    while (numCells < GAMEOFLIFE_SEEDS) {
-
-        x = random(0, MATRIX_WIDTH);
-        y = random(0, MATRIX_HEIGHT);
-        if (!gameOfLifeStatus[x][y]) {
-            gameOfLifeStatus[x][y] = true;
-            matrix.drawPixel(x, y, GAMEOFLIFE_NEW);
-            numCells++;
-        }
-
+    else if (pattern_init[k] == '.') {
+      WORLD[row + 2][column + 4] = 0;
+      k++;
+      column ++;
     }
-
-    matrixRefresh();
+    else  {
+      WORLD[row + 2][column + 4] = 1;
+      k++;
+      column ++;
+    }
+  }
 }
 
 void gameOfLifeStart() {
-    PET=false;
-    GOL=true;
-    gameOfLifeTicker.start();
+
+
     gameOfLifeInit();
-    gameOfLifeTicker.attach_ms(GAMEOFLIFE_INTERVAL, gameOfLifeLoop);
+
 }
 
 void gameOfLifeLoop() {

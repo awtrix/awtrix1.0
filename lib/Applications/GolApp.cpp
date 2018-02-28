@@ -35,7 +35,7 @@ byte countNeighbours(int x, int y) {
 void gameOfLifeInit() {
     byte x,y;
     byte index;
-    DisplayManager::getInstance().clear();
+   
 
     numCells = 0;
 
@@ -60,6 +60,7 @@ void gameOfLifeInit() {
 
 void GolApp::render(DisplayManager& display) {
     byte x, y;
+     
     unsigned int index;
     bool gameOfLifeNew[32][8] = {false};
     numCells = 0;
@@ -100,8 +101,9 @@ void GolApp::render(DisplayManager& display) {
             }
         }
     }
-
+    delay(300);
     display.show();
+   DisplayManager::getInstance().clear();
 
     if (numCells == prevCells) autoResetCount++;
     if (autoResetCount == GAMEOFLIFE_AUTORESET) {
@@ -110,7 +112,7 @@ void GolApp::render(DisplayManager& display) {
     }
     prevCells = numCells;
     if (numCells == 0) {
-        //gameOfLifeInit();
+        gameOfLifeInit();
     } else {
         for (x=0; x<32; x++) {
             for (y=0; y<8; y++) {
@@ -120,6 +122,6 @@ void GolApp::render(DisplayManager& display) {
     }
 }
 
-void GolApp::update() {
-    
+void GolApp::enable() {
+    gameOfLifeInit();
 }

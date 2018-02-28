@@ -89,13 +89,19 @@ void DisplayManager::drawChar(uint16_t x, uint16_t y, char c, AwtrixColor charCo
     matrix.drawChar(x, y, c, color(charColor),bg, size);
 }
 
-void DisplayManager::clear() {
-    matrix.fillScreen(0);
+void DisplayManager::fillScreen(int ScreenColor) {
+    matrix.fillScreen(ScreenColor);
     matrix.show();
 }
 
+void DisplayManager::clear() {
+    matrix.fillScreen(0);
+   
+}
+
+
 void DisplayManager::refresh() {
-   matrix.drawPixel(0, MATRIX_HEIGHT - 1, matrix.Color(0, 0, 255));
+   matrix.drawPixel(0, 8 - 1, color({0, 0, 255}));
    matrix.show();
 }
 
@@ -247,6 +253,7 @@ uint32_t DisplayManager::color(AwtrixColor color)
 
 
 void DisplayManager::wipe(int wait){  
+
 for(uint16_t i=0; i<32+1; i++) {
     matrix.drawFastVLine(i, 0, 8, Wheel((i*8) & 255,0));
     matrix.drawFastVLine(i-1, 0, 8, 0);
