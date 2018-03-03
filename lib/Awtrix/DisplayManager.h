@@ -26,6 +26,8 @@ class DisplayManager
         uint32_t color(AwtrixColor);
         uint32_t colorHSV(AwtrixColorHSV);
         uint32_t Wheel(byte,int);
+
+        
     public:
         static DisplayManager& getInstance() {
             static DisplayManager instance;
@@ -38,6 +40,7 @@ class DisplayManager
         void refresh();
         void wipe(int);
         void show();
+        void checkLight();
         void setBrightness(int);
         void scrollText(String,AwtrixColor);
         void drawText(String, AwtrixPosition, AwtrixColor, boolean,boolean);

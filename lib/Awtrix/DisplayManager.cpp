@@ -264,15 +264,13 @@ for(uint16_t i=0; i<32+1; i++) {
 
 
 
-
-/*
-void checkLight() {
+void DisplayManager::checkLight() {
     int reading = analogRead(A0);
     int brightness = map(reading, 0, 1024, 10, 200);
     matrix.setBrightness(brightness);
 }
 
-
+/*
 
 
 uint16_t *decodeColorData(unsigned char* data) {
