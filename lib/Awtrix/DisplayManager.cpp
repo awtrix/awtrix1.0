@@ -95,10 +95,8 @@ void DisplayManager::fillScreen(int ScreenColor) {
 }
 
 void DisplayManager::clear() {
-    matrix.fillScreen(0);
-   
+    matrix.fillScreen(0);  
 }
-
 
 void DisplayManager::refresh() {
    matrix.drawPixel(0, 8 - 1, color({0, 0, 255}));
@@ -264,26 +262,23 @@ uint32_t DisplayManager::color(AwtrixColor color)
 
 
 void DisplayManager::wipe(int wait){  
-
-for(uint16_t i=0; i<32+1; i++) {
-    matrix.drawFastVLine(i, 0, 8, Wheel((i*8) & 255,0));
-    matrix.drawFastVLine(i-1, 0, 8, 0);
-    matrix.show();
-    delay(20);
-  }
+    for(uint16_t i=0; i<32+1; i++) {
+        matrix.drawFastVLine(i, 0, 8, Wheel((i*8) & 255,0));
+        matrix.drawFastVLine(i-1, 0, 8, 0);
+        matrix.show();
+        delay(20);
+    }
 }
 
 
 
-
-/*
-void checkLight() {
+void DisplayManager::checkLight() {
     int reading = analogRead(A0);
     int brightness = map(reading, 0, 1024, 10, 200);
-    matrix.setBrightness(brightness);
+    setBrightness(brightness);
 }
 
-
+/*
 
 
 uint16_t *decodeColorData(unsigned char* data) {

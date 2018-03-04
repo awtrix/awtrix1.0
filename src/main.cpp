@@ -4,7 +4,7 @@
 #include <OverTheAirUpdate.h>
 #include <settings.h>
 #include <MQTT.h>
-
+#include <DisplayManager.h>
 
 #define BUTTON_RESET_CONFIG  D3
 
@@ -38,6 +38,7 @@ void loop() {
         wifi.loop();
         mqtt.loop();
         applications.loop();
+        DisplayManager::getInstance().checkLight();
     }
 }
 
