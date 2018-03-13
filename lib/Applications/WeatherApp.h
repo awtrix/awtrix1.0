@@ -9,9 +9,9 @@ class WeatherApp : public IApplication
 {
     private:
 
-        String WUNDERGROUND_API_KEY=      "b9cd2ae34c2974b6";
+        String WUNDERGROUND_API_KEY=      "YourAPIKey";
         String WUNDERGROUND_LANGUAGE=     "DE";
-        String WUNDERGROUND_ZMW_CODE=     "00000.8.10641";
+        String WUNDERGROUND_ZMW_CODE=     "YourZMWKey";
         AwtrixSettings& settings = AwtrixSettings::getInstance();
         WGConditions conditions;
         WundergroundConditions wunderground;
