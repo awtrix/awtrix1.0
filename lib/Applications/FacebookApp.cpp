@@ -26,27 +26,28 @@ void FacebookApp::update() {
     while (!client.connect(host, httpsPort)){
     };
 
-    if (client.verify(fingerprint, host)) { 
-    Serial.println("certificate matches"); 
-    } else { 
-    Serial.println("certificate doesn't match"); 
-    } 
+    client.verify(fingerprint, host);
+
     client.print(String("GET ") + url + " HTTP/1.1\r\n" + 
                 "Host: " + host + "\r\n" + 
                 "User-Agent: BuildFailureDetectorESP8266\r\n" + 
                 "Connection: close\r\n\r\n"); 
-    Serial.println("request sent"); 
-    while (client.connected()) { 
+       int repeatCounter = 5;
+
+    while (!client.available() && repeatCounter--) {
+        delay(100);
+    }
+    
+    while (client.connected() && client.available()) { 
     String line = client.readStringUntil('\n'); 
     if (line == "\r") { 
-        Serial.println("headers received"); 
-        break; 
+         break; 
     } 
-    } 
+    }
     // JSON 
-    String line = client.readStringUntil('\n'); 
-    DynamicJsonBuffer jsonBuffer; 
-    JsonObject& root = jsonBuffer.parseObject(line); 
+    String line2 = client.readStringUntil('\n');  
+    JsonObject& root = jsonBuffer.parseObject(line2); 
     pageLikes = root[String("fan_count")]; 
- 
+    jsonBuffer.clear();
+    client.stop();
 }
