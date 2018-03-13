@@ -8,6 +8,10 @@
 class WeatherApp : public IApplication
 {
     private:
+
+        String WUNDERGROUND_API_KEY=      "YourAPIKey";
+        String WUNDERGROUND_LANGUAGE=     "DE";
+        String WUNDERGROUND_ZMW_CODE=     "YourZMWCode";
         AwtrixSettings& settings = AwtrixSettings::getInstance();
         WGConditions conditions;
         WundergroundConditions wunderground;

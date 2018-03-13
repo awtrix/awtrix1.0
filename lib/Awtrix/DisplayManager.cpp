@@ -145,14 +145,14 @@ if (autoScroll) {
         matrix.clear();
         matrix.setCursor(--x, 0);
         matrix.print(text);
-        matrix.setTextColor(color(defaultTextColor));
+        matrix.setTextColor(color(textColor));
         matrix.drawRGBBitmap(0,0,bmp,8,8);
         matrix.drawFastVLine(8, 0, 8, 0);
         matrix.show();
         delay(speed);
         }
     }else{
-        matrix.setTextColor(color(defaultTextColor));
+        matrix.setTextColor(color(textColor));
         matrix.setCursor(position.x+9, position.y);
         matrix.print(text);
         matrix.drawRGBBitmap(0,0,bmp,8,8);
