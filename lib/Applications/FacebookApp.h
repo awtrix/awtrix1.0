@@ -21,9 +21,11 @@ class FacebookApp : public IApplication
             //BBB = App ID
             //CCC = App Secret      
         
-        const String url = "/205403270192886?access_token=413044212451682|1b83bfa010904e1a18267c5845f59efe&fields=fan_count"; 
+        const String url = "AAA?access_token=BBB|CCC&fields=fan_count"; //AAA?access_token=BBB|CCC&fields=fan_count
+
         const int httpsPort = 443; 
-        const char* fingerprint = "bd258c1f62a4a6d9cf7d9812d22e2ff57e84fb36";
+        const char* fingerprint = "DDD"; //https://github.com/gbrault/esp8266-Arduino/blob/master/doc/esp8266wifi/client-secure-examples.md#how-to-verify-servers-identity
+
 
         const bool UpdateOnEnable = true;               // If true, the update function will be called once everytime the app start
         
