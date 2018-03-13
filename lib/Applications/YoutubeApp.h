@@ -7,6 +7,8 @@
 class YoutubeApp : public IApplication
 {
     private:
+
+        String channelId = "YourChannelID";
         const bool UpdateOnEnable = true;
         WiFiClientSecure client;
         String val;
