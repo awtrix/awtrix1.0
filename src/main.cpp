@@ -24,11 +24,12 @@ void setup() {
     ota.setup();
 
     applications.addApplication("Time");
-    applications.addApplication("Weather");
-    applications.addApplication("Gol");
-    applications.addApplication("Pet");
-    applications.addApplication("DHT22");
-    applications.addApplication("Youtube");
+    //applications.addApplication("Weather");
+    //applications.addApplication("Gol");
+    //applications.addApplication("Pet");
+    //applications.addApplication("DHT22");
+    //applications.addApplication("Youtube");
+    applications.addApplication("Facebook");
 }
 
 void loop() {

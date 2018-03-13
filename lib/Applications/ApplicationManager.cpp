@@ -7,6 +7,7 @@
 #include <DHT22App.h>
 #include <PetApp.h>
 #include <GolApp.h>
+#include <FacebookApp.h>
 
 
 IApplication* ApplicationManager::getApplicationWithName(String name) {
@@ -32,6 +33,10 @@ IApplication* ApplicationManager::getApplicationWithName(String name) {
 
     if (name == "Gol") {
         return new GolApp();
+    }
+
+        if (name == "Facebook") {
+        return new FacebookApp();
     }
 
     return NULL;
