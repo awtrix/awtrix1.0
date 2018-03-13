@@ -11,3 +11,4 @@ lib/readme.txt
 .clang_complete
 .gcc-flags.json
 .vscode/*.db
+.vscode/.browse.c_cpp.db*
