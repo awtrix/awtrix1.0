@@ -7,15 +7,14 @@ void TimeApp::render(DisplayManager& display) {
     String time = timeClient.getFormattedTime();
     display.drawText(time, {2, 0}, {152, 0, 255}, true,false);
 
-    if (blink){
-        display.fillRect(14,0,5,8,{0,0,0});
-    }
-
-
     if (millis() - previousMillis > interval) {
         previousMillis = millis(); 
         blink = !blink;
-  }
+    }
+
+    if (blink){
+        display.fillRect(14,0,5,8,{0,0,0});
+    }
 
   display.show();
 }

@@ -279,16 +279,25 @@ void DisplayManager::wipe(int wait){
         matrix.drawFastVLine(i, 0, 8, Wheel((i*8) & 255,0));
         matrix.drawFastVLine(i-1, 0, 8, 0);
         matrix.show();
-        delay(20);
+        delay(15);
     }
 }
 
 
 
 void DisplayManager::checkLight() {
-    int reading = analogRead(A0);
-    int brightness = map(reading, 0, 1024, 10, 200);
-    setBrightness(brightness);
+    int brightnessAnalog = analogRead(A0);
+    if (brightnessAnalog<200)
+      {
+        setBrightness(50);
+      }else if(brightnessAnalog<400)
+      {
+         setBrightness(100);
+      }else if(brightnessAnalog>400)
+      {
+         setBrightness(150);
+      }
+   
 }
 
 /*

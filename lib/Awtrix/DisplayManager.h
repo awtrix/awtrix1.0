@@ -19,7 +19,7 @@ class DisplayManager
         void operator = (DisplayManager const&);
 
         Adafruit_NeoMatrix matrix;
-        int BRIGHTNESS = 150;
+        int BRIGHTNESS = 200;
         AwtrixColor defaultTextColor = {255,255,255};
         int fontsize;
         void setup();

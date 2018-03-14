@@ -77,10 +77,11 @@ void ApplicationManager::switchApplications() {
 
         if (newIndex != activeApplicationIndex) {
             applications[activeApplicationIndex]->disable();
+            DisplayManager::getInstance().wipe({500});
             applications[newIndex]->enable();
 
             activeApplicationIndex = newIndex;
-            DisplayManager::getInstance().wipe({500});
+            
            }
 
         applicationRuntime = 0;
