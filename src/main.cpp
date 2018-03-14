@@ -23,7 +23,7 @@ void setup() {
     mqtt.setup();
     ota.setup();
 
-//Activate or deactivate the Apps you want:
+//Activate or deactivate  Apps:
 
     applications.addApplication("Time");
     applications.addApplication("Weather");

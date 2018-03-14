@@ -1,34 +1,30 @@
 #include <YoutubeApp.h>
 #include <ESP8266WiFi.h>
-
+#define target_time 5000
 
 static const uint16_t yt[] {0x0, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0x0, 0xf800, 0xf800, 0xf800, 0xffff, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xffff, 0xffff, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xffff, 0xffff, 0xffff, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xffff, 0xffff, 0xffff, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xffff, 0xffff, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xffff, 0xf800, 0xf800, 0xf800, 0xf800, 0x0, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0x0 };
 
 void YoutubeApp::update() {
-    while (!client.connect("www.youtube.com", 443)){
+    while (!client.connect("www.youtube.com", 443)&& (long) (millis() - target_time) < 0){
     };
 
     client.print(String("GET /channel/") + channelId + "/about HTTP/1.1\r\n" + "Host:www.youtube.com\r\nConnection: close\r\n\r\n");
     int repeatCounter = 5;
 
-    while (!client.available() && repeatCounter--) {
-        delay(100);
-    }
 
     int idxS, idxE, statsFound = 0;
     while (client.connected() && client.available()) {
         String line = client.readStringUntil('\n');
-        if (statsFound == 0) {
-            statsFound = (line.indexOf("about-stats") > 0);
-        } else {
+
             idxS = line.indexOf("<b>");
             idxE = line.indexOf("</b>");
             val = line.substring(idxS + 3, idxE);
           
-            client.stop();
+            client.flush();
+            client.stopAll();
            
             break;
-        }
+        
     }
 }
 

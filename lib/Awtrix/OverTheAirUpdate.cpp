@@ -3,17 +3,17 @@
 #include <ArduinoOTA.h>
 
 void OverTheAirUpdate::setup() {
-    Serial.println("Setup OTA");
+    Serial.println(F("Setup OTA"));
 
     ArduinoOTA.onStart([&]() {
-        Serial.println("OTA Start");
+        Serial.println(F("OTA Start"));
         updating = true;
 
         DisplayManager::getInstance().clear();
     });
 
     ArduinoOTA.onEnd([]() {
-        Serial.println("\nEnd");
+    
     });
 
     ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
@@ -25,19 +25,19 @@ void OverTheAirUpdate::setup() {
 
         switch (error) {
             case OTA_AUTH_ERROR:
-                Serial.println("Auth failed");
+                Serial.println(F("Auth failed"));
                 break;
             case OTA_BEGIN_ERROR:
-                Serial.println("Begin failed");
+                Serial.println(F("Begin failed"));
                 break;
             case OTA_CONNECT_ERROR:
-                Serial.println("Connect failed");
+                Serial.println(F("Connect failed"));
                 break;
             case OTA_RECEIVE_ERROR:
-                Serial.println("Receive failed");
+                Serial.println(F("Receive failed"));
                 break;
             case OTA_END_ERROR:
-                Serial.println("End failed");
+                Serial.println(F("End failed"));
                 break;
         }
     });

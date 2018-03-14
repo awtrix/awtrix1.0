@@ -7,9 +7,9 @@
 #define MQTT_PASSWORD   "tIyVJka59iDw"
 
 void callback(char* topic, byte* payload, unsigned int length) {
-    Serial.print("Message arrived [");
+    Serial.print(F("Message arrived ["));
     Serial.print(topic);
-    Serial.print("] ");
+    Serial.print(F("] "));
     String Payload;
     for (int i = 0; i < length; i++) {
         Payload += (char)payload[i];
@@ -22,14 +22,14 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
 void MQTT::setup() {
     while (!mqttClient.connected()) {
-        Serial.println("Connecting to MQTT...");
+        Serial.println(F("Connecting to MQTT..."));
         mqttClient.setServer(MQTT_SERVER, MQTT_PORT);
         mqttClient.setCallback(callback);
 
         if (mqttClient.connect("AWTRIX", MQTT_USERNAME, MQTT_PASSWORD)) {
-            Serial.println("MQTT Connected");
+            Serial.println(F("MQTT Connected"));
         } else {
-            Serial.print("failed with state ");
+            Serial.print(F("failed with state "));
             Serial.print(mqttClient.state());
             delay(100);
         }

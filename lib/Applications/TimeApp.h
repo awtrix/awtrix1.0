@@ -11,7 +11,7 @@ class TimeApp : public IApplication
     private:
         TimeClient timeClient;
         const unsigned long UpdateThreshold = 30000l;
-
+        bool blink=false;
     public:
         TimeApp() : timeClient(UTC_OFFSET) {}
 

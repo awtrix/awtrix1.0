@@ -12,7 +12,7 @@ class IApplication
         unsigned long elapsed = 0;
 
     public:
-        unsigned long const DefaultDisplayTime = 30000l;
+        unsigned long const DefaultDisplayTime = 20000l;
 
         virtual ~IApplication() {}
         virtual void disable() {}

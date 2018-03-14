@@ -11,6 +11,11 @@ const char* fwUrlBase = "http://blueforcer.de/awtrix/";
 #define DEVICE_ID "DEVICE_ID"
 #define DEVICE_CREDENTIAL "DEVICE_CREDENTIAL"
 
+const char* html1 = "<!DOCTYPE html><html><head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1\"/></head><body style=\"background-color:#EEE;font-family:Arial,Tahoma,Verdana;\"><h1>Title</h1>";
+String html2 = "";
+String req; 
+
+
 ESP8266HTTPUpdateServer httpUpdater;
 ThingerWifi thing(USERNAME, DEVICE_ID, DEVICE_CREDENTIAL);
 
@@ -19,10 +24,10 @@ void checkForUpdates() {
   String fwVersionURL = fwURL;
   fwVersionURL.concat( "firmware.version" );
 
-  Serial.println( "Checking for firmware updates." );
+  Serial.println(F( "Checking for firmware updates." ));
 
-  Serial.print( "Firmware version URL: " );
-  Serial.println( fwVersionURL );
+  Serial.print(F("Firmware version URL: " ));
+  Serial.println(fwVersionURL);
 
   HTTPClient httpClient;
   httpClient.begin( fwVersionURL );
@@ -30,15 +35,15 @@ void checkForUpdates() {
   if( httpCode == 200 ) {
     String newFWVersion = httpClient.getString();
 
-    Serial.print( "Current firmware version: " );
-    Serial.println( FW_VERSION );
-    Serial.print( "Available firmware version: " );
-    Serial.println( newFWVersion );
+    Serial.print(F("Current firmware version: " ));
+    Serial.println(FW_VERSION );
+    Serial.print(F("Available firmware version: " ));
+    Serial.println(newFWVersion);
 
     int newVersion = newFWVersion.toInt();
 
     if( newVersion > FW_VERSION ) {
-      Serial.println( "Preparing to update" );
+      Serial.println(F("Preparing to update"));
       DisplayManager::getInstance().drawText("Update...", {0, 5}, {0, 0, 255}, true,true);
 
       t_httpUpdate_return ret = ESPhttpUpdate.update("http://blueforcer.de/awtrix/firmware.bin");
@@ -49,44 +54,44 @@ void checkForUpdates() {
           break;
 
         case HTTP_UPDATE_NO_UPDATES:
-          Serial.println("HTTP_UPDATE_NO_UPDATES");
+          Serial.println(F("HTTP_UPDATE_NO_UPDATES"));
           break;
       }
     }
     else {
-      Serial.println( "Already on latest version" );
+      Serial.println(F("Already on latest version" ));
     }
   }
   else {
-    Serial.print( "Firmware version check failed, got HTTP response code " );
-    Serial.println( httpCode );
+    Serial.print(F("Firmware version check failed, got HTTP response code " ));
+    Serial.println(httpCode);
   }
   httpClient.end();
 }
 
 
 void AwtrixWiFi::setup() {
-    Serial.println("Setup WiFi");
+    Serial.println(F("Setup WiFi"));
     // matrixText(true, "WiFi", 5, 0, 0, 0, 255);
     WiFiManager wifiManager;
     wifiManager.setTimeout(120);
     wifiManager.autoConnect("AWTRIX");
 
     address = WiFi.localIP().toString();
-    Serial.println("WiFi connected");
-    Serial.print("IP address: ");
+    Serial.println(F("WiFi connected"));
+    Serial.print(F("IP address: "));
     Serial.println(address); 
     DisplayManager::getInstance().scrollText(address,{255,0,255});
    
-     httpUpdater.setup(&webserver);
-    webserver.begin();
+    //httpUpdater.setup(&webserver);
+    //webserver.begin();
    
 
     if (MDNS.begin("AWTRIX")) { 
-        Serial.println("mDNS responder started");
+        Serial.println(F("mDNS responder started"));
         MDNS.addService("http", "tcp", 80);
     } else {
-        Serial.println("Error setting up MDNS responder!");
+        Serial.println(F("Error setting up MDNS responder!"));
     }
 
     //checkForUpdates();
@@ -108,13 +113,13 @@ void AwtrixWiFi::setup() {
         DisplayManager::getInstance().setColor({r,g,b});
     };
 
-    thing["Apps"] << [](pson& in){
-        bool Time =  (bool)in["Time"];
-        bool Weather =  (bool)in["Weather"];
-        bool Pet =  (bool)in["Pet"];
-        bool Youtube =  (bool)in["Youtube"];
-        bool DHT =  (bool)in["DHT"];
-    };
+    //thing["Apps"] << [](pson& in){
+    //    bool Time =  (bool)in["Time"];
+    //    bool Weather =  (bool)in["Weather"];
+    //    bool Pet =  (bool)in["Pet"];
+    //    bool Youtube =  (bool)in["Youtube"];
+    //    bool DHT =  (bool)in["DHT"];
+    // };
 
 }
 

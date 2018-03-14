@@ -1,5 +1,5 @@
 #include <FacebookApp.h>
-
+#define target_time 5000
 
 static const uint16_t faceb[] {0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0xffff, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0xffff, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0xffff, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0xffff, 0xffff, 0xffff, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0xffff, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0xffff, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0xffff, 0x3ad3, 0x3ad3, 0x3ad3 };
 
@@ -20,34 +20,33 @@ void FacebookApp::enable() {
     // Is called up once every time the app is started
 }
 
-
 void FacebookApp::update() {
     // Is called after "UpdateThreshold". Here you can fetch your nessesary data
-    while (!client.connect(host, httpsPort)){
+    while (!client.connect(host, httpsPort) && (long) (millis() - target_time) < 0){
     };
 
     client.verify(fingerprint, host);
-
+   
     client.print(String("GET ") + url + " HTTP/1.1\r\n" + 
                 "Host: " + host + "\r\n" + 
                 "User-Agent: BuildFailureDetectorESP8266\r\n" + 
                 "Connection: close\r\n\r\n"); 
-       int repeatCounter = 5;
 
-    while (!client.available() && repeatCounter--) {
-        delay(100);
-    }
-    
-    while (client.connected() && client.available()) { 
+    while (client.connected()) { 
     String line = client.readStringUntil('\n'); 
     if (line == "\r") { 
-         break; 
+
+        break; 
     } 
-    }
+    } 
     // JSON 
-    String line2 = client.readStringUntil('\n');  
+    String line2 = client.readStringUntil('\n'); 
+    DynamicJsonBuffer jsonBuffer; 
     JsonObject& root = jsonBuffer.parseObject(line2); 
     pageLikes = root[String("fan_count")]; 
     jsonBuffer.clear();
-    client.stop();
+    client.flush();
+    client.stopAll();
 }
+
+

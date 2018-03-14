@@ -2,18 +2,17 @@
 #define AwtrixYoutubeApplication_h
 
 #include <IApplication.h>
-#include <WiFiClientSecure.h>
+#include <AwtrixWiFi.h>
 
 class YoutubeApp : public IApplication
 {
     private:
 
-        String channelId = "YourChannelID";
+        String channelId = "UCpGLALzRO0uaasWTsm9M99w";
         const bool UpdateOnEnable = true;
         WiFiClientSecure client;
         String val;
-        
-        const unsigned long UpdateThreshold = 1500000l;
+        const unsigned long UpdateThreshold = 30000l;
     public:
         void render(DisplayManager&) override;
         void update() override;    

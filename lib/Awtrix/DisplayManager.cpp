@@ -47,55 +47,67 @@ uint32_t DisplayManager::Wheel(byte WheelPos, int pos) {
 
 void DisplayManager::drawRect(uint16_t  x0, uint16_t  y0,uint16_t  x1,uint16_t  y1, AwtrixColor rectColor) {
     matrix.drawRect(x0, y0, x1, y1, color(rectColor));
+    
 }
 
 void DisplayManager::fillRect(uint16_t  x0, uint16_t  y0,uint16_t  x1,uint16_t  y1, AwtrixColor rectColor) {
     matrix.fillRect(x0, y0, x1, y1, color(rectColor));
+     
 }
 
 void DisplayManager::drawPixel(uint16_t  x, uint16_t  y, AwtrixColor pixelColor) {
     matrix.drawPixel(x, y, color(pixelColor));
+     
 }
 
 void DisplayManager::drawLine(uint16_t  x0, uint16_t  y0,uint16_t  X1,uint16_t  Y1, AwtrixColor lineColor) {
     matrix.drawLine(x0, y0, X1, Y1, color(lineColor));
+    
 }
 
 void DisplayManager::drawCircle(uint16_t  x0, uint16_t  y0, uint16_t  r, AwtrixColor circleColor) {
     matrix.drawCircle(x0, y0, r, color(circleColor));
+    
 }
 
 void DisplayManager::fillCircle(uint16_t  x0, uint16_t  y0, uint16_t  r, AwtrixColor circleColor) {
     matrix.fillCircle(x0, y0, r, color(circleColor));
+   
 }
 
 void DisplayManager::drawRoundRect(uint16_t x0, uint16_t y0, uint16_t w, uint16_t h, uint16_t radius, AwtrixColor RoundRectColor) {
     matrix.drawRoundRect(x0, y0, w,h ,radius, color(RoundRectColor));
+    
 }
 
 void DisplayManager::fillRoundRect(uint16_t x0, uint16_t y0, uint16_t w, uint16_t h, uint16_t radius, AwtrixColor RoundRectColor) {
     matrix.fillRoundRect(x0, y0, w,h ,radius, color(RoundRectColor));
+    
 }
 
 void DisplayManager::drawTriangle(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, AwtrixColor triangleColor) {
     matrix.drawTriangle(x0, y0, x1, y1, x2, y2, color(triangleColor));
+    
 }
 
 void DisplayManager::fillTriangle(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, AwtrixColor triangleColor) {
     matrix.fillTriangle(x0, y0, x1, y1, x2, y2, color(triangleColor));
+    
 }
 
 void DisplayManager::drawChar(uint16_t x, uint16_t y, char c, AwtrixColor charColor, uint16_t bg, uint8_t size) {
     matrix.drawChar(x, y, c, color(charColor),bg, size);
+    
 }
 
 void DisplayManager::fillScreen(int ScreenColor) {
     matrix.fillScreen(ScreenColor);
-    matrix.show();
+    
 }
 
 void DisplayManager::clear() {
-    matrix.fillScreen(0);  
+    matrix.fillScreen(0); 
+    
 }
 
 void DisplayManager::refresh() {
@@ -132,7 +144,7 @@ void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor 
     matrix.setTextColor(color(defaultTextColor));
     matrix.setCursor(position.x, position.y);
     matrix.print(text);
-    matrix.show();
+
     matrix.setFont();
 }
 
@@ -166,6 +178,7 @@ if (autoScroll) {
 
 void DisplayManager::drawBitmap(unsigned char bmp[], AwtrixPosition position , AwtrixColor bmpColor, int16_t width, int16_t height) {
     matrix.drawBitmap(position.x, position.y, bmp, width, height, color(bmpColor));
+     matrix.show();
 }
 
 void DisplayManager::flashProgress(unsigned int progress, unsigned int total) {

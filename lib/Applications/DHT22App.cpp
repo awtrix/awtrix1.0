@@ -13,7 +13,7 @@ DHT22App::DHT22App() : dht(DHTPIN, DHTTYPE) {
 
 void DHT22App::render(DisplayManager& display) {
     if (TH){
-        display.drawApp(temp,String(temperature)+ "\xA7" + String(humidity)+ "%",{0,0},{255, 255, 255},true,30,200);
+        display.drawApp(temp,String(temperature)+ "\xA7",{0,0},{255, 255, 255},true,30,200);
     }else{
         display.drawApp(hum,String(humidity)+ "%",{0,0},{255, 255, 255},true,30,200);
     } 
@@ -24,6 +24,7 @@ void DHT22App::render(DisplayManager& display) {
 void DHT22App::update() {
     humidity = (int)dht.readHumidity(false);
     temperature = (int)dht.readTemperature(false);
+    
 }
 
 void DHT22App::enable() {

@@ -3,13 +3,13 @@
 
 void AwtrixSettings::initialise() {
     if (!SPIFFS.begin()) {
-        Serial.println("Failed to mount file system");
+        Serial.println(F("Failed to mount file system"));
         // TODO: Add exception
     }
 
     File configFile = SPIFFS.open(filename, "r");
     if (!configFile) {
-        Serial.println("Creating default settings");
+        Serial.println(F("Creating default settings"));
         loadDefaultSettings();
         saveSettings();
 
@@ -18,10 +18,10 @@ void AwtrixSettings::initialise() {
 
     size_t size = configFile.size();
     if (size > 2048) { // 2 KiB
-        Serial.println("Config file size is too large");
+        Serial.println(F("Config file size is too large"));
     }
 
-    Serial.println("Config file loaded");
+    Serial.println(F("Config file loaded"));
     std::unique_ptr<char[]> buf(new char[size]);
 
     configFile.readBytes(buf.get(), size);
@@ -31,7 +31,7 @@ void AwtrixSettings::initialise() {
     dataObject = &jsonBuffer.parseObject(buf.get());
 
     if (!dataObject->success()) {
-        Serial.println("Failed to parse config file");
+        Serial.println(F("Failed to parse config file"));
     }
     dataObject->printTo(Serial);
 }
@@ -41,7 +41,7 @@ void AwtrixSettings::parseSettings(char json[]) {
     JsonObject& root = jsonBuffer.parseObject(json);
 
     if (!root.success()) {
-        Serial.println("parseObject() failed");
+        Serial.println(F("parseObject() failed"));
         return;
     }
 
@@ -77,13 +77,13 @@ void AwtrixSettings::loadDefaultSettings() {
 bool AwtrixSettings::saveSettings() {
     File configFile = SPIFFS.open(filename, "w");
     if (!configFile) {
-        Serial.println("Failed to open config file for writing");
+        Serial.println(F("Failed to open config file for writing"));
         return false;
     }
 
     dataObject->printTo(configFile);
     configFile.close();
 
-    Serial.println("Config file saved");
+    Serial.println(F("Config file saved"));
     return true;
 }
