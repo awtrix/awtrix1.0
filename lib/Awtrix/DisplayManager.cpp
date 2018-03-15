@@ -139,13 +139,13 @@ void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor 
     }
     if (small) {
         matrix.setFont(&TomThumb);
-        matrix.setCursor(position.x, position.y+5);
+        matrix.setCursor(position.x, position.y+6);
     }else{
         matrix.setFont();
         matrix.setCursor(position.x, position.y);
     }
 
-    matrix.setTextColor(color(defaultTextColor));
+    matrix.setTextColor(color(textColor));
     
     matrix.print(text);
 

@@ -5,11 +5,11 @@ unsigned long interval = 1000;
 
 void TimeApp::render(DisplayManager& display) {
     String time = timeClient.getFormattedTime();
-    display.drawText(time, {2, 0}, {152, 0, 255}, true,false);
+    display.drawText(time, {3, 0}, {152, 0, 255}, true,true);
 
     if (millis() - previousMillis > interval) {
         previousMillis = millis(); 
-        blink = !blink;
+        //blink = !blink;
     }
 
     if (blink){
