@@ -25,13 +25,15 @@ void setup() {
 
 //Activate or deactivate  Apps:
 
+   
     applications.addApplication("Time");
     applications.addApplication("Weather");
-    //applications.addApplication("Gol");
-    //applications.addApplication("Pet");
-    //applications.addApplication("DHT22");
+    applications.addApplication("Gol");
     //applications.addApplication("Youtube");
-    //applications.addApplication("Facebook");
+    applications.addApplication("Pet");
+    applications.addApplication("DHT22");
+    applications.addApplication("Facebook");
+
 }
 
 void loop() {

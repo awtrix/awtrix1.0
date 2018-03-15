@@ -107,7 +107,7 @@ void DisplayManager::fillScreen(int ScreenColor) {
 
 void DisplayManager::clear() {
     matrix.fillScreen(0); 
-    
+  
 }
 
 void DisplayManager::refresh() {
@@ -122,6 +122,7 @@ void DisplayManager::show() {
 void DisplayManager::setBrightness(int value) {
     BRIGHTNESS = value;
     matrix.setBrightness(BRIGHTNESS);
+
 }
 
 void DisplayManager::setColor(AwtrixColor textColor) {
@@ -178,7 +179,6 @@ if (autoScroll) {
 
 void DisplayManager::drawBitmap(unsigned char bmp[], AwtrixPosition position , AwtrixColor bmpColor, int16_t width, int16_t height) {
     matrix.drawBitmap(position.x, position.y, bmp, width, height, color(bmpColor));
-     matrix.show();
 }
 
 void DisplayManager::flashProgress(unsigned int progress, unsigned int total) {

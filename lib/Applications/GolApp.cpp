@@ -3,7 +3,7 @@
 
 #define GAMEOFLIFE_SEEDS            (32 * 8 / 3,41)
 #define GAMEOFLIFE_INTERVAL         500
-#define GAMEOFLIFE_AUTORESET        50
+#define GAMEOFLIFE_AUTORESET        20
 #define GAMEOFLIFE_NEW              {0, 255, 0}
 #define GAMEOFLIFE_OLD              {0, 0, 255}
 byte numCells = 0;

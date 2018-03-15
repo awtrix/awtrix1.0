@@ -22,7 +22,7 @@ void FacebookApp::enable() {
 
 void FacebookApp::update() {
     // Is called after "UpdateThreshold". Here you can fetch your nessesary data
-    while (!client.connect(host, httpsPort) && (long) (millis() - target_time) < 0){
+    while (!client.connect(host, httpsPort)) {
     };
 
     client.verify(fingerprint, host);
@@ -40,10 +40,11 @@ void FacebookApp::update() {
     } 
     } 
     // JSON 
-    String line2 = client.readStringUntil('\n'); 
+    String line = client.readStringUntil('\n'); 
     DynamicJsonBuffer jsonBuffer; 
-    JsonObject& root = jsonBuffer.parseObject(line2); 
+    JsonObject& root = jsonBuffer.parseObject(line); 
     pageLikes = root[String("fan_count")]; 
+    line="";
     jsonBuffer.clear();
     client.flush();
     client.stopAll();

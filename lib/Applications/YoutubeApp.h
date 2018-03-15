@@ -10,9 +10,9 @@ class YoutubeApp : public IApplication
 
         String channelId = "UCpGLALzRO0uaasWTsm9M99w";
         const bool UpdateOnEnable = true;
-        WiFiClientSecure client;
+        WiFiClientSecure client1;
         String val;
-        const unsigned long UpdateThreshold = 30000l;
+        const unsigned long UpdateThreshold = 35000l;
     public:
         void render(DisplayManager&) override;
         void update() override;    

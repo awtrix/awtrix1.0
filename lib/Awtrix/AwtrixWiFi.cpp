@@ -106,12 +106,12 @@ void AwtrixWiFi::setup() {
         DisplayManager::getInstance().executeCommand(brightness, in,"");
     };
 
-    thing["Color"] << [](pson& in){
-        int r = in["r"];
-        int g = in["g"];
-        int b = in["b"];
-        DisplayManager::getInstance().setColor({r,g,b});
-    };
+    //thing["Color"] << [](pson& in){
+    //    int r = in["r"];
+    //    int g = in["g"];
+    //    int b = in["b"];
+    //    DisplayManager::getInstance().setColor({r,g,b});
+    //};
 
     //thing["Apps"] << [](pson& in){
     //    bool Time =  (bool)in["Time"];
