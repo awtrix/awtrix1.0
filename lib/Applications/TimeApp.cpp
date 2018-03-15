@@ -19,7 +19,7 @@ void TimeApp::render(DisplayManager& display) {
   display.show();
 }
 
-void TimeApp::update() {
+void TimeApp::enable() {
     timeClient.updateTime();
 }
 

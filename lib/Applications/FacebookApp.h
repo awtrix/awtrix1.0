@@ -9,7 +9,7 @@
 class FacebookApp : public IApplication
 {
     private:
-        WiFiClientSecure client;
+        
         int pageLikes;
         DynamicJsonBuffer jsonBuffer;
 
@@ -26,18 +26,11 @@ class FacebookApp : public IApplication
 
         const int httpsPort = 443; 
         const char* fingerprint = "bd258c1f62a4a6d9cf7d9812d22e2ff57e84fb36"; //https://github.com/gbrault/esp8266-Arduino/blob/master/doc/esp8266wifi/client-secure-examples.md#how-to-verify-servers-identity
-
-
-        const bool UpdateOnEnable = true;               // If true, the update function will be called once everytime the app start
-        
-        const unsigned long UpdateThreshold = 25000l;   // Time until the update function is called. 
-                                                        // (Optional, remove line to use global threshhold)
        
     public:
         
         void render(DisplayManager&) override; 
         void enable() override; 
-        void update() override; 
 };
 
 #endif

@@ -1,33 +1,52 @@
 #include <YoutubeApp.h>
 #include <ESP8266WiFi.h>
-#define target_time 5000
+#include <BMP.h>
 
-static const uint16_t yt[] {0x0, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0x0, 0xf800, 0xf800, 0xf800, 0xffff, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xffff, 0xffff, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xffff, 0xffff, 0xffff, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xffff, 0xffff, 0xffff, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xffff, 0xffff, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xffff, 0xf800, 0xf800, 0xf800, 0xf800, 0x0, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0xf800, 0x0 };
-
-void YoutubeApp::update() {
-    while (!client1.connect("www.youtube.com", 443)&& (long) (millis() - target_time) < 0){
-    };
-
-    client1.print(String("GET /channel/") + channelId + "/about HTTP/1.1\r\n" + "Host:www.youtube.com\r\nConnection: close\r\n\r\n");
-    int repeatCounter = 5;
-
-
-    int idxS, idxE, statsFound = 0;
-    while (client1.connected() && client1.available()) {
-        String line = client1.readStringUntil('\n');
-
-            idxS = line.indexOf("<b>");
-            idxE = line.indexOf("</b>");
-            val = line.substring(idxS + 3, idxE);
-            line="";
-            client1.flush();
-            client1.stopAll();
-           
-            break;
-        
-    }
-}
 
 void YoutubeApp::render(DisplayManager& display) {
-     display.drawApp(yt,val,{0,0},{255, 255, 255},true,30,200);
+     display.drawApp(yt,String(subscribers),{0,0},{255, 255, 255},true,30,200);
 }
+
+
+void YoutubeApp::enable() {
+  WiFiClientSecure client;
+  if (!client.connect("www.youtube.com", 443)) {
+    Serial.println("connection failed");
+    
+  }
+  String cmd = String("GET /youtube/v3/channels?part=statistics&id=") + channelId + "&key=" + apiKey+ " HTTP/1.1\r\n" +
+                "Host: " + host + "\r\nUser-Agent: ESP8266/1.1\r\nConnection: close\r\n\r\n";
+  client.print(cmd);
+
+  int repeatCounter = 10;
+  while (!client.available() && repeatCounter--) {
+    delay(500);
+  }
+  String line,buf="";
+  int startJson=0;
+  
+  while (client.connected() && client.available()) {
+    line = client.readStringUntil('\n');
+    if(line[0]=='{') startJson=1;
+    if(startJson) 
+    {
+      for(int i=0;i<line.length();i++)
+        if(line[i]=='[' || line[i]==']') line[i]=' ';
+      buf+=line+"\n";
+    }
+  }
+  client.stop();
+
+  DynamicJsonBuffer jsonBuf;
+  JsonObject &root = jsonBuf.parseObject(buf);
+  if (!root.success()) {
+    Serial.println("parseObject() failed");
+    delay(10);
+   
+  }
+  
+  subscribers = root["items"]["statistics"]["subscriberCount"];
+
+}
+
+

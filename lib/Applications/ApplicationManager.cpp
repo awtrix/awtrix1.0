@@ -1,6 +1,5 @@
 #include <ApplicationManager.h>
 #include <Arduino.h>
-
 #include <TimeApp.h>
 #include <WeatherApp.h>
 #include <YoutubeApp.h>
@@ -9,6 +8,14 @@
 #include <GolApp.h>
 #include <FacebookApp.h>
 
+ struct tcp_pcb;
+        extern struct tcp_pcb* tcp_tw_pcbs;
+        extern "C" void tcp_abort (struct tcp_pcb* pcb);
+
+void tcpCleanup (void) {
+  while (tcp_tw_pcbs)
+    tcp_abort(tcp_tw_pcbs);
+}
 
 IApplication* ApplicationManager::getApplicationWithName(String name) {
     if (name == "Time") {
@@ -77,11 +84,14 @@ void ApplicationManager::switchApplications() {
 
         if (newIndex != activeApplicationIndex) {
             applications[activeApplicationIndex]->disable();
-            DisplayManager::getInstance().wipe({500});
-            applications[newIndex]->enable();
-
-            activeApplicationIndex = newIndex;
+             //DisplayManager::getInstance().clear();
+             tcpCleanup();
             
+            applications[newIndex]->enable();
+            DisplayManager::getInstance().wipe({500});
+            activeApplicationIndex = newIndex;
+           
+
            }
 
         applicationRuntime = 0;

@@ -22,6 +22,7 @@ class ApplicationManager
         IApplication* activeApplication();
         IApplication* getApplicationWithName(String);
         
+       
     public:
         static ApplicationManager& getInstance() {
             static ApplicationManager instance;

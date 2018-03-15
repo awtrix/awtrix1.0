@@ -2,20 +2,22 @@
 #define AwtrixYoutubeApplication_h
 
 #include <IApplication.h>
-#include <AwtrixWiFi.h>
+#include <ArduinoJson.h>
+
 
 class YoutubeApp : public IApplication
 {
     private:
-
+        const char *host = "www.googleapis.com";
+        String apiKey = "AIzaSyBsNaNIocLRYh_kvBXkTzv9EPkSZFpS16M";            // YouTube Data API v3 key generated here: https://console.developers.google.com
         String channelId = "UCpGLALzRO0uaasWTsm9M99w";
-        const bool UpdateOnEnable = true;
-        WiFiClientSecure client1;
+        long subscribers,subscribersBefore = 0;
         String val;
-        const unsigned long UpdateThreshold = 35000l;
+        void getSubscribers(); 
     public:
         void render(DisplayManager&) override;
-        void update() override;    
+        void enable() override; 
+          
 };
 
 #endif

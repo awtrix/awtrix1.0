@@ -16,7 +16,7 @@ class TimeApp : public IApplication
         TimeApp() : timeClient(UTC_OFFSET) {}
 
         void render(DisplayManager&) override;
-        void update() override;
+        void enable() override;
 };
 
 #endif

@@ -103,7 +103,7 @@ void GolApp::render(DisplayManager& display) {
     }
     delay(300);
     display.show();
-   DisplayManager::getInstance().clear();
+    DisplayManager::getInstance().clear();
 
     if (numCells == prevCells) autoResetCount++;
     if (autoResetCount == GAMEOFLIFE_AUTORESET) {

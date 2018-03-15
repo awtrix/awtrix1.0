@@ -29,7 +29,7 @@ void setup() {
     applications.addApplication("Time");
     applications.addApplication("Weather");
     applications.addApplication("Gol");
-    //applications.addApplication("Youtube");
+    applications.addApplication("Youtube");
     applications.addApplication("Pet");
     applications.addApplication("DHT22");
     applications.addApplication("Facebook");

@@ -1,9 +1,7 @@
 #include <FacebookApp.h>
+#include <BMP.h>
 #define target_time 5000
 
-static const uint16_t faceb[] {0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0xffff, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0xffff, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0xffff, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0xffff, 0xffff, 0xffff, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0xffff, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0xffff, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0x3ad3, 0xffff, 0x3ad3, 0x3ad3, 0x3ad3 };
-
-//8x8 RGB Bitmap. Use AWTRIX BMPdrawer to easily create a bitmap (https://github.com/Blueforcer/AWTRIX/tree/master/BMPdrawer)
 
 
 void FacebookApp::render(DisplayManager& display) {
@@ -18,11 +16,8 @@ void FacebookApp::render(DisplayManager& display) {
 
 void FacebookApp::enable() {
     // Is called up once every time the app is started
-}
-
-void FacebookApp::update() {
-    // Is called after "UpdateThreshold". Here you can fetch your nessesary data
-    while (!client.connect(host, httpsPort)) {
+    WiFiClientSecure client;
+     while (!client.connect(host, httpsPort)) {
     };
 
     client.verify(fingerprint, host);
@@ -37,17 +32,17 @@ void FacebookApp::update() {
     if (line == "\r") { 
 
         break; 
-    } 
+    }
+
     } 
     // JSON 
     String line = client.readStringUntil('\n'); 
     DynamicJsonBuffer jsonBuffer; 
     JsonObject& root = jsonBuffer.parseObject(line); 
     pageLikes = root[String("fan_count")]; 
-    line="";
-    jsonBuffer.clear();
-    client.flush();
-    client.stopAll();
+    
+    
 }
+
 
 

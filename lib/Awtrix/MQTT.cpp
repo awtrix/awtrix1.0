@@ -40,7 +40,8 @@ void MQTT::setup() {
 }
 
 void MQTT::loop() {
-    //mqttClient.loop();
+    
+
 }
 
 int MQTT::publish(char* topic, char* payload) {
