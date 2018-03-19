@@ -8,7 +8,7 @@ void AwtrixSettings::loadSettings() {
         Serial.println("Failed to mount file system");
     }
 
-    File configFile = SPIFFS.open("/config.json", "r");
+    File configFile = SPIFFS.open(filename, "r");
     if (!configFile) {
         Serial.println("Writing default Settings");
         saveSettings();
@@ -61,7 +61,7 @@ bool AwtrixSettings::saveSettings() {
     json["SCROLL_SPEED"] = SCROLL_SPEED ;
 
 
-    File configFile = SPIFFS.open("/config.json", "w");
+    File configFile = SPIFFS.open(filename, "w");
     if (!configFile) {
 
         Serial.println("Failed to open config file for writing");
@@ -78,7 +78,7 @@ bool AwtrixSettings::saveSettings() {
 }
 
 void AwtrixSettings::restoreSettings() {
-    SPIFFS.remove("/config.json");
+    SPIFFS.remove(filename);
     Serial.println("Settings restored");
     ESP.restart();
     delay(1000);
