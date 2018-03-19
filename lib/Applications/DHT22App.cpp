@@ -1,6 +1,6 @@
 #include <DHT22App.h>
 #include <BMP.h>
-
+#include <../Awtrix/config.h>
 #define DHTTYPE DHT11
 #define DHTPIN 2
 bool TH;;
@@ -12,9 +12,9 @@ DHT22App::DHT22App() : dht(DHTPIN, DHTTYPE) {
 
 void DHT22App::render(DisplayManager& display) {
     if (TH){
-        display.drawApp(temp,String(temperature)+ "\xA7",{0,0},{255, 255, 255},true,30,200);
+        display.drawApp(temp,String(temperature)+ "\xA7",{0,0},{255, 255, 255},true,200);
     }else{
-        display.drawApp(hum,String(humidity)+ "%",{0,0},{255, 255, 255},true,30,200);
+        display.drawApp(hum,String(humidity)+ "%",{0,0},{255, 255, 255},true,200);
     } 
     
 }

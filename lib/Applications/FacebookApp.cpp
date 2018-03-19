@@ -1,6 +1,6 @@
 #include <FacebookApp.h>
 #include <BMP.h>
-#define target_time 5000
+
 
 
 
@@ -9,7 +9,7 @@ void FacebookApp::render(DisplayManager& display) {
     // see DisplayManager.h for all possible functions.
     // The following function combines all the calls required to display an app.
 
-    display.drawApp(faceb,String(pageLikes),{0,0},{255, 255, 255},true,30,200);
+    display.drawApp(faceb,String(pageLikes),{0,0},{255, 255, 255},true,200);
     //RGBbmp,text to display,{X,Y Textposition},Textcolor, Autoscroll, scrolldelay (lower=faster), Delay for next scroll
 }
 
@@ -20,9 +20,9 @@ void FacebookApp::enable() {
      while (!client.connect(host, httpsPort)) {
     };
 
-    client.verify(fingerprint, host);
+    client.verify(FINGERPRINT, host);
    
-    client.print(String("GET ") + url + " HTTP/1.1\r\n" + 
+    client.print(String("GET ") + FB_API_URL + " HTTP/1.1\r\n" + 
                 "Host: " + host + "\r\n" + 
                 "User-Agent: BuildFailureDetectorESP8266\r\n" + 
                 "Connection: close\r\n\r\n"); 
@@ -30,7 +30,6 @@ void FacebookApp::enable() {
     while (client.connected()) { 
     String line = client.readStringUntil('\n'); 
     if (line == "\r") { 
-
         break; 
     }
 

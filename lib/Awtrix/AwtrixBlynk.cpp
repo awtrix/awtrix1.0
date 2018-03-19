@@ -1,0 +1,46 @@
+
+#include <AwtrixBlynk.h>
+#include <BlynkSimpleEsp8266.h>
+#include <DisplayManager.h>
+#include "config.h"
+
+
+void sendStates() {
+
+}
+
+
+void AwtrixBlynk::setup() {
+    Blynk.config(BLYNK_KEY);
+    Blynk.connect(180);
+    sendStates();
+}
+
+void AwtrixBlynk::loop() {
+    Blynk.run();
+}
+
+BLYNK_CONNECTED() {
+    Blynk.syncAll();
+}
+
+BLYNK_WRITE(V0) // Set Brightness
+{
+    int Value = param.asInt(); // assigning incoming value from pin V1 to a variable
+    DisplayManager::getInstance().setBrightness(Value);
+    BRIGHTNESS=20;
+}
+
+BLYNK_WRITE(V1) // Change TextColor
+{
+    TEXT_COLOR_R = param[0].asInt();
+    TEXT_COLOR_G = param[1].asInt();
+    TEXT_COLOR_B = param[2].asInt();
+    DisplayManager::getInstance().setColor({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B});
+}
+
+BLYNK_READ(V3) //Display RAM
+{
+    Blynk.virtualWrite(3, ESP.getFreeHeap());
+}
+

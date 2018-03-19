@@ -3,14 +3,11 @@
 
 #include <IApplication.h>
 #include <TimeClient.h>
-
-#define UTC_OFFSET 1
-
+#include <../Awtrix/config.h>
 class TimeApp : public IApplication
 {
     private:
         TimeClient timeClient;
-        const unsigned long UpdateThreshold = 30000l;
         bool blink=false;
     public:
         TimeApp() : timeClient(UTC_OFFSET) {}

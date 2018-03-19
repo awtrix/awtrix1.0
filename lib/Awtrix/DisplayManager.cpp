@@ -3,8 +3,8 @@
 #include <Adafruit_NeoMatrix.h>
 #include <Adafruit_NeoPixel.h>
 #include <Fonts/TomThumb.h>
-#include <Settings.h>
 #include <BMP.h>
+
 
 #define MATRIX_PIN          4
 #define MATRIX_WIDTH        32
@@ -28,7 +28,7 @@ void DisplayManager::setup() {
         matrix.setFont();
         fontsize=0;
     };
-    matrix.setTextColor(color(defaultTextColor));
+    matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
     matrix.setBrightness(BRIGHTNESS);
     clear();
 }
@@ -127,13 +127,12 @@ void DisplayManager::setBrightness(int value) {
 }
 
 void DisplayManager::setColor(AwtrixColor textColor) {
-    defaultTextColor=textColor;
-    matrix.setTextColor(color(textColor));
+     matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
 
 }
 
 
-void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor textColor, boolean refresh,boolean small) {
+void DisplayManager::drawText(String text, AwtrixPosition position, boolean refresh,boolean small) {
     if (refresh) {
         matrix.clear();
     }
@@ -145,30 +144,31 @@ void DisplayManager::drawText(String text, AwtrixPosition position, AwtrixColor 
         matrix.setCursor(position.x, position.y);
     }
 
-    matrix.setTextColor(color(textColor));
+    matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
     
     matrix.print(text);
 
     matrix.setFont();
 }
 
-void DisplayManager::drawApp(const uint16_t bmp[], String text, AwtrixPosition position, AwtrixColor textColor, bool autoScroll,int speed, int wait) {
+void DisplayManager::drawApp(const uint16_t bmp[], String text, AwtrixPosition position, AwtrixColor textColor, bool autoScroll, int wait) {
     int pixelsInText = (text.length() * 6);
     int x = 24;
+    int s = map(SCROLL_SPEED,1,100,60,1);
 if (autoScroll) {
     if (text.length()>4){
         while(x > (24 - (pixelsInText+24))){
         matrix.clear();
         matrix.setCursor(--x, 0);
         matrix.print(text);
-        matrix.setTextColor(color(textColor));
+        matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
         matrix.drawRGBBitmap(0,0,bmp,8,8);
         matrix.drawFastVLine(8, 0, 8, 0);
         matrix.show();
-        delay(speed);
+        delay(s);
         }
     }else{
-        matrix.setTextColor(color(textColor));
+        matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
         matrix.setCursor(position.x+9, position.y);
         matrix.print(text);
         matrix.drawRGBBitmap(0,0,bmp,8,8);
@@ -200,7 +200,7 @@ void DisplayManager::flashProgress(unsigned int progress, unsigned int total) {
 }
 
 
-void DisplayManager::scrollText(String text, AwtrixColor textColor) {
+void DisplayManager::scrollText(String text) {
     int x = 32;
     int pixelsInText = (text.length() * 7) + 32;
     matrix.setCursor(x, 0);
@@ -238,7 +238,7 @@ bool DisplayManager::executeCommand(command_t command, String payload1, String p
         case command_t::settings_reset:
             break;
 
-        case command_t::brightness:
+        case command_t::bright:
             if (payload1.toInt()>0){
                 setBrightness(payload1.toInt());
             }
@@ -257,9 +257,9 @@ bool DisplayManager::executeCommand(command_t command, String payload1, String p
 
         case command_t::notification:
             if (payload1 == "E-Mail"){
-                drawApp(mail,payload2,{0,0},{255, 255, 255},true,30,2000);
+                drawApp(mail,payload2,{0,0},{255, 255, 255},true,2000);
             } else if (payload1 == "Whatsapp") {   
-                drawApp(whatsapp,payload2,{0,0},{255, 255, 255},true,30,2000);
+                drawApp(whatsapp,payload2,{0,0},{255, 255, 255},true,2000);
            }
 
            //drawApp(whatsapp,payload1,{0,0},{255, 255, 255},true,30,2000);

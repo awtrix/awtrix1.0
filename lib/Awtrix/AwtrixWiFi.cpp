@@ -2,14 +2,11 @@
 #include <ESP8266mDNS.h>
 #include <WiFiManager.h>
 #include <DisplayManager.h>
-#include <ThingerWifi.h>
+#include "config.h"
 
-const int FW_VERSION = 2;
+const int FW_VERSION = 3;
 const char* fwUrlBase = "http://blueforcer.de/awtrix/";
 
-#define USERNAME "USERNAME"
-#define DEVICE_ID "DEVICE_ID"
-#define DEVICE_CREDENTIAL "DEVICE_CREDENTIAL"
 
 const char* html1 = "<!DOCTYPE html><html><head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1\"/></head><body style=\"background-color:#EEE;font-family:Arial,Tahoma,Verdana;\"><h1>Title</h1>";
 String html2 = "";
@@ -17,7 +14,7 @@ String req;
 
 
 ESP8266HTTPUpdateServer httpUpdater;
-ThingerWifi thing(USERNAME, DEVICE_ID, DEVICE_CREDENTIAL);
+
 
 void checkForUpdates() {
   String fwURL = String( fwUrlBase );
@@ -44,7 +41,7 @@ void checkForUpdates() {
 
     if( newVersion > FW_VERSION ) {
       Serial.println(F("Preparing to update"));
-      DisplayManager::getInstance().drawText("Update...", {0, 5}, {0, 0, 255}, true,true);
+      DisplayManager::getInstance().drawText("Update...", {0, 5}, true,true);
 
       t_httpUpdate_return ret = ESPhttpUpdate.update("http://blueforcer.de/awtrix/firmware.bin");
 
@@ -81,12 +78,9 @@ void AwtrixWiFi::setup() {
     Serial.println(F("WiFi connected"));
     Serial.print(F("IP address: "));
     Serial.println(address); 
-    DisplayManager::getInstance().scrollText(address,{255,0,255});
-   
-    //httpUpdater.setup(&webserver);
-    //webserver.begin();
-   
 
+    if (SHOW_IP_ON_BOOT>0)  DisplayManager::getInstance().scrollText(address);
+ 
     if (MDNS.begin("AWTRIX")) { 
         Serial.println(F("mDNS responder started"));
         MDNS.addService("http", "tcp", 80);
@@ -94,38 +88,12 @@ void AwtrixWiFi::setup() {
         Serial.println(F("Error setting up MDNS responder!"));
     }
 
-    //checkForUpdates();
-
-
-    // ThingerIO functions
-    thing["Notification"] << [](pson& in){
-        DisplayManager::getInstance().executeCommand(notification, in["App"], in["Message"]);
-    };
-
-    thing["Brightness"] << [](pson& in){
-        DisplayManager::getInstance().executeCommand(brightness, in,"");
-    };
-
-    //thing["Color"] << [](pson& in){
-    //    int r = in["r"];
-    //    int g = in["g"];
-    //    int b = in["b"];
-    //    DisplayManager::getInstance().setColor({r,g,b});
-    //};
-
-    //thing["Apps"] << [](pson& in){
-    //    bool Time =  (bool)in["Time"];
-    //    bool Weather =  (bool)in["Weather"];
-    //    bool Pet =  (bool)in["Pet"];
-    //    bool Youtube =  (bool)in["Youtube"];
-    //    bool DHT =  (bool)in["DHT"];
-    // };
+    if (AUTO_UPDATE) checkForUpdates();
 
 }
 
 void AwtrixWiFi::loop() {
-    //webserver.handleClient();
-     //thing.handle();
+
 }
 
 

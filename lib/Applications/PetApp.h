@@ -2,13 +2,13 @@
 #define AwtrixPetApplication_h
 
 #include <IApplication.h>
+#include <../Awtrix/config.h>
+
 
 class PetApp : public IApplication
 {
     private:
-        int PET_MOOD = 1;
-        AwtrixColor eyeColor = {255,255,255};
-        
+        AwtrixColor eyeColor = {255,255,255};      
     public:
         void render(DisplayManager&) override;
 };

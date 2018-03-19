@@ -1,15 +1,16 @@
 #include <TimeApp.h>
 
+
 unsigned long previousMillis = 0; 
 unsigned long interval = 1000; 
 
 void TimeApp::render(DisplayManager& display) {
     String time = timeClient.getFormattedTime();
-    display.drawText(time, {3, 0}, {152, 0, 255}, true,true);
+    display.drawText(time, {3, 0}, true,!BIG_TIME);
 
-    if (millis() - previousMillis > interval) {
+    if ((millis() - previousMillis > interval) & BIG_TIME) {
         previousMillis = millis(); 
-        //blink = !blink;
+        blink = !blink;
     }
 
     if (blink){

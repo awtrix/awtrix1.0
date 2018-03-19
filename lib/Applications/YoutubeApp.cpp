@@ -4,9 +4,8 @@
 
 
 void YoutubeApp::render(DisplayManager& display) {
-     display.drawApp(yt,String(subscribers),{0,0},{255, 255, 255},true,30,200);
+     display.drawApp(yt,String(subscribers),{0,0},{255, 255, 255},true,200);
 }
-
 
 void YoutubeApp::enable() {
   WiFiClientSecure client;
@@ -14,13 +13,13 @@ void YoutubeApp::enable() {
     Serial.println("connection failed");
     
   }
-  String cmd = String("GET /youtube/v3/channels?part=statistics&id=") + channelId + "&key=" + apiKey+ " HTTP/1.1\r\n" +
+  String cmd = String("GET /youtube/v3/channels?part=statistics&id=") + YT_CHANNEL_ID + "&key=" + YT_API_KEY + " HTTP/1.1\r\n" +
                 "Host: " + host + "\r\nUser-Agent: ESP8266/1.1\r\nConnection: close\r\n\r\n";
   client.print(cmd);
 
   int repeatCounter = 10;
   while (!client.available() && repeatCounter--) {
-    delay(500);
+    delay(100);
   }
   String line,buf="";
   int startJson=0;
@@ -40,9 +39,7 @@ void YoutubeApp::enable() {
   DynamicJsonBuffer jsonBuf;
   JsonObject &root = jsonBuf.parseObject(buf);
   if (!root.success()) {
-    Serial.println("parseObject() failed");
     delay(10);
-   
   }
   
   subscribers = root["items"]["statistics"]["subscriberCount"];

@@ -1,10 +1,19 @@
 #include <MQTT.h>
 #include <DisplayManager.h>
+#include <Settings.h>
 
-#define MQTT_SERVER     "m14.cloudmqtt.com"
-#define MQTT_PORT       18422
-#define MQTT_USERNAME   "qhesfmkc"
-#define MQTT_PASSWORD   "tIyVJka59iDw"
+AwtrixSettings& settings = AwtrixSettings::getInstance();
+
+
+void commands(String topic,String payload){
+  if (topic=="awtrix/settings/json"){
+        settings.parseSettings(payload);
+    }
+
+     if (topic=="text"){
+        DisplayManager::getInstance().scrollText(payload);
+    }
+}
 
 void callback(char* topic, byte* payload, unsigned int length) {
     Serial.print(F("Message arrived ["));
@@ -14,11 +23,11 @@ void callback(char* topic, byte* payload, unsigned int length) {
     for (int i = 0; i < length; i++) {
         Payload += (char)payload[i];
     }
-    if (topic=="settings"){
-       
-    }
-
+    commands(topic,Payload);
 }
+
+
+
 
 void MQTT::setup() {
     while (!mqttClient.connected()) {
@@ -35,8 +44,10 @@ void MQTT::setup() {
         }
     }
 
-    //mqttClient.publish("awtrix/text", "Hello from AWTRIX");
-    //mqttClient.subscribe("awtrix/text");
+    mqttClient.publish("awtrix/message", "Hello from AWTRIX");
+    mqttClient.subscribe("awtrix/text");
+    mqttClient.subscribe("awtrix/settings");
+    mqttClient.subscribe("awtrix/settings/json");
 }
 
 void MQTT::loop() {
@@ -45,7 +56,7 @@ void MQTT::loop() {
 }
 
 int MQTT::publish(char* topic, char* payload) {
- mqttClient.publish(topic, payload);
+    mqttClient.publish(topic, payload);
 }
 
 /*

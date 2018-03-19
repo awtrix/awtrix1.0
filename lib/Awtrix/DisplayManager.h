@@ -2,12 +2,13 @@
 #define AwtrixDisplayManager_h
 
 #include <Adafruit_NeoMatrix.h>
+#include "config.h"
 
 typedef struct { char red; char green; char blue; } AwtrixColor;
 typedef struct { char x; char y; } AwtrixPosition;
 
 enum command_t { 
-    settings_get, settings_set, settings_reset, brightness, text, color, screen, notification
+    settings_get, settings_set, settings_reset, bright, text, color, screen, notification
 };
 
 class DisplayManager
@@ -19,8 +20,7 @@ class DisplayManager
         void operator = (DisplayManager const&);
 
         Adafruit_NeoMatrix matrix;
-        int BRIGHTNESS = 20;
-        AwtrixColor defaultTextColor = {255,255,255};
+        AwtrixColor defaultTextColor;
         int fontsize;
         void setup();
         uint32_t color(AwtrixColor);
@@ -34,7 +34,7 @@ class DisplayManager
         }
 
         bool executeCommand(command_t, String, String);
-        void drawApp(const uint16_t[], String,AwtrixPosition, AwtrixColor, bool, int, int);
+        void drawApp(const uint16_t[], String,AwtrixPosition, AwtrixColor, bool, int);
         void clear();
         void refresh();
         void wipe(int);
@@ -42,8 +42,8 @@ class DisplayManager
         void checkLight();
         void setBrightness(int);
         void setColor(AwtrixColor);
-        void scrollText(String,AwtrixColor);
-        void drawText(String, AwtrixPosition, AwtrixColor, boolean,boolean);
+        void scrollText(String);
+        void drawText(String, AwtrixPosition, boolean,boolean);
         void drawBitmap(unsigned char[], AwtrixPosition, AwtrixColor, int16_t, int16_t);
         void colorWipe(AwtrixColor);
         void fillScreen(int);
