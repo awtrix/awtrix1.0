@@ -12,7 +12,7 @@ class ApplicationManager
         void operator = (ApplicationManager const&);
 
         unsigned long lastTick = 0l;
-
+        int AppIndex = 0;
         unsigned long applicationRuntime = 0l;
         int activeApplicationIndex = -1;
         int numberOfApplications = 0;
@@ -31,6 +31,7 @@ class ApplicationManager
 
         void loop();
         bool addApplication(String);
+        void nextApplication();
 };
 
 #endif

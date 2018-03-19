@@ -3,6 +3,9 @@
 #include <BlynkSimpleEsp8266.h>
 #include <DisplayManager.h>
 #include "config.h"
+#include <ApplicationManager.h>
+
+
 
 
 void sendStates() {
@@ -49,6 +52,11 @@ BLYNK_WRITE(V2) // BIG_TIME
 BLYNK_WRITE(V3) // BIG_TIME
 {
      SCROLL_SPEED=param.asInt();
+}
+
+BLYNK_WRITE(V4) // nextApplication
+{
+     if(param.asInt()==1) ApplicationManager::getInstance().nextApplication() ;
 }
 
 BLYNK_READ(V10) //Display RAM

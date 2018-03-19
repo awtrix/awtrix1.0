@@ -68,6 +68,17 @@ void ApplicationManager::loop() {
     lastTick = thisTick;
 }
 
+void ApplicationManager::nextApplication() {
+        applications[activeApplicationIndex]->disable();
+        AppIndex = activeApplicationIndex + 1;
+            if (AppIndex >= numberOfApplications) {
+                AppIndex = 0;
+            }
+        applications[AppIndex]->enable();
+        DisplayManager::getInstance().wipe({500});
+        activeApplicationIndex = AppIndex;
+}
+
 void ApplicationManager::switchApplications() {
     if (activeApplicationIndex < 0 && numberOfApplications > 0) {
         // TODO: Check for nullptr
@@ -77,19 +88,19 @@ void ApplicationManager::switchApplications() {
     }
 
     if (applicationRuntime >= activeApplication()->DefaultDisplayTime) {
-        int newIndex = activeApplicationIndex + 1;
-        if (newIndex >= numberOfApplications) {
-            newIndex = 0;
+         AppIndex = activeApplicationIndex + 1;
+        if (AppIndex >= numberOfApplications) {
+            AppIndex = 0;
         }
 
-        if (newIndex != activeApplicationIndex) {
+        if (AppIndex != activeApplicationIndex) {
             applications[activeApplicationIndex]->disable();
              //DisplayManager::getInstance().clear();
              tcpCleanup();
             
-            applications[newIndex]->enable();
+            applications[AppIndex]->enable();
             DisplayManager::getInstance().wipe({500});
-            activeApplicationIndex = newIndex;
+            activeApplicationIndex = AppIndex;
            
 
            }
