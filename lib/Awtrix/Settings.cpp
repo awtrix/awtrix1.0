@@ -45,6 +45,8 @@ void AwtrixSettings::loadSettings() {
 
     if (!json.success()) {
         Serial.println("Failed to parse config file");
+        ESP.restart();
+        delay(1000);
     }
 
     SHOW_IP_ON_BOOT= json["SHOW_IP_ON_BOOT"];

@@ -25,5 +25,5 @@
     const char* MQTT_USERNAME           = "";
     const char* MQTT_PASSWORD           = "";
 
-    const char* BLYNK_KEY               = "b4473b71a6884c97a314cf9e105a15d3";
+    const char* BLYNK_KEY               = "";
     
