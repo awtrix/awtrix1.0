@@ -12,12 +12,12 @@ class AwtrixWiFi
     private:
         void tcpLoop();
 
-        ESP8266WebServer webserver;
+        ESP8266WebServer httpServer;
          WiFiClientSecure client;
         String address;
 
     public:
-        AwtrixWiFi() : webserver(80) {};
+        AwtrixWiFi() : httpServer(80) {};
         void setup();
         void loop();
        

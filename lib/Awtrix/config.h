@@ -7,7 +7,6 @@
     extern int UTC_OFFSET;
     extern int BIG_TIME;
     extern int PET_MOOD;
-    extern int AUTO_UPDATE;
     extern char TEXT_COLOR_R;
     extern char TEXT_COLOR_G;
     extern char TEXT_COLOR_B;

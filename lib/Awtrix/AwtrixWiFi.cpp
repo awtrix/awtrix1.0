@@ -4,8 +4,10 @@
 #include <DisplayManager.h>
 #include "config.h"
 
+
 const int FW_VERSION = 3;
 const char* fwUrlBase = "http://blueforcer.de/awtrix/";
+
 
 
 const char* html1 = "<!DOCTYPE html><html><head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1\"/></head><body style=\"background-color:#EEE;font-family:Arial,Tahoma,Verdana;\"><h1>Title</h1>";
@@ -88,12 +90,16 @@ void AwtrixWiFi::setup() {
         Serial.println(F("Error setting up MDNS responder!"));
     }
 
-    if (AUTO_UPDATE==1) checkForUpdates();
+
+  httpUpdater.setup(&httpServer, "awtrix", "admin"); 
+     httpServer.begin();
+
+    //checkForUpdates();
 
 }
 
 void AwtrixWiFi::loop() {
-
+ httpServer.handleClient();
 }
 
 

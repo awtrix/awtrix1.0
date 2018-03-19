@@ -2,21 +2,6 @@
 #include "FS.h"
 #include "config.h"
 
-void AwtrixSettings::setDefault(){
-     SHOW_IP_ON_BOOT                 = 1;
-     AUTO_BRIGHTNESS                 = 0;
-     BRIGHTNESS                      = 100;
-     UTC_OFFSET                      = 1;
-     BIG_TIME                        = 1;
-     PET_MOOD                        = 0;
-     AUTO_UPDATE                     = 1;
-     TEXT_COLOR_R                   = 255;
-     TEXT_COLOR_G                   = 255;
-     TEXT_COLOR_B                   = 255;
-     SCROLL_SPEED                    = 30;
-}
-
-
 void AwtrixSettings::loadSettings() {
      if (!SPIFFS.begin()) {
         Serial.println("Failed to mount file system");
@@ -25,7 +10,6 @@ void AwtrixSettings::loadSettings() {
     File configFile = SPIFFS.open(filename, "r");
     if (!configFile) {
         Serial.println("Writing default Settings");
-        setDefault();
         saveSettings();
     }
 
@@ -55,7 +39,6 @@ void AwtrixSettings::loadSettings() {
     UTC_OFFSET = json["UTC_OFFSET"];
     BIG_TIME = json["BIG_TIME"];
     PET_MOOD = json["PET_MOOD"];
-    AUTO_UPDATE = json["AUTO_UPDATE"];
     TEXT_COLOR_R = json["TEXT_COLOR_R"];
     TEXT_COLOR_G = json["TEXT_COLOR_G"];
     TEXT_COLOR_B = json["TEXT_COLOR_B"];
@@ -72,7 +55,6 @@ bool AwtrixSettings::saveSettings() {
     json["UTC_OFFSET"] = UTC_OFFSET;
     json["BIG_TIME"] = BIG_TIME;
     json["PET_MOOD"] = PET_MOOD;
-    json["AUTO_UPDATE"] = AUTO_UPDATE;
     json["TEXT_COLOR_R"] = TEXT_COLOR_R ;
     json["TEXT_COLOR_G"] = TEXT_COLOR_G ;
     json["TEXT_COLOR_B"] = TEXT_COLOR_B;
@@ -117,7 +99,6 @@ void AwtrixSettings::parseSettings(String json) {
     if (root.containsKey("UTC_OFFSET")) UTC_OFFSET = root["UTC_OFFSET"];
     if (root.containsKey("BIG_TIME"))    BIG_TIME = root["BIG_TIME"];
     if (root.containsKey("PET_MOOD"))  PET_MOOD = root["PET_MOOD"];
-    if (root.containsKey("AUTO_UPDATE")) AUTO_UPDATE = root["AUTO_UPDATE"];
     if (root.containsKey("TEXT_COLOR_R")) TEXT_COLOR_R = root["TEXT_COLOR_R"];
     if (root.containsKey("TEXT_COLOR_G")) TEXT_COLOR_G = root["TEXT_COLOR_G"];
     if (root.containsKey("TEXT_COLOR_B")) TEXT_COLOR_B = root["TEXT_COLOR_B"];
