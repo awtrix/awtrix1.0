@@ -6,7 +6,9 @@
 
 
 void sendStates() {
-
+    Blynk.virtualWrite(0, BRIGHTNESS);
+    Blynk.virtualWrite(2, BIG_TIME);
+    Blynk.virtualWrite(3, SCROLL_SPEED);
 }
 
 
@@ -39,7 +41,17 @@ BLYNK_WRITE(V1) // Change TextColor
     DisplayManager::getInstance().setColor({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B});
 }
 
-BLYNK_READ(V3) //Display RAM
+BLYNK_WRITE(V2) // BIG_TIME
+{
+     BIG_TIME=param.asInt();
+}
+
+BLYNK_WRITE(V3) // BIG_TIME
+{
+     SCROLL_SPEED=param.asInt();
+}
+
+BLYNK_READ(V10) //Display RAM
 {
     Blynk.virtualWrite(3, ESP.getFreeHeap());
 }
