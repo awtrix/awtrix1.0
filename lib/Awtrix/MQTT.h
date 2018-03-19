@@ -14,7 +14,7 @@ class MQTT
         WiFiClient espClient;
         PubSubClient mqttClient;
         void commands(String, String);
-        
+        void reconnect();
     public:
         MQTT() : mqttClient(espClient) {};
         int publish(char*,char*);
