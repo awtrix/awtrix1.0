@@ -16,12 +16,10 @@ void WeatherApp::render(DisplayManager& display) {
 
     } else {
         display.drawApp(sun, conditions.currentTemp + "\xA7",{0,0},{255, 255, 255},true,200);
-      
-    } 
+
+    }
 }
 
 void WeatherApp::enable() {
     wunderground.updateConditions(&conditions, WUNDERGROUND_API_KEY, WUNDERGROUND_LANGUAGE, WUNDERGROUND_ZMW_CODE);
 }
-
-

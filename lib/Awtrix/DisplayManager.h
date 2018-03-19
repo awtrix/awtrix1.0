@@ -7,7 +7,7 @@
 typedef struct { char red; char green; char blue; } AwtrixColor;
 typedef struct { char x; char y; } AwtrixPosition;
 
-enum command_t { 
+enum command_t {
     settings_get, settings_set, settings_reset, bright, text, color, screen, notification
 };
 
@@ -26,7 +26,7 @@ class DisplayManager
         uint32_t color(AwtrixColor);
         uint32_t Wheel(byte,int);
 
-        
+
     public:
         static DisplayManager& getInstance() {
             static DisplayManager instance;

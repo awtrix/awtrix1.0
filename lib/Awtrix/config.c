@@ -21,7 +21,7 @@
     const char* FINGERPRINT             = "";
 
     const char* MQTT_SERVER             = "";
-    int MQTT_PORT                       = ;
+    int MQTT_PORT                       = 58;
     const char* MQTT_USERNAME           = "";
     const char* MQTT_PASSWORD           = "";
 
