@@ -69,6 +69,11 @@ BLYNK_WRITE(V5) // PET_MOOD
      AwtrixSettings::getInstance().saveSettings();
 }
 
+BLYNK_WRITE(V6) // nextApplication
+{
+     if(param.asInt()==1) AwtrixSettings::getInstance().restoreSettings() ;
+}
+
 BLYNK_READ(V10) //Display RAM
 {
     Blynk.virtualWrite(10, ESP.getFreeHeap());

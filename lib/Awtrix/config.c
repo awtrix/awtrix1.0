@@ -1,14 +1,14 @@
-    int SHOW_IP_ON_BOOT                 = 1;
-    int AUTO_BRIGHTNESS                 = 0;
-    int BRIGHTNESS                      = 100;
-    int UTC_OFFSET                      = 1;
-    int BIG_TIME                        = 1;
-    int PET_MOOD                        = 0;
-    int AUTO_UPDATE                     = 0;
-    char TEXT_COLOR_R                   = 255;
-    char TEXT_COLOR_G                   = 255;
-    char TEXT_COLOR_B                   = 255;
-    int SCROLL_SPEED                    = 30;
+    int SHOW_IP_ON_BOOT;
+    int AUTO_BRIGHTNESS;
+    int BRIGHTNESS;
+    int UTC_OFFSET;
+    int BIG_TIME;
+    int PET_MOOD;
+    int AUTO_UPDATE;
+    char TEXT_COLOR_R;
+    char TEXT_COLOR_G;
+    char TEXT_COLOR_B;
+    int SCROLL_SPEED;
 
     const char* WUNDERGROUND_API_KEY    = "";
     const char* WUNDERGROUND_LANGUAGE   = "DE";
@@ -25,5 +25,5 @@
     const char* MQTT_USERNAME           = "";
     const char* MQTT_PASSWORD           = "";
 
-    const char* BLYNK_KEY               = "";
+    const char* BLYNK_KEY               = "b4473b71a6884c97a314cf9e105a15d3";
     

@@ -2,6 +2,20 @@
 #include "FS.h"
 #include "config.h"
 
+void AwtrixSettings::setDefault(){
+     SHOW_IP_ON_BOOT                 = 1;
+     AUTO_BRIGHTNESS                 = 0;
+     BRIGHTNESS                      = 100;
+     UTC_OFFSET                      = 1;
+     BIG_TIME                        = 1;
+     PET_MOOD                        = 0;
+     AUTO_UPDATE                     = 1;
+     TEXT_COLOR_R                   = 255;
+     TEXT_COLOR_G                   = 255;
+     TEXT_COLOR_B                   = 255;
+     SCROLL_SPEED                    = 30;
+}
+
 
 void AwtrixSettings::loadSettings() {
      if (!SPIFFS.begin()) {
@@ -11,6 +25,7 @@ void AwtrixSettings::loadSettings() {
     File configFile = SPIFFS.open(filename, "r");
     if (!configFile) {
         Serial.println("Writing default Settings");
+        setDefault();
         saveSettings();
     }
 
@@ -54,6 +69,7 @@ bool AwtrixSettings::saveSettings() {
     json["BRIGHTNESS"] = BRIGHTNESS;
     json["UTC_OFFSET"] = UTC_OFFSET;
     json["BIG_TIME"] = BIG_TIME;
+    json["PET_MOOD"] = PET_MOOD;
     json["AUTO_UPDATE"] = AUTO_UPDATE;
     json["TEXT_COLOR_R"] = TEXT_COLOR_R ;
     json["TEXT_COLOR_G"] = TEXT_COLOR_G ;

@@ -11,7 +11,7 @@ class AwtrixSettings {
         AwtrixSettings(AwtrixSettings const&);
         void operator = (AwtrixSettings const&);
         const String filename = "/config.json";
-        
+        void setDefault();
         
     public:
        

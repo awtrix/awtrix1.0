@@ -41,8 +41,8 @@ void checkForUpdates() {
 
     if( newVersion > FW_VERSION ) {
       Serial.println(F("Preparing to update"));
-      DisplayManager::getInstance().drawText("Update...", {0, 5}, true,true);
-
+      DisplayManager::getInstance().drawText("Update...", {0, 0}, true,true);
+      DisplayManager::getInstance().show();
       t_httpUpdate_return ret = ESPhttpUpdate.update("http://blueforcer.de/awtrix/firmware.bin");
 
       switch(ret) {
@@ -88,7 +88,7 @@ void AwtrixWiFi::setup() {
         Serial.println(F("Error setting up MDNS responder!"));
     }
 
-    if (AUTO_UPDATE) checkForUpdates();
+    if (AUTO_UPDATE==1) checkForUpdates();
 
 }
 
