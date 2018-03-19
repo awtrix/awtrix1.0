@@ -69,7 +69,11 @@ void ApplicationManager::loop() {
 }
 
 void ApplicationManager::nextApplication() {
+    applicationRuntime=0;
+            DisplayManager::getInstance().drawPixel(31,7,{255,100,0}); 
+        DisplayManager::getInstance().show();
         applications[activeApplicationIndex]->disable();
+
         AppIndex = activeApplicationIndex + 1;
             if (AppIndex >= numberOfApplications) {
                 AppIndex = 0;
@@ -94,10 +98,10 @@ void ApplicationManager::switchApplications() {
         }
 
         if (AppIndex != activeApplicationIndex) {
+                      DisplayManager::getInstance().drawPixel(31,7,{255,100,0}); 
+            DisplayManager::getInstance().show();  
             applications[activeApplicationIndex]->disable();
-             //DisplayManager::getInstance().clear();
-             tcpCleanup();
-            
+
             applications[AppIndex]->enable();
             DisplayManager::getInstance().wipe({500});
             activeApplicationIndex = AppIndex;

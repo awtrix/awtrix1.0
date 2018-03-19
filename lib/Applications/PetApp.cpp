@@ -46,6 +46,7 @@ annoyedBlinkImg[][8]  = {
 };
 
 void PetApp::render(DisplayManager& display) {
+  display.clear();
    if (PET_MOOD == 0){
   display.drawBitmap(sadBlinkImg[(blinkCountdown < sizeof(blinkIndex)) ? blinkIndex[blinkCountdown] : 0],{6, 0},eyeColor, 8, 8 );
   display.drawBitmap(sadBlinkImg[(blinkCountdown < sizeof(blinkIndex)) ? blinkIndex[blinkCountdown] : 0],{18, 0}, eyeColor, 8, 8);

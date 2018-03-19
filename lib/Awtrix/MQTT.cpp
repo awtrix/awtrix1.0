@@ -2,12 +2,12 @@
 #include <DisplayManager.h>
 #include <Settings.h>
 
-AwtrixSettings& settings = AwtrixSettings::getInstance();
+AwtrixSettings& settings1 = AwtrixSettings::getInstance();
 
 
 void commands(String topic,String payload){
   if (topic=="awtrix/settings/json"){
-        settings.parseSettings(payload);
+        settings1.parseSettings(payload);
     }
 
      if (topic=="text"){

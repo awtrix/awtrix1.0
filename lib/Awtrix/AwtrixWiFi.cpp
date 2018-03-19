@@ -79,7 +79,7 @@ void AwtrixWiFi::setup() {
     Serial.print(F("IP address: "));
     Serial.println(address); 
 
-    if (SHOW_IP_ON_BOOT>0)  DisplayManager::getInstance().scrollText(address);
+    if (SHOW_IP_ON_BOOT==1)  DisplayManager::getInstance().scrollText(address);
  
     if (MDNS.begin("AWTRIX")) { 
         Serial.println(F("mDNS responder started"));

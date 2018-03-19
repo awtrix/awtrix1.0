@@ -4,7 +4,7 @@
 #include <IApplication.h>
 #include <WiFiClientSecure.h>
 #include <ArduinoJson.h> 
-#include <../Awtrix/config.h>
+#include <..\Awtrix/config.h>
 
 
 class FacebookApp : public IApplication

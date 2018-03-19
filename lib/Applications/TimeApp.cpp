@@ -6,9 +6,15 @@ unsigned long interval = 1000;
 
 void TimeApp::render(DisplayManager& display) {
     String time = timeClient.getFormattedTime();
-    display.drawText(time, {3, 0}, true,!BIG_TIME);
+    if (BIG_TIME==1){
+    display.drawText(time, {1, 0}, true,false);
 
-    if ((millis() - previousMillis > interval) & BIG_TIME) {
+    }else{
+    display.drawText(time, {3, 0}, true,true);
+    }
+    
+
+    if ((millis() - previousMillis > interval) & BIG_TIME==1) {
         previousMillis = millis(); 
         blink = !blink;
     }

@@ -57,7 +57,7 @@ void DisplayManager::fillRect(uint16_t  x0, uint16_t  y0,uint16_t  x1,uint16_t  
 
 void DisplayManager::drawPixel(uint16_t  x, uint16_t  y, AwtrixColor pixelColor) {
     matrix.drawPixel(x, y, color(pixelColor));
-     
+   
 }
 
 void DisplayManager::drawLine(uint16_t  x0, uint16_t  y0,uint16_t  X1,uint16_t  Y1, AwtrixColor lineColor) {
@@ -202,6 +202,7 @@ void DisplayManager::flashProgress(unsigned int progress, unsigned int total) {
 
 void DisplayManager::scrollText(String text) {
     int x = 32;
+    int s = map(SCROLL_SPEED,0,100,60,2);
     int pixelsInText = (text.length() * 7) + 32;
     matrix.setCursor(x, 0);
     matrix.print(text);
@@ -211,9 +212,9 @@ void DisplayManager::scrollText(String text) {
         matrix.clear();
         matrix.setCursor(--x, 0);
         matrix.print(text);
-        matrix.setTextColor(color(defaultTextColor));
+        matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
         matrix.show();
-        delay(20);
+        delay(s);
     }
 }
 
