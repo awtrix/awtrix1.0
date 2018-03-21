@@ -9,18 +9,23 @@ It supports different modes:
 - time via NTP server
 - current weather via Wonderground API
 - Simulation of a virtual "pet" with different emotions 
-- Game of Life (Not fully implemented yet)
-- Youtube Counter 
+- Game of Life 
+- Youtube Counter
+- Facebook Counter
+- DHT Senor reading
 
-more functions: (Not fully implemented yet)
-- Control and configuration via Android app (via UDP)
-- Changing the text color
-- Display of user-defined texts
+more functions: 
+- Control and configuration via BLYNK
+- Display of user-defined texts via MQTT
 - Automatic brightness control via LDR
+- easy Firmware update via WiFi or Web
 
 The case is designed in Fusion360 and printed in 3D.
 You can get the STL-Files from Thingiverse:
 https://www.thingiverse.com/thing:2791276
+
+Facebook-Group:
+https://www.facebook.com/groups/126493104851075/
 
 
 ## Parts List
