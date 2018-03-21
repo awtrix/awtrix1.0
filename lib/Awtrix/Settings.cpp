@@ -29,7 +29,7 @@ void AwtrixSettings::loadSettings() {
 
     setFile.readBytes(buf.get(), size);
     setFile.close();
-    StaticJsonBuffer<200> jsonBuffer;
+    StaticJsonBuffer<500> jsonBuffer;
     JsonObject& json = jsonBuffer.parseObject(buf.get());
 
     if (!json.success()) {
@@ -206,7 +206,7 @@ const char AwtrixSettings::getSetting(String key){
 }
 
 bool AwtrixSettings::saveSettings() {
-     StaticJsonBuffer<200> jsonBuffer;
+     StaticJsonBuffer<500> jsonBuffer;
     JsonObject& json = jsonBuffer.createObject();
 
     json["SHOW_IP_ON_BOOT"] = SHOW_IP_ON_BOOT;

@@ -7,6 +7,7 @@
 #include <PetApp.h>
 #include <GolApp.h>
 #include <FacebookApp.h>
+#include <../Awtrix/config.h>
 
  struct tcp_pcb;
         extern struct tcp_pcb* tcp_tw_pcbs;
@@ -91,7 +92,8 @@ void ApplicationManager::switchApplications() {
         return;
     }
 
-    if (applicationRuntime >= activeApplication()->DefaultDisplayTime) {
+    //if (applicationRuntime >= activeApplication()->DefaultDisplayTime) {
+    if (applicationRuntime >= (APP_DURATION*1000)) {
          AppIndex = activeApplicationIndex + 1;
         if (AppIndex >= numberOfApplications) {
             AppIndex = 0;
