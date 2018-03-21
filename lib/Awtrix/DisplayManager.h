@@ -39,6 +39,7 @@ class DisplayManager
         void refresh();
         void wipe(int);
         void show();
+        void setERR();
         void checkLight();
         void setBrightness(int);
         void setColor(AwtrixColor);

@@ -1,6 +1,6 @@
 #include <GolApp.h>
 #include <DisplayManager.h>
-#include <..\Awtrix/config.h>
+
 
 
 #define GAMEOFLIFE_SEEDS            (32 * 8 / 3,41)

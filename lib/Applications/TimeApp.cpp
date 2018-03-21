@@ -1,5 +1,5 @@
 #include <TimeApp.h>
-
+#include <../Awtrix/config.h>
 
 unsigned long previousMillis = 0; 
 unsigned long interval = 1000; 
@@ -14,12 +14,13 @@ void TimeApp::render(DisplayManager& display) {
     }
     
 
-    if ((millis() - previousMillis > interval) & BIG_TIME==1) {
+
+    if ((millis() - previousMillis > interval)& BIG_TIME ) {
         previousMillis = millis(); 
         blink = !blink;
     }
 
-    if (blink){
+    if (blink & BIG_TIME){
         display.fillRect(14,0,5,8,{0,0,0});
     }
 

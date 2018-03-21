@@ -2,13 +2,8 @@
 #include <AwtrixBlynk.h>
 #include <BlynkSimpleEsp8266.h>
 #include <DisplayManager.h>
-
 #include <ApplicationManager.h>
 #include <Settings.h>
-
-
-
-
 
 void sendStates() {
     Blynk.virtualWrite(0, BRIGHTNESS);
@@ -33,9 +28,10 @@ void AwtrixBlynk::loop() {
 
 BLYNK_WRITE(V0) // Set Brightness
 {
-    int Value = param.asInt(); // assigning incoming value from pin V1 to a variable
+    int Value = param.asInt(); 
+
     DisplayManager::getInstance().setBrightness(Value);
-    BRIGHTNESS=20;
+    BRIGHTNESS=Value;
     AwtrixSettings::getInstance().saveSettings();
 }
 
@@ -69,11 +65,6 @@ BLYNK_WRITE(V5) // PET_MOOD
 {
      PET_MOOD=param.asInt();
      AwtrixSettings::getInstance().saveSettings();
-}
-
-BLYNK_WRITE(V6) // nextApplication
-{
-     if(param.asInt()==1) AwtrixSettings::getInstance().restoreSettings() ;
 }
 
 BLYNK_READ(V10) //Display RAM

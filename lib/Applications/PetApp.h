@@ -2,7 +2,7 @@
 #define AwtrixPetApplication_h
 
 #include <IApplication.h>
-#include <../Awtrix/config.h>
+
 
 
 class PetApp : public IApplication

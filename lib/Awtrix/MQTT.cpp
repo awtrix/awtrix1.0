@@ -31,7 +31,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
 void MQTT::setup() {
     if (MQTT_SERVER=="") return;
-    while (!mqttClient.connected() & (long) (millis() - target_time) < 0) {
+    while (!mqttClient.connected())  {
         Serial.println(F("Connecting to MQTT..."));
         mqttClient.setServer(MQTT_SERVER, MQTT_PORT);
         mqttClient.setCallback(callback);
@@ -53,7 +53,7 @@ void MQTT::setup() {
 
 void MQTT::reconnect() {
     // Loop until we're reconnected
-    while (!mqttClient.connected() & (long) (millis() - target_time) < 0) {
+    while (!mqttClient.connected())  {
       Serial.println(F("Connecting to MQTT..."));
         mqttClient.setServer(MQTT_SERVER, MQTT_PORT);
         mqttClient.setCallback(callback);
@@ -75,10 +75,7 @@ void MQTT::reconnect() {
 
 
 void MQTT::loop() {
-    if (MQTT_SERVER=="") return;
-    if (!mqttClient.connected()) {
-    reconnect();
-  }
+
     mqttClient.loop();
 
 }

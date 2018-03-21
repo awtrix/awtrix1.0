@@ -1,4 +1,5 @@
 #include <PetApp.h>
+
 uint8_t
 blinkIndex[] = { 1, 2, 3, 4, 3, 2, 1 },
 blinkCountdown = 30, // Countdown to next blink (in frames)

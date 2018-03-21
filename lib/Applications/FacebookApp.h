@@ -4,7 +4,7 @@
 #include <IApplication.h>
 #include <WiFiClientSecure.h>
 #include <ArduinoJson.h> 
-#include <..\Awtrix/config.h>
+#include <../Awtrix/config.h>
 
 
 class FacebookApp : public IApplication
@@ -12,8 +12,6 @@ class FacebookApp : public IApplication
     private:
         
         int pageLikes;
-        DynamicJsonBuffer jsonBuffer;
-
         const char* host = "graph.facebook.com"; 
 
         //This can be done at developers.facebook.com. After the APP is created, note the App ID and App Secret.

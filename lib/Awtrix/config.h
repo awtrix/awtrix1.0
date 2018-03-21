@@ -13,6 +13,19 @@
     extern int SCROLL_SPEED;
     extern int AUTO_UPDATE;
     extern int SOUND;
+
+    extern int TIME_ACTIVE;
+    extern int WEATHER_ACTIVE;
+    extern int PET_ACTIVE;
+    extern int GOL_ACTIVE;
+    extern int DHT_ACTIVE;
+    extern int YT_ACTIVE;
+    extern int FB_ACTIVE;
+    extern int MQTT_ACTIVE;
+    extern int BLYNK_ACTIVE;
+    extern int SETTINGS_FOUND;
+    extern int APP_DURATION;
+
     extern char* WUNDERGROUND_API_KEY;
     extern char* WUNDERGROUND_LANGUAGE;
     extern char* WUNDERGROUND_ZMW_CODE;
@@ -25,7 +38,5 @@
     extern char* MQTT_USERNAME;
     extern char* MQTT_PASSWORD;
     extern char* BLYNK_KEY;
-
-
 
 #endif

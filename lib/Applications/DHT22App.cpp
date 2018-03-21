@@ -1,6 +1,6 @@
 #include <DHT22App.h>
 #include <BMP.h>
-#include <..\Awtrix/config.h>
+
 #define DHTTYPE DHT11
 #define DHTPIN 2
 bool TH;;

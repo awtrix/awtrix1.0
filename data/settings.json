@@ -1,5 +1,5 @@
 {
-  "SHOW_IP_ON_BOOT": "1",
+  "SHOW_IP_ON_BOOT": "0",
   "AUTO_BRIGHTNESS": "0",
   "BRIGHTNESS": "100",
   "UTC_OFFSET": "1",
@@ -9,5 +9,14 @@
   "TEXT_COLOR_G": "100",
   "TEXT_COLOR_B": "255",
   "SCROLL_SPEED": "70",
-  "AUTO_UPDATE": "1"
+  "AUTO_UPDATE": "1",
+  "SOUND": "0",
+  "TIME_ACTIVE": "1",
+  "WEATHER_ACTIVE": "1",
+  "GOL_ACTIVE": "1",
+  "PET_ACTIVE": "1",
+  "FB_ACTIVE": "1",
+  "YT_ACTIVE": "1",
+  "DHT_ACTIVE": "1",
+  "APP_DURATION": "10"
 }

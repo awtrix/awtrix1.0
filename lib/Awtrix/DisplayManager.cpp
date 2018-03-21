@@ -121,7 +121,6 @@ void DisplayManager::show() {
 
 
 void DisplayManager::setBrightness(int value) {
-    BRIGHTNESS = value;
     matrix.setBrightness(BRIGHTNESS);
 
 }
@@ -129,6 +128,15 @@ void DisplayManager::setBrightness(int value) {
 void DisplayManager::setColor(AwtrixColor textColor) {
      matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
 
+}
+
+void DisplayManager::setERR() {
+     matrix.clear();
+    matrix.setTextColor(color({255,0,0}));
+    matrix.setFont();
+    matrix.setCursor(0,0);
+    matrix.print("ERROR");
+    matrix.show();
 }
 
 
@@ -185,6 +193,7 @@ void DisplayManager::drawBitmap(unsigned char bmp[], AwtrixPosition position , A
 }
 
 void DisplayManager::flashProgress(unsigned int progress, unsigned int total) {
+    matrix.setBrightness(100);
     unsigned long pixelColor = color({0, 255, 0});
     
     long num = MATRIX_WIDTH * MATRIX_HEIGHT * progress / total;
