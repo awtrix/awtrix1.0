@@ -9,7 +9,7 @@
 .travis.yml
 lib/readme.txt
 data/config.json
-data/settings.json
+data/settings.json 
 
 .clang_complete
 .gcc-flags.json

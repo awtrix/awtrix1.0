@@ -11,15 +11,15 @@
     int SCROLL_SPEED;
     int SOUND;
 
-    int TIME_ACTIVE=1;
-    int WEATHER_ACTIVE=1;
-    int PET_ACTIVE=1;
-    int GOL_ACTIVE=1;
-    int DHT_ACTIVE=1;
-    int YT_ACTIVE=1;
-    int FB_ACTIVE=1;
-    int MQTT_ACTIVE=1;
-    int BLYNK_ACTIVE=1;
+    int TIME_ACTIVE;
+    int WEATHER_ACTIVE;
+    int PET_ACTIVE;
+    int GOL_ACTIVE;
+    int DHT_ACTIVE;
+    int YT_ACTIVE;
+    int FB_ACTIVE;
+    int MQTT_ACTIVE;
+    int BLYNK_ACTIVE;
     int SETTINGS_FOUND=0;
     int APP_DURATION=20;
 

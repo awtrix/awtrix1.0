@@ -52,7 +52,7 @@ void AwtrixSettings::loadSettings() {
     SCROLL_SPEED = json["SCROLL_SPEED"];
     AUTO_UPDATE = json["AUTO_UPDATE"];
     SOUND = json["SOUND"];
-
+    BLYNK_ACTIVE= json["BLYNK_ACTIVE"];
     TIME_ACTIVE = json["TIME_ACTIVE"];
     WEATHER_ACTIVE = json["WEATHER_ACTIVE"];
     GOL_ACTIVE = json["GOL_ACTIVE"];
@@ -61,6 +61,7 @@ void AwtrixSettings::loadSettings() {
     YT_ACTIVE = json["YT_ACTIVE"];
     DHT_ACTIVE = json["DHT_ACTIVE"];
     APP_DURATION = json["APP_DURATION"];
+    MQTT_ACTIVE= json["MQTT_ACTIVE"];
 }
 
 
@@ -96,8 +97,6 @@ void AwtrixSettings::loadConfig() {
         ESP.restart();
         delay(1000);
     }
-
-
 
 if (json.containsKey("WUNDERGROUND_API_KEY")){
     WUNDERGROUND_API_KEY = (char*)malloc(json["WUNDERGROUND_API_KEY"].measureLength()+1);
@@ -196,14 +195,6 @@ if (json.containsKey("BLYNK_KEY")){
 }
 
 
-const char AwtrixSettings::getSetting(String key){
-    
-    DynamicJsonBuffer jsonBuffer(bufferSize);
-
-    JsonObject& json = jsonBuffer.parseObject("");
-
-    return json[key];
-}
 
 bool AwtrixSettings::saveSettings() {
      StaticJsonBuffer<500> jsonBuffer;
