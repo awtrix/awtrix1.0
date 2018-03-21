@@ -11,8 +11,8 @@ void TemplateApp::render(DisplayManager& display) {
     // see DisplayManager.h for all possible functions.
     // The following function combines all the calls required to display an app.
 
-    display.drawApp(sun, templateString, {0,0}, {255, 255, 255}, true, 40, 200);
-    //RGBbmp,text to display,{X,Y Textposition},Textcolor, Autoscroll, scrolldelay (lower=faster), Delay for next scroll
+    display.drawApp(sun, templateString, {0,0}, {255, 255, 255}, true, 200);
+    //RGBbmp,text to display,{X,Y Textposition},Textcolor, Autoscroll,  Delay for next scroll
 }
 
 
@@ -22,7 +22,4 @@ void TemplateApp::enable() {
 }
 
 
-void TemplateApp::update() {
-    // Is called after "UpdateThreshold". Here you can fetch your nessesary data
 
-}

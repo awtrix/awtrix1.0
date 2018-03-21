@@ -2,9 +2,10 @@
 #include <AwtrixBlynk.h>
 #include <BlynkSimpleEsp8266.h>
 #include <DisplayManager.h>
-#include "config.h"
+
 #include <ApplicationManager.h>
 #include <Settings.h>
+
 
 
 
@@ -18,6 +19,7 @@ void sendStates() {
 
 
 void AwtrixBlynk::setup() {
+    Serial.println(F("Setting up BLYNK"));
     Blynk.config(BLYNK_KEY);
     Blynk.connect(180);
     sendStates();
@@ -43,7 +45,7 @@ BLYNK_WRITE(V1) // Change TextColor
     TEXT_COLOR_G = param[1].asInt();
     TEXT_COLOR_B = param[2].asInt();
     DisplayManager::getInstance().setColor({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B});
-        AwtrixSettings::getInstance().saveSettings();
+    AwtrixSettings::getInstance().saveSettings();
 }
 
 BLYNK_WRITE(V2) // BIG_TIME
@@ -54,8 +56,8 @@ BLYNK_WRITE(V2) // BIG_TIME
 
 BLYNK_WRITE(V3) // Scrool_Speed
 {
-     SCROLL_SPEED=param.asInt();
-         AwtrixSettings::getInstance().saveSettings();
+    SCROLL_SPEED=param.asInt();
+    AwtrixSettings::getInstance().saveSettings();
 }
 
 BLYNK_WRITE(V4) // nextApplication

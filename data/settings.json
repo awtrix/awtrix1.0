@@ -1,0 +1,13 @@
+{
+  "SHOW_IP_ON_BOOT": "1",
+  "AUTO_BRIGHTNESS": "0",
+  "BRIGHTNESS": "100",
+  "UTC_OFFSET": "1",
+  "BIG_TIME": "1",
+  "PET_MOOD": "1",
+  "TEXT_COLOR_R": "255",
+  "TEXT_COLOR_G": "100",
+  "TEXT_COLOR_B": "255",
+  "SCROLL_SPEED": "70",
+  "AUTO_UPDATE": "1"
+}

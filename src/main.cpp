@@ -21,7 +21,7 @@ AwtrixSettings& settings = AwtrixSettings::getInstance();
 void setup() {
     Serial.begin(115200);
     pinMode(BUTTON_RESET_CONFIG, INPUT);
-    settings.loadSettings();
+    settings.loadSPIFFS();
     wifi.setup();
     mqtt.setup();
     ota.setup();

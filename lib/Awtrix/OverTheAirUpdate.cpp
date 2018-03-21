@@ -3,7 +3,7 @@
 #include <ArduinoOTA.h>
 
 void OverTheAirUpdate::setup() {
-    Serial.println(F("Setup OTA"));
+    
 
     ArduinoOTA.onStart([&]() {
         Serial.println(F("OTA Start"));

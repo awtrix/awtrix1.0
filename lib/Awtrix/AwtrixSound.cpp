@@ -16,7 +16,7 @@ int BUZZER= D3;
 int melodie[]={e1,a1,P,a1,g1,a1,e1};
 int dauer[] ={300,200,300,300,300,300,200};
 
-void spiele_Melodie(){  
+void AwtrixSound::playMelody(){  
  
   for(int i=0; i<sizeof(melodie)/2;i++){
  
@@ -27,13 +27,9 @@ void spiele_Melodie(){
 }
 
 void AwtrixSound::setup(){
+    Serial.println(F("Setting up Sound"));
     pinMode(BUZZER,OUTPUT);
     playMelody();
-}
-
-void AwtrixSound::playMelody() {
-   
-   spiele_Melodie();
-
+    Serial.println(F("Sound started"));
 }
 

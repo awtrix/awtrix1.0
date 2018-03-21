@@ -11,18 +11,20 @@
     extern char TEXT_COLOR_G;
     extern char TEXT_COLOR_B;
     extern int SCROLL_SPEED;
-    extern const char* WUNDERGROUND_API_KEY;
-    extern const char* WUNDERGROUND_LANGUAGE;
-    extern const char* WUNDERGROUND_ZMW_CODE;
-    extern const char* YT_API_KEY;
-    extern const char* YT_CHANNEL_ID;
-    extern const char* FB_API_URL;
-    extern const char* FINGERPRINT;
-    extern const char* MQTT_SERVER;
+    extern int AUTO_UPDATE;
+    extern int SOUND;
+    extern char* WUNDERGROUND_API_KEY;
+    extern char* WUNDERGROUND_LANGUAGE;
+    extern char* WUNDERGROUND_ZMW_CODE;
+    extern char* YT_API_KEY;
+    extern char* YT_CHANNEL_ID;
+    extern char* FB_API_URL;
+    extern char* FINGERPRINT;
+    extern char* MQTT_SERVER;
     extern int MQTT_PORT;
-    extern const char* MQTT_USERNAME;
-    extern const char* MQTT_PASSWORD;
-    extern const char* BLYNK_KEY;
+    extern char* MQTT_USERNAME;
+    extern char* MQTT_PASSWORD;
+    extern char* BLYNK_KEY;
 
 
 

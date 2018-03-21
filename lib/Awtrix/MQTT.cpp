@@ -3,7 +3,7 @@
 #include <Settings.h>
 
 AwtrixSettings& settings1 = AwtrixSettings::getInstance();
-
+#define target_time 5000
 
 void commands(String topic,String payload){
   if (topic=="awtrix/settings/json"){
@@ -31,7 +31,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
 void MQTT::setup() {
     if (MQTT_SERVER=="") return;
-    while (!mqttClient.connected()) {
+    while (!mqttClient.connected() & (long) (millis() - target_time) < 0) {
         Serial.println(F("Connecting to MQTT..."));
         mqttClient.setServer(MQTT_SERVER, MQTT_PORT);
         mqttClient.setCallback(callback);
@@ -41,7 +41,7 @@ void MQTT::setup() {
         } else {
             Serial.print(F("failed with state "));
             Serial.print(mqttClient.state());
-            delay(100);
+            delay(300);
         }
     }
 
@@ -53,7 +53,7 @@ void MQTT::setup() {
 
 void MQTT::reconnect() {
     // Loop until we're reconnected
-    while (!mqttClient.connected()) {
+    while (!mqttClient.connected() & (long) (millis() - target_time) < 0) {
       Serial.println(F("Connecting to MQTT..."));
         mqttClient.setServer(MQTT_SERVER, MQTT_PORT);
         mqttClient.setCallback(callback);

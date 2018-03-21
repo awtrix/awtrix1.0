@@ -1,34 +1,40 @@
 #include <Settings.h>
 #include "FS.h"
 #include "config.h"
+#include <DisplayManager.h>
+
+void AwtrixSettings::loadSPIFFS() {
+    loadSettings();
+    loadConfig();
+}
 
 void AwtrixSettings::loadSettings() {
      if (!SPIFFS.begin()) {
         Serial.println("Failed to mount file system");
     }
 
-    File configFile = SPIFFS.open(filename, "r");
-    if (!configFile) {
-        Serial.println("Writing default Settings");
-        saveSettings();
+    File setFile = SPIFFS.open(settingsFile, "r");
+    if (!setFile) {
+        Serial.println("Settings file not found!");
+       
     }
 
-    size_t size = configFile.size();
+    size_t size = setFile.size();
     Serial.println(size);
     if (size > 2048) {
-        Serial.println("Config file size is too large");
+        Serial.println("Settings file size is too large");
     }
-    Serial.println("Config file loaded");
+    Serial.println("Settings file loaded");
     // Allocate a buffer to store contents of the file.
     std::unique_ptr<char[]> buf(new char[size]);
 
-    configFile.readBytes(buf.get(), size);
-    configFile.close();
+    setFile.readBytes(buf.get(), size);
+    setFile.close();
     StaticJsonBuffer<200> jsonBuffer;
     JsonObject& json = jsonBuffer.parseObject(buf.get());
 
     if (!json.success()) {
-        Serial.println("Failed to parse config file");
+        Serial.println("Failed to parse settings file");
         ESP.restart();
         delay(1000);
     }
@@ -43,6 +49,156 @@ void AwtrixSettings::loadSettings() {
     TEXT_COLOR_G = json["TEXT_COLOR_G"];
     TEXT_COLOR_B = json["TEXT_COLOR_B"];
     SCROLL_SPEED = json["SCROLL_SPEED"];
+    AUTO_UPDATE = json["AUTO_UPDATE"];
+    SOUND = json["SOUND"];
+   
+}
+
+
+
+
+void AwtrixSettings::loadConfig() {
+     if (!SPIFFS.begin()) {
+        Serial.println("Failed to mount file system");
+    }
+
+    File confFile = SPIFFS.open(configFile, "r");
+    if (!confFile) {
+        Serial.println("Config File not found!");
+       
+    }
+
+    size_t size = confFile.size();
+    Serial.println(size);
+    if (size > 2048) {
+        Serial.println("Config file size is too large");
+    }
+    Serial.println("Config file loaded");
+    // Allocate a buffer to store contents of the file.
+    std::unique_ptr<char[]> buf(new char[size]);
+
+    confFile.readBytes(buf.get(), size);
+    confFile.close();
+    DynamicJsonBuffer jsonBuffer(bufferSize);
+    JsonObject& json = jsonBuffer.parseObject(buf.get());
+
+    if (!json.success()) {
+        Serial.println("Failed to parse config file");
+        ESP.restart();
+        delay(1000);
+    }
+
+if (json.containsKey("MQTT_PORT")){
+    MQTT_PORT = json["MQTT_PORT"];
+}
+
+if (json.containsKey("WUNDERGROUND_API_KEY")){
+    WUNDERGROUND_API_KEY = (char*)malloc(json["WUNDERGROUND_API_KEY"].measureLength()+1);
+    WUNDERGROUND_API_KEY[0] = '\0';
+    strcpy(WUNDERGROUND_API_KEY, (const char*)json["WUNDERGROUND_API_KEY"]);
+}
+
+if (json.containsKey("WUNDERGROUND_LANGUAGE")){
+    WUNDERGROUND_LANGUAGE = (char*)malloc(json["WUNDERGROUND_LANGUAGE"].measureLength()+1);
+    WUNDERGROUND_LANGUAGE[0] = '\0';
+    strcpy(WUNDERGROUND_LANGUAGE, (const char*)json["WUNDERGROUND_LANGUAGE"]);
+}
+
+if (json.containsKey("WUNDERGROUND_ZMW_CODE")){
+    WUNDERGROUND_ZMW_CODE = (char*)malloc(json["WUNDERGROUND_ZMW_CODE"].measureLength()+1);
+    WUNDERGROUND_ZMW_CODE[0] = '\0';
+    strcpy(WUNDERGROUND_ZMW_CODE, (const char*)json["WUNDERGROUND_ZMW_CODE"]);
+}
+
+if (json.containsKey("YT_API_KEY")){
+    YT_API_KEY = (char*)malloc(json["YT_API_KEY"].measureLength()+1);
+    YT_API_KEY[0] = '\0';
+    strcpy(YT_API_KEY, (const char*)json["YT_API_KEY"]);
+}
+
+if (json.containsKey("YT_CHANNEL_ID")){
+    YT_CHANNEL_ID = (char*)malloc(json["YT_CHANNEL_ID"].measureLength()+1);
+    YT_CHANNEL_ID[0] = '\0';
+    strcpy(YT_CHANNEL_ID, (const char*)json["YT_CHANNEL_ID"]);
+}
+
+if (json.containsKey("FB_API_URL")){
+    FB_API_URL = (char*)malloc(json["FB_API_URL"].measureLength()+1);
+    FB_API_URL[0] = '\0';
+    strcpy(FB_API_URL, (const char*)json["FB_API_URL"]);
+}
+
+if (json.containsKey("FINGERPRINT")){
+    FINGERPRINT = (char*)malloc(json["FINGERPRINT"].measureLength()+1);
+    FINGERPRINT[0] = '\0';
+    strcpy(FINGERPRINT, (const char*)json["FINGERPRINT"]);
+}
+
+if (json.containsKey("MQTT_SERVER")){
+    MQTT_SERVER = (char*)malloc(json["MQTT_SERVER"].measureLength()+1);
+    MQTT_SERVER[0] = '\0';
+    strcpy(MQTT_SERVER, (const char*)json["MQTT_SERVER"]);
+}
+
+if (json.containsKey("MQTT_USERNAME")){
+    MQTT_USERNAME = (char*)malloc(json["MQTT_USERNAME"].measureLength()+1);
+    MQTT_USERNAME[0] = '\0';
+    strcpy(MQTT_USERNAME, (const char*)json["MQTT_USERNAME"]);
+}
+
+if (json.containsKey("MQTT_PASSWORD")){
+    MQTT_PASSWORD = (char*)malloc(json["MQTT_PASSWORD"].measureLength()+1);
+    MQTT_PASSWORD[0] = '\0';
+    strcpy(MQTT_PASSWORD, (const char*)json["MQTT_PASSWORD"]);
+}
+
+if (json.containsKey("BLYNK_KEY")){
+    BLYNK_KEY = (char*)malloc(json["BLYNK_KEY"].measureLength()+1);
+    BLYNK_KEY[0] = '\0';
+    strcpy(BLYNK_KEY, (const char*)json["BLYNK_KEY"]);
+ }   
+
+
+   
+
+
+    Serial.println(F("============================"));
+    Serial.println("Following Config loaded:");
+    Serial.print("SHOW_IP_ON_BOOT: ");Serial.println(SHOW_IP_ON_BOOT);
+    Serial.print("AUTO_BRIGHTNESS: ");Serial.println(AUTO_BRIGHTNESS);
+    Serial.print("BRIGHTNESS: ");Serial.println(BRIGHTNESS);
+    Serial.print("UTC_OFFSET: ");Serial.println(UTC_OFFSET);
+    Serial.print("BIG_TIME: ");Serial.println(BIG_TIME);
+    Serial.print("PET_MOOD: ");Serial.println(PET_MOOD);
+    Serial.print("TEXT_COLOR_R: ");Serial.println(TEXT_COLOR_R);
+    Serial.print("TEXT_COLOR_G: ");Serial.println(TEXT_COLOR_G);
+    Serial.print("TEXT_COLOR_B: ");Serial.println(TEXT_COLOR_B);
+    Serial.print("SCROLL_SPEED: ");Serial.println(SCROLL_SPEED);
+    Serial.print("AUTO_UPDATE: ");Serial.println(AUTO_UPDATE);
+    Serial.print("SOUND: ");Serial.println(SOUND);
+    Serial.print("WUNDERGROUND_API_KEY: ");Serial.println(WUNDERGROUND_API_KEY);
+    Serial.print("WUNDERGROUND_LANGUAGE: ");Serial.println(WUNDERGROUND_LANGUAGE);
+    Serial.print("WUNDERGROUND_ZMW_CODE: ");Serial.println(WUNDERGROUND_ZMW_CODE);
+    Serial.print("YT_API_KEY: ");Serial.println(YT_API_KEY);
+    Serial.print("YT_CHANNEL_ID: ");Serial.println(YT_CHANNEL_ID);
+    Serial.print("FB_API_URL: ");Serial.println(FB_API_URL);
+    Serial.print("FINGERPRINT: ");Serial.println(FINGERPRINT);
+    Serial.print("MQTT_SERVER: ");Serial.println(MQTT_SERVER);
+    Serial.print("MQTT_PORT: ");Serial.println(MQTT_PORT);
+    Serial.print("MQTT_USERNAME: ");Serial.println(MQTT_USERNAME);
+    Serial.print("MQTT_PASSWORD: ");Serial.println(MQTT_PASSWORD);
+    Serial.print("BLYNK_KEY: ");Serial.println(BLYNK_KEY);
+    Serial.print(F("============================"));
+}
+
+
+const char AwtrixSettings::getSetting(String key){
+    
+    DynamicJsonBuffer jsonBuffer(bufferSize);
+
+    JsonObject& json = jsonBuffer.parseObject("");
+
+    return json[key];
 }
 
 bool AwtrixSettings::saveSettings() {
@@ -59,26 +215,27 @@ bool AwtrixSettings::saveSettings() {
     json["TEXT_COLOR_G"] = TEXT_COLOR_G ;
     json["TEXT_COLOR_B"] = TEXT_COLOR_B;
     json["SCROLL_SPEED"] = SCROLL_SPEED ;
+    json["AUTO_UPDATE"] = AUTO_UPDATE ;
+    json["SOUND"] = SOUND ;
 
+    File setFile = SPIFFS.open(settingsFile, "w");
+    if (!setFile) {
 
-    File configFile = SPIFFS.open(filename, "w");
-    if (!configFile) {
-
-        Serial.println("Failed to open config file for writing");
+        Serial.println("Failed to open Settings file for writing");
         return false;
     }
 
-    json.printTo(configFile);
-    configFile.close();
-    Serial.println("Config file saved");
+    json.printTo(setFile);
+    setFile.close();
+    Serial.println("Settings file saved");
 
-    loadSettings();
+
     delay(500);
     return true;
 }
 
 void AwtrixSettings::restoreSettings() {
-    SPIFFS.remove(filename);
+    SPIFFS.remove(settingsFile);
     Serial.println("Settings restored");
     ESP.restart();
     delay(1000);
