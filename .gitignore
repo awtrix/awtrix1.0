@@ -1,0 +1,17 @@
+.pioenvs
+.piolibdeps
+
+.vscode
+.vscode/c_cpp_properties.json
+.vscode/launch.json
+
+# We don't want some platformio generated files.
+.travis.yml
+lib/readme.txt
+data/config.json
+data/settings.json
+
+.clang_complete
+.gcc-flags.json
+.vscode/*.db
+.vscode/.browse.c_cpp.db*
