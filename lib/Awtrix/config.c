@@ -25,6 +25,15 @@
     int SETTINGS_FOUND=0;
     int APP_DURATION=20;
 
+    int CURRENT_HR;
+    int CURRENT_MIN;
+    int SLEEP_START_MIN;
+    int SLEEP_START_HR;
+    int SLEEP_STOP_MIN;
+    int SLEEP_STOP_HR;
+    int SLEEP_MODE=0;
+
+    char* CURRENT_TIME;
     char* WUNDERGROUND_API_KEY;
     char* WUNDERGROUND_LANGUAGE;
     char* WUNDERGROUND_ZMW_CODE;

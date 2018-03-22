@@ -33,9 +33,8 @@ BLYNK_CONNECTED() {
 BLYNK_WRITE(V0) // Set Brightness
 {
     int Value = param.asInt(); 
-
-    DisplayManager::getInstance().setBrightness(Value);
     BRIGHTNESS=Value;
+    DisplayManager::getInstance().setBrightness(Value);
     AwtrixSettings::getInstance().saveSettings();
 }
 
@@ -76,6 +75,25 @@ BLYNK_WRITE(V6) // PET_MOOD
      SHOW_WEEKDAY=param.asInt();
      AwtrixSettings::getInstance().saveSettings();
 }
+
+BLYNK_WRITE(V7) {
+
+   TimeInputParam t(param);
+
+  // Process start time
+
+  if (t.hasStartTime())
+  {
+    SLEEP_START_HR = t.getStartHour();
+    SLEEP_START_MIN = t.getStartMinute();
+  }
+ if (t.hasStopTime())
+  {
+    SLEEP_STOP_HR = t.getStopHour();
+    SLEEP_STOP_MIN = t.getStopMinute();
+  }
+  }
+
 
 BLYNK_READ(V10) //Display RAM
 {

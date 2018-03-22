@@ -25,9 +25,9 @@ void TimeApp::render(DisplayManager& display) {
     }
 
     if (SHOW_WEEKDAY){
-        long day = timeClient.getCurrentEpochWithUtcOffset() / 86400L;
+        long day = timeClient.getCurrentEpoch() / 86400L;
         int day_of_the_week = (day+4) % 7;
-        display.drawWeekday(day_of_the_week);
+        display.drawWeekday(5);
     }
 
   display.show();
