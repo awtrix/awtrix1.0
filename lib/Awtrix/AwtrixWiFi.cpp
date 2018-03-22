@@ -5,7 +5,7 @@
 #include "config.h"
 
 
-const int FW_VERSION = 3;
+const int FW_VERSION = 4;
 const char* fwUrlBase = "http://blueforcer.de/awtrix/";
 
 

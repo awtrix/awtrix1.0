@@ -10,6 +10,7 @@ void sendStates() {
     Blynk.virtualWrite(2, BIG_TIME);
     Blynk.virtualWrite(3, SCROLL_SPEED);
     Blynk.virtualWrite(5, PET_MOOD);
+    Blynk.virtualWrite(6, SHOW_WEEKDAY);
 }
 
 
@@ -24,6 +25,9 @@ void AwtrixBlynk::loop() {
     Blynk.run();
 }
 
+BLYNK_CONNECTED() {
+ sendStates();
+}
 
 
 BLYNK_WRITE(V0) // Set Brightness
@@ -64,6 +68,12 @@ BLYNK_WRITE(V4) // nextApplication
 BLYNK_WRITE(V5) // PET_MOOD
 {
      PET_MOOD=param.asInt();
+     AwtrixSettings::getInstance().saveSettings();
+}
+
+BLYNK_WRITE(V6) // PET_MOOD
+{
+     SHOW_WEEKDAY=param.asInt();
      AwtrixSettings::getInstance().saveSettings();
 }
 
