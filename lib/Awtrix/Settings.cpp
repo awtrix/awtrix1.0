@@ -61,6 +61,7 @@ void AwtrixSettings::loadSettings() {
     FB_ACTIVE = json["FB_ACTIVE"];
     YT_ACTIVE = json["YT_ACTIVE"];
     DHT_ACTIVE = json["DHT_ACTIVE"];
+    FIRE_ACTIVE = json["FIRE_ACTIVE"];
     APP_DURATION = json["APP_DURATION"];
     MQTT_ACTIVE= json["MQTT_ACTIVE"];
 }
@@ -216,6 +217,7 @@ bool AwtrixSettings::saveSettings() {
     json["FB_ACTIVE"] = FB_ACTIVE;
     json["YT_ACTIVE"] = YT_ACTIVE;
     json["DHT_ACTIVE"] = DHT_ACTIVE;
+    json["FIRE_ACTIVE"] = FIRE_ACTIVE;
     json["MQTT_ACTIVE"] = MQTT_ACTIVE;
     json["BLYNK_ACTIVE"] = BLYNK_ACTIVE;
     json["APP_DURATION"] = APP_DURATION;

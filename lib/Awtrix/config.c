@@ -19,6 +19,7 @@
     int DHT_ACTIVE;
     int YT_ACTIVE;
     int FB_ACTIVE;
+    int FIRE_ACTIVE;
     int MQTT_ACTIVE;
     int BLYNK_ACTIVE;
     int SETTINGS_FOUND=0;

@@ -19,6 +19,7 @@
   "FB_ACTIVE": "0",         // Aktiviert die Facebook App (0=AUS/1=AN)
   "YT_ACTIVE": "0",         // Aktiviert die Youtube App (0=AUS/1=AN)
   "DHT_ACTIVE": "0",        // Aktiviert die DHT Sensor App (0=AUS/1=AN)
+  "FIRE_ACTIVE": "0",       // Aktiviert die Fire App (0=AUS/1=AN) 
   "MQTT_ACTIVE": "0",       // Aktivert MQTT Client (0=AUS/1=AN)
   "BLYNK_ACTIVE": "0",      // Aktiviert die Steuerung über BLYNK
   "APP_DURATION": "30"      // Dauer, wie lang eine App angezeigt wird (in Sekunden)

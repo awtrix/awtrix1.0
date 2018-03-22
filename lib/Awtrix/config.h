@@ -22,6 +22,7 @@
     extern int DHT_ACTIVE;
     extern int YT_ACTIVE;
     extern int FB_ACTIVE;
+    extern int FIRE_ACTIVE;
     extern int MQTT_ACTIVE;
     extern int BLYNK_ACTIVE;
     extern int SETTINGS_FOUND;

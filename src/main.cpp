@@ -29,6 +29,7 @@ void setup() {
     ota.setup();
         if (MQTT_ACTIVE) mqtt.setup();
         if (BLYNK_ACTIVE) ESPblynk.setup();
+        if (FIRE_ACTIVE) applications.addApplication("Fire");
         if (TIME_ACTIVE) applications.addApplication("Time");
         if (WEATHER_ACTIVE) applications.addApplication("Weather");
         if (GOL_ACTIVE) applications.addApplication("Gol");

@@ -138,8 +138,8 @@ void DisplayManager::drawWeekday(int day) {
         }else{
             matrix.drawLine(2+i*4, 7, i*4+4, 7, color({50,50,50}));
         }   
-       
     }
+    
 }
 
 void DisplayManager::setERR() {
