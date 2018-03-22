@@ -15,12 +15,6 @@ void TimeApp::render(DisplayManager& display) {
     display.drawText(time, {3, 0}, true,true);
     }
 
-    //calc weekday
-    long day = timeClient.getCurrentEpochWithUtcOffset() / 86400L;
-    int day_of_the_week = (day+4) % 7;
-    display.drawWeekday(day_of_the_week);
-
-
     if ((millis() - previousMillis > interval)& BIG_TIME ) {
         previousMillis = millis(); 
         blink = !blink;
@@ -28,6 +22,12 @@ void TimeApp::render(DisplayManager& display) {
 
     if (blink & BIG_TIME){
         display.fillRect(14,0,5,6,{0,0,0});
+    }
+
+    if (SHOW_WEEKDAY){
+        long day = timeClient.getCurrentEpochWithUtcOffset() / 86400L;
+        int day_of_the_week = (day+4) % 7;
+        display.drawWeekday(day_of_the_week);
     }
 
   display.show();

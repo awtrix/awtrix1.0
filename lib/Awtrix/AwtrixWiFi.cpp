@@ -17,6 +17,10 @@ String req;
 
 ESP8266HTTPUpdateServer httpUpdater;
 
+void configModeCallback (WiFiManager *myWiFiManager) {
+    DisplayManager::getInstance().drawText("AP", {0, 0}, true,false);
+}
+
 
 void checkForUpdates() {
   String fwURL = String( fwUrlBase );
@@ -71,9 +75,11 @@ void checkForUpdates() {
 
 void AwtrixWiFi::setup() {
     Serial.println(F("Setup WiFi"));
-    // matrixText(true, "WiFi", 5, 0, 0, 0, 255);
+
     WiFiManager wifiManager;
     wifiManager.setTimeout(120);
+    wifiManager.setAPCallback(configModeCallback);
+
     wifiManager.autoConnect("AWTRIX");
 
     address = WiFi.localIP().toString();

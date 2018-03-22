@@ -131,14 +131,14 @@ void DisplayManager::setColor(AwtrixColor textColor) {
 }
 
 void DisplayManager::drawWeekday(int day) {
-    int i = 0;
-    for (int x=0; x <=6;x++){
-        if (x==day){
-            matrix.drawLine(1+(x*4+i), 7, 3+(x*4+i), 7, color({200,200,200}));
+
+    for (int i=0; i <=6;i++){
+        if (i==day-1){
+            matrix.drawLine(2+i*4, 7, i*4+4, 7, color({200,200,200}));
         }else{
-            matrix.drawLine(1+(x*4+i), 7, 3+(x*4+i), 7, color({50,50,50}));
+            matrix.drawLine(2+i*4, 7, i*4+4, 7, color({50,50,50}));
         }   
-        i++;  
+       
     }
 }
 
