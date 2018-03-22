@@ -130,6 +130,18 @@ void DisplayManager::setColor(AwtrixColor textColor) {
 
 }
 
+void DisplayManager::drawWeekday(int day) {
+    int i = 0;
+    for (int x=0; x <=6;x++){
+        if (x==day){
+            matrix.drawLine(1+(x*4+i), 7, 3+(x*4+i), 7, color({200,200,200}));
+        }else{
+            matrix.drawLine(1+(x*4+i), 7, 3+(x*4+i), 7, color({50,50,50}));
+        }   
+        i++;  
+    }
+}
+
 void DisplayManager::setERR() {
      matrix.clear();
     matrix.setTextColor(color({255,0,0}));
