@@ -4,6 +4,7 @@
     extern int SHOW_IP_ON_BOOT;
     extern int AUTO_BRIGHTNESS;
     extern int BRIGHTNESS;
+    extern int SHOW_WEEKDAY;
     extern int UTC_OFFSET;
     extern int BIG_TIME;
     extern int PET_MOOD;

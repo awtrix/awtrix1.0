@@ -1,6 +1,7 @@
     int SHOW_IP_ON_BOOT;
     int AUTO_BRIGHTNESS;
     int BRIGHTNESS;
+    int SHOW_WEEKDAY;
     int UTC_OFFSET;
     int BIG_TIME;
     int PET_MOOD;

@@ -43,6 +43,7 @@ void AwtrixSettings::loadSettings() {
     SHOW_IP_ON_BOOT= json["SHOW_IP_ON_BOOT"];
     AUTO_BRIGHTNESS = json["AUTO_BRIGHTNESS"];
     BRIGHTNESS = json["BRIGHTNESS"];
+    SHOW_WEEKDAY = json["SHOW_WEEKDAY"];
     UTC_OFFSET = json["UTC_OFFSET"];
     BIG_TIME = json["BIG_TIME"];
     PET_MOOD = json["PET_MOOD"];
@@ -84,9 +85,7 @@ void AwtrixSettings::loadConfig() {
         Serial.println("Config file size is too large");
     }
     Serial.println("Config file loaded");
-    // Allocate a buffer to store contents of the file.
     std::unique_ptr<char[]> buf(new char[size]);
-
     confFile.readBytes(buf.get(), size);
     confFile.close();
     DynamicJsonBuffer jsonBuffer(bufferSize);
@@ -188,13 +187,10 @@ if (json.containsKey("BLYNK_KEY")){
     BLYNK_KEY = (char*)malloc(json["BLYNK_KEY"].measureLength()+1);
     BLYNK_KEY[0] = '\0';
     strcpy(BLYNK_KEY, (const char*)json["BLYNK_KEY"]);
-}else{
-    BLYNK_ACTIVE=0;
+    }else{
+        BLYNK_ACTIVE=0;
+    }
 }
-
-}
-
-
 
 bool AwtrixSettings::saveSettings() {
      StaticJsonBuffer<500> jsonBuffer;
@@ -203,6 +199,7 @@ bool AwtrixSettings::saveSettings() {
     json["SHOW_IP_ON_BOOT"] = SHOW_IP_ON_BOOT;
     json["AUTO_BRIGHTNESS"] = AUTO_BRIGHTNESS;
     json["BRIGHTNESS"] = BRIGHTNESS;
+    json["SHOW_WEEKDAY"] = SHOW_WEEKDAY;
     json["UTC_OFFSET"] = UTC_OFFSET;
     json["BIG_TIME"] = BIG_TIME;
     json["PET_MOOD"] = PET_MOOD;

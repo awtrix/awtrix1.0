@@ -4,6 +4,7 @@
   "BRIGHTNESS": "100",      // Standart Helligekeit wenn AUTO_BRIGHTNESS deaktivert ist
   "UTC_OFFSET": "1",        // UTC-Zeitverschiebung
   "BIG_TIME": "1",          // Zeigt die Uhrzeit ohne Sekunden an (0=AUS/1=AN)
+  "SHOW_WEEKDAY": "1",      // Zeigt den Wochentag unter der Uhrzeit an (0=AUS/1=AN)
   "PET_MOOD": "1",          // Ändert die "Emotion" der Augen (0=traurig, 1= neutral, 2= glücklich, 3=böse)
   "TEXT_COLOR_R": "255",    // Rotanteil der Schriftfarbe (0-255)
   "TEXT_COLOR_G": "100",    // Grünanteil der Schriftfarbe (0-255)

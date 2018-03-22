@@ -21,8 +21,10 @@ void DHT22App::render(DisplayManager& display) {
 
 
 void DHT22App::enable() {
-    humidity = (int)dht.readHumidity(false);
-    temperature = (int)dht.readTemperature(false);
+    int h=(int)dht.readHumidity(false);
+    int t=(int)dht.readTemperature(false);
+    if (h<100) humidity = h;
+    if (t<100) temperature = t;
     TH=!TH;
 }
  
