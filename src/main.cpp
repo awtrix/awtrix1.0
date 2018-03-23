@@ -7,7 +7,7 @@
 #include <DisplayManager.h>
 #include <AwtrixBlynk.h>
 #include <AwtrixSound.h>
-#include <TimeClient.h>
+
 
 #include "../lib/Awtrix/config.h"
 #define BUTTON_RESET_CONFIG  D3
@@ -15,7 +15,7 @@
 OverTheAirUpdate ota;
 AwtrixWiFi wifi;
 MQTT mqtt;
-TimeClient timeClient(UTC_OFFSET);
+
 
 AwtrixBlynk ESPblynk;
 AwtrixSound sound;
@@ -27,13 +27,11 @@ void setup() {
     pinMode(BUTTON_RESET_CONFIG, INPUT);
     settings.loadSPIFFS();
     wifi.setup();
-    timeClient.updateTime();
-      CURRENT_TIME= "HAllo";
+
     if (SETTINGS_FOUND){
     ota.setup();
         if (MQTT_ACTIVE) mqtt.setup();
         if (BLYNK_ACTIVE) ESPblynk.setup();
-        if (FIRE_ACTIVE) applications.addApplication("Fire");
         if (TIME_ACTIVE) applications.addApplication("Time");
         if (WEATHER_ACTIVE) applications.addApplication("Weather");
         if (GOL_ACTIVE) applications.addApplication("Gol");
@@ -41,9 +39,11 @@ void setup() {
         if (PET_ACTIVE) applications.addApplication("Pet");
         if (DHT_ACTIVE) applications.addApplication("DHT22");
         if (FB_ACTIVE) applications.addApplication("Facebook");
+        if (FIRE_ACTIVE) applications.addApplication("Fire");
         if (SOUND) sound.setup();
     }else{
         DisplayManager::getInstance().setERR();
+        
     }
     
 }

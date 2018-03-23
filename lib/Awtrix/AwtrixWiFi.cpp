@@ -5,7 +5,7 @@
 #include "config.h"
 
 
-const int FW_VERSION = 4;
+const int FW_VERSION = 5;
 const char* fwUrlBase = "http://blueforcer.de/awtrix/";
 
 
@@ -18,7 +18,8 @@ String req;
 ESP8266HTTPUpdateServer httpUpdater;
 
 void configModeCallback (WiFiManager *myWiFiManager) {
-    DisplayManager::getInstance().drawText("AP", {0, 0}, true,false);
+    DisplayManager::getInstance().drawText("AP", {0, 0}, true,false,false);
+    DisplayManager::getInstance().show();
 }
 
 
@@ -47,7 +48,7 @@ void checkForUpdates() {
 
     if( newVersion > FW_VERSION ) {
       Serial.println(F("Preparing to update"));
-      DisplayManager::getInstance().drawText("Update...", {0, 0}, true,true);
+      DisplayManager::getInstance().drawText("Update...", {0, 0}, true,true,false);
       DisplayManager::getInstance().show();
       t_httpUpdate_return ret = ESPhttpUpdate.update("http://blueforcer.de/awtrix/firmware.bin");
 
@@ -75,7 +76,15 @@ void checkForUpdates() {
 
 void AwtrixWiFi::setup() {
     Serial.println(F("Setup WiFi"));
-
+    DisplayManager::getInstance().setColor({255,51,00});
+    DisplayManager::getInstance().drawText("B", {4, 0}, true,false,false);
+    DisplayManager::getInstance().setColor({255,255,0});
+    DisplayManager::getInstance().drawText("O", {10, 0}, false,false,false);
+    DisplayManager::getInstance().setColor({102,255,51});
+    DisplayManager::getInstance().drawText("O", {17, 0}, false,false,false);
+    DisplayManager::getInstance().setColor({51,204,204});
+    DisplayManager::getInstance().drawText("T", {23, 0}, false,false,false);
+    DisplayManager::getInstance().show();
     WiFiManager wifiManager;
     wifiManager.setTimeout(120);
     wifiManager.setAPCallback(configModeCallback);
@@ -100,7 +109,7 @@ void AwtrixWiFi::setup() {
   httpUpdater.setup(&httpServer, "awtrix", "admin"); 
      httpServer.begin();
 
-    //checkForUpdates();
+    if(AUTO_UPDATE) checkForUpdates();
 
 }
 
