@@ -15,7 +15,9 @@ void AwtrixSettings::loadSettings() {
 
     File setFile = SPIFFS.open(settingsFile, "r");
     if (!setFile) {
+        SETTINGS_FOUND=0;
         Serial.println("Settings file not found!");
+        return;
     }
 
     size_t size = setFile.size();
@@ -34,8 +36,9 @@ void AwtrixSettings::loadSettings() {
 
     if (!json.success()) {
         Serial.println("Failed to parse settings file");
-        ESP.restart();
-        delay(1000);
+     SETTINGS_FOUND=0;
+        
+        return;
     }
 
     SETTINGS_FOUND=1;
@@ -77,7 +80,9 @@ void AwtrixSettings::loadConfig() {
     File confFile = SPIFFS.open(configFile, "r");
     if (!confFile) {
         Serial.println("Config File not found!");
-       
+        SETTINGS_FOUND=0;
+        
+        return;
     }
 
     size_t size = confFile.size();
@@ -94,8 +99,9 @@ void AwtrixSettings::loadConfig() {
 
     if (!json.success()) {
         Serial.println("Failed to parse config file");
-        ESP.restart();
-        delay(1000);
+       SETTINGS_FOUND=0;
+        
+        return;
     }
 
 if (json.containsKey("WUNDERGROUND_API_KEY")){

@@ -1,9 +1,12 @@
-
+#define BLYNK_PRINT Serial1
 #include <AwtrixBlynk.h>
 #include <BlynkSimpleEsp8266.h>
 #include <DisplayManager.h>
 #include <ApplicationManager.h>
 #include <Settings.h>
+
+
+WidgetTerminal terminal(V8);
 
 void sendStates() {
     Blynk.virtualWrite(0, BRIGHTNESS);
@@ -11,7 +14,9 @@ void sendStates() {
     Blynk.virtualWrite(3, SCROLL_SPEED);
     Blynk.virtualWrite(5, PET_MOOD);
     Blynk.virtualWrite(6, SHOW_WEEKDAY);
+
 }
+
 
 
 void AwtrixBlynk::setup() {
@@ -82,17 +87,19 @@ BLYNK_WRITE(V7) {
 
   // Process start time
 
-  if (t.hasStartTime())
-  {
+
     SLEEP_START_HR = t.getStartHour();
     SLEEP_START_MIN = t.getStartMinute();
-  }
- if (t.hasStopTime())
-  {
+        Blynk.virtualWrite (V8, SLEEP_START_HR);
+
+
     SLEEP_STOP_HR = t.getStopHour();
     SLEEP_STOP_MIN = t.getStopMinute();
+      Blynk.virtualWrite (V8, SLEEP_STOP_HR);
+
   }
-  }
+
+
 
 
 BLYNK_READ(V10) //Display RAM

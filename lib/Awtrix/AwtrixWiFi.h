@@ -7,17 +7,16 @@
 #include <ESP8266HTTPUpdateServer.h>
 #include <WiFiClientSecure.h>
 
+
 class AwtrixWiFi
 {
     private:
-        void tcpLoop();
-
-        ESP8266WebServer httpServer;
-         WiFiClientSecure client;
+ 
+        WiFiClientSecure client;
         String address;
 
     public:
-        AwtrixWiFi() : httpServer(80) {};
+
         void setup();
         void loop();
        

@@ -32,6 +32,7 @@ class ApplicationManager
         void loop();
         bool addApplication(String);
         void nextApplication();
+        void previousApplication();
 };
 
 #endif

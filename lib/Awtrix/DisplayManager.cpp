@@ -137,18 +137,19 @@ void DisplayManager::drawWeekday(int day) {
         if (i==day-1){
             matrix.drawLine(2+i*4, 7, i*4+4, 7, color({200,200,200}));
         }else{
-            matrix.drawLine(2+i*4, 7, i*4+4, 7, color({50,50,50}));
+            matrix.drawLine(2+i*4, 7, i*4+4, 7, color({80,80,80}));
         }   
     }
     
 }
 
 void DisplayManager::setERR() {
-     matrix.clear();
+    matrix.clear();
     matrix.setTextColor(color({255,0,0}));
     matrix.setFont();
+    matrix.setBrightness(100);
     matrix.setCursor(0,0);
-    matrix.print("ERROR");
+    matrix.print("CONF!");
     matrix.show();
 }
 

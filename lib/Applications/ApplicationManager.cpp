@@ -74,9 +74,11 @@ void ApplicationManager::loop() {
     lastTick = thisTick;
 }
 
+
+
 void ApplicationManager::nextApplication() {
     applicationRuntime=0;
-            DisplayManager::getInstance().drawPixel(31,7,{255,100,0}); 
+        DisplayManager::getInstance().drawPixel(31,7,{255,100,0}); 
         DisplayManager::getInstance().show();
         applications[activeApplicationIndex]->disable();
 
@@ -104,17 +106,25 @@ void ApplicationManager::switchApplications() {
             AppIndex = 0;
         }
 
+    if (SLEEP_MODE){
+        DisplayManager::getInstance().setBrightness(5);
+        if (activeApplicationIndex != 0){
+            applications[activeApplicationIndex]->disable();
+            applications[0]->enable();
+            activeApplicationIndex = 0;
+        }
+    }else{
         if (AppIndex != activeApplicationIndex) {
-                      DisplayManager::getInstance().drawPixel(31,7,{255,100,0}); 
+            DisplayManager::getInstance().drawPixel(31,7,{255,100,0}); 
             DisplayManager::getInstance().show();  
             applications[activeApplicationIndex]->disable();
 
             applications[AppIndex]->enable();
             DisplayManager::getInstance().wipe({500});
             activeApplicationIndex = AppIndex;
-           
+        }
+    }
 
-           }
 
         applicationRuntime = 0;
     }
