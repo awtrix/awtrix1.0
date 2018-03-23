@@ -1,3 +1,4 @@
+#include <string>
 #ifndef config_h
 #define config_h
 
@@ -14,7 +15,7 @@
     extern int SCROLL_SPEED;
     extern int AUTO_UPDATE;
     extern int SOUND;
-
+    extern std::string test;
     extern int TIME_ACTIVE;
     extern int WEATHER_ACTIVE;
     extern int PET_ACTIVE;
@@ -22,11 +23,21 @@
     extern int DHT_ACTIVE;
     extern int YT_ACTIVE;
     extern int FB_ACTIVE;
+    extern int FIRE_ACTIVE;
     extern int MQTT_ACTIVE;
     extern int BLYNK_ACTIVE;
     extern int SETTINGS_FOUND;
     extern int APP_DURATION;
 
+    extern int CURRENT_HR;
+    extern int CURRENT_MIN;
+    extern int SLEEP_START_MIN;
+    extern int SLEEP_START_HR;
+    extern int SLEEP_STOP_MIN;
+    extern int SLEEP_STOP_HR;
+    extern int SLEEP_MODE;
+
+    extern char* CURRENT_TIME;
     extern char* WUNDERGROUND_API_KEY;
     extern char* WUNDERGROUND_LANGUAGE;
     extern char* WUNDERGROUND_ZMW_CODE;

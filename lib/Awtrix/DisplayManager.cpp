@@ -122,11 +122,12 @@ void DisplayManager::show() {
 
 void DisplayManager::setBrightness(int value) {
     matrix.setBrightness(BRIGHTNESS);
+    BRIGHTNESS=value;
 
 }
 
 void DisplayManager::setColor(AwtrixColor textColor) {
-     matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
+     matrix.setTextColor(color(textColor));
 
 }
 
@@ -138,8 +139,8 @@ void DisplayManager::drawWeekday(int day) {
         }else{
             matrix.drawLine(2+i*4, 7, i*4+4, 7, color({50,50,50}));
         }   
-       
     }
+    
 }
 
 void DisplayManager::setERR() {
@@ -152,7 +153,7 @@ void DisplayManager::setERR() {
 }
 
 
-void DisplayManager::drawText(String text, AwtrixPosition position, boolean refresh,boolean small) {
+void DisplayManager::drawText(String text, AwtrixPosition position, boolean refresh,boolean small,boolean gobalColor) {
     if (refresh) {
         matrix.clear();
     }
@@ -163,8 +164,7 @@ void DisplayManager::drawText(String text, AwtrixPosition position, boolean refr
         matrix.setFont();
         matrix.setCursor(position.x, position.y);
     }
-
-    matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
+    if(gobalColor)matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
     
     matrix.print(text);
 
@@ -313,15 +313,21 @@ void DisplayManager::wipe(int wait){
 
 void DisplayManager::checkLight() {
     int brightnessAnalog = analogRead(A0);
-    if (brightnessAnalog<200)
+    if (brightnessAnalog<300)
       {
-        setBrightness(50);
+        setBrightness(30);
       }else if(brightnessAnalog<400)
       {
+         setBrightness(70);
+      }else if(brightnessAnalog>500)
+      {
          setBrightness(100);
-      }else if(brightnessAnalog>400)
+      }else if(brightnessAnalog<600)
       {
          setBrightness(150);
+      }else if(brightnessAnalog>600)
+      {
+         setBrightness(200);
       }
    
 }

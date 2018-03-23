@@ -44,7 +44,7 @@ class DisplayManager
         void setBrightness(int);
         void setColor(AwtrixColor);
         void scrollText(String);
-        void drawText(String, AwtrixPosition, boolean,boolean);
+        void drawText(String, AwtrixPosition, boolean,boolean,boolean);
         void drawBitmap(unsigned char[], AwtrixPosition, AwtrixColor, int16_t, int16_t);
         void colorWipe(AwtrixColor);
         void fillScreen(int);
