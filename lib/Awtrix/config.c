@@ -11,6 +11,7 @@
     char TEXT_COLOR_B;
     int SCROLL_SPEED;
     int SOUND;
+    int MATRIX_MODE;
 
     int TIME_ACTIVE;
     int WEATHER_ACTIVE;
@@ -32,6 +33,7 @@
     int SLEEP_STOP_MIN;
     int SLEEP_STOP_HR;
     int SLEEP_MODE=0;
+    long EPOCH;
 
     char* CURRENT_TIME;
     char* WUNDERGROUND_API_KEY;

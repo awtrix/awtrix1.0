@@ -24,6 +24,7 @@ void setup() {
     Serial.begin(115200);
     Serial1.begin(9800);
     settings.loadSPIFFS();
+    if (MATRIX_MODE) DisplayManager::getInstance().setLayout();
     wifi.setup();
 
     if (SETTINGS_FOUND){
@@ -41,7 +42,7 @@ void setup() {
     }else{
         DisplayManager::getInstance().setERR();
     }
-    
+     
 }
 
 void checkSleepMode(){
@@ -57,17 +58,18 @@ void checkSleepMode(){
 long pMillis = 0; 
 void loop() {
     ota.loop();
-
-    if (!ota.isUpdating()) {
-        wifi.loop();
-        if (MQTT_ACTIVE) mqtt.loop();
-        if (SETTINGS_FOUND) applications.loop();
-        if (BLYNK_ACTIVE)ESPblynk.loop();
-        if (AUTO_BRIGHTNESS) DisplayManager::getInstance().checkLight();
-        if(millis() - pMillis > 30000) {
-        if (SETTINGS_FOUND) timeClient1.updateTime();    
-        pMillis = millis();  
-        checkSleepMode();
+    if (SETTINGS_FOUND){
+        if (!ota.isUpdating()) {
+            wifi.loop();
+            if (MQTT_ACTIVE) mqtt.loop();
+            if (SETTINGS_FOUND) applications.loop();
+            if (BLYNK_ACTIVE)ESPblynk.loop();
+            if (AUTO_BRIGHTNESS) DisplayManager::getInstance().checkLight();
+            if(millis() - pMillis > 30000) {
+            timeClient1.updateTime();    
+            pMillis = millis();  
+            checkSleepMode();
+            }
         }
     }
 }

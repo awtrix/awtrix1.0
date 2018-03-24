@@ -1,5 +1,5 @@
 {
-  "SHOW_IP_ON_BOOT": "1",   // Zeige IP-Adresse beim starten (0=AUS/1=AN)
+  "MATRIX_MODE": "0",   // Zeige IP-Adresse beim starten (0=AUS/1=AN)
   "AUTO_BRIGHTNESS": "0",   // Aktivere die atomatische Helligkeitsregelung
   "BRIGHTNESS": "100",      // Standart Helligekeit wenn AUTO_BRIGHTNESS deaktivert ist
   "UTC_OFFSET": "1",        // UTC-Zeitverschiebung
@@ -9,7 +9,7 @@
   "TEXT_COLOR_R": "255",    // Rotanteil der Schriftfarbe (0-255)
   "TEXT_COLOR_G": "100",    // Grünanteil der Schriftfarbe (0-255)
   "TEXT_COLOR_B": "255",    // Blauanteil der Schriftfarbe (0-255)
-  "SCROLL_SPEED": "70",     // Scrollgeschwindigkeit (1-100)
+  "SCROLL_SPEED": " 70",     // Scrollgeschwindigkeit (1-100)
   "AUTO_UPDATE": "1",       // Es wird nach einem Neustart nach vorhanden Updates gesucht und installiert (0=AUS/1=AN)
   "SOUND": "0",             // Aktiviert die Tonausgabe (0=AUS/1=AN)
   "TIME_ACTIVE": "1",       // Akttiviert die Zeit-App (0=AUS/1=AN)

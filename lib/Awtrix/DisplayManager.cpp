@@ -18,8 +18,13 @@ DisplayManager::DisplayManager() : matrix(MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_PI
     setup();
 }
 
+uint16_t Remap(uint16_t x, uint16_t y) {
+  return MATRIX_WIDTH * y + x;
+}
+
 void DisplayManager::setup() {
     matrix.begin();
+    
     matrix.setTextWrap(false);
     if (SMALLFONT){
         matrix.setFont(&TomThumb);
@@ -30,8 +35,13 @@ void DisplayManager::setup() {
     };
     matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
     matrix.setBrightness(BRIGHTNESS);
+
     clear();
 }
+
+ void DisplayManager::setLayout(){
+    matrix.setRemapFunction(Remap);
+ }
 
 uint32_t DisplayManager::Wheel(byte WheelPos, int pos) {
   if(WheelPos < 85) {
@@ -134,7 +144,7 @@ void DisplayManager::setColor(AwtrixColor textColor) {
 void DisplayManager::drawWeekday(int day) {
 
     for (int i=0; i <=6;i++){
-        if (i==day-1){
+        if (i==day){
             matrix.drawLine(2+i*4, 7, i*4+4, 7, color({200,200,200}));
         }else{
             matrix.drawLine(2+i*4, 7, i*4+4, 7, color({80,80,80}));
@@ -294,6 +304,7 @@ bool DisplayManager::executeCommand(command_t command, String payload1, String p
 
 uint32_t DisplayManager::color(AwtrixColor color)
 {
+  
     return matrix.Color(color.red, color.green, color.blue);
     
 }

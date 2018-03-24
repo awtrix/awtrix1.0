@@ -1,4 +1,4 @@
-#include <string>
+
 #ifndef config_h
 #define config_h
 
@@ -15,7 +15,8 @@
     extern int SCROLL_SPEED;
     extern int AUTO_UPDATE;
     extern int SOUND;
-    extern std::string test;
+
+    extern int MATRIX_MODE;
     extern int TIME_ACTIVE;
     extern int WEATHER_ACTIVE;
     extern int PET_ACTIVE;
@@ -36,6 +37,7 @@
     extern int SLEEP_STOP_MIN;
     extern int SLEEP_STOP_HR;
     extern int SLEEP_MODE;
+    extern long EPOCH;
 
     extern char* CURRENT_TIME;
     extern char* WUNDERGROUND_API_KEY;

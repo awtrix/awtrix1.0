@@ -201,16 +201,19 @@ void handleFileList() {
   String output = "[";
   while (dir.next()) {
     File entry = dir.openFile("r");
+    if (String(entry.name()).substring(1).indexOf("edit") != 0){
     if (output != "[") {
       output += ',';
     }
     bool isDir = false;
+    
     output += "{\"type\":\"";
     output += (isDir) ? "dir" : "file";
     output += "\",\"name\":\"";
     output += String(entry.name()).substring(1);
     output += "\"}";
     entry.close();
+    }
   }
 
   output += "]";
@@ -255,8 +258,9 @@ server.on("/list", HTTP_GET, handleFileList);
   //get heap status, analog input value and all GPIO statuses in one json call
   server.on("/all", HTTP_GET, []() {
     String json = "{";
-    json += "\"heap\":" + String(ESP.getFreeHeap());
-    json += ", \"analog\":" + String(analogRead(A0));
+    json += "\"FreeRAM\":" + String(ESP.getFreeHeap());
+    json += ", \"BrighnessSensor\":" + String(analogRead(A0));
+    json += ", \"epoch\":" + String(EPOCH);
     json += "}";
     server.send(200, "text/json", json);
     json = String();

@@ -43,6 +43,7 @@ void AwtrixSettings::loadSettings() {
 
     SETTINGS_FOUND=1;
 
+    MATRIX_MODE = json["MATRIX_MODE"];
     SHOW_IP_ON_BOOT= json["SHOW_IP_ON_BOOT"];
     AUTO_BRIGHTNESS = json["AUTO_BRIGHTNESS"];
     BRIGHTNESS = json["BRIGHTNESS"];
@@ -202,7 +203,7 @@ if (json.containsKey("BLYNK_KEY")){
 bool AwtrixSettings::saveSettings() {
      StaticJsonBuffer<500> jsonBuffer;
     JsonObject& json = jsonBuffer.createObject();
-
+    json["MATRIX_MODE"] = MATRIX_MODE;
     json["SHOW_IP_ON_BOOT"] = SHOW_IP_ON_BOOT;
     json["AUTO_BRIGHTNESS"] = AUTO_BRIGHTNESS;
     json["BRIGHTNESS"] = BRIGHTNESS;

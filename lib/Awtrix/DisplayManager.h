@@ -61,6 +61,7 @@ class DisplayManager
         void drawTriangle(uint16_t ,uint16_t ,uint16_t,uint16_t,uint16_t,uint16_t ,AwtrixColor);
         void fillTriangle(uint16_t ,uint16_t ,uint16_t,uint16_t,uint16_t,uint16_t ,AwtrixColor);
         void drawChar(uint16_t, uint16_t, char, AwtrixColor, uint16_t, uint8_t);
+        void setLayout();
 };
 
 #endif
