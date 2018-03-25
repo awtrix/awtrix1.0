@@ -5,9 +5,12 @@
 #include "config.h"
 #include <FS.h>
 #include <Settings.h>
+#include <fauxmoESP.h>
+
 const int FW_VERSION = 5;
 const char* fwUrlBase = "http://blueforcer.de/awtrix/";
 File fsUploadFile;
+fauxmoESP fauxmo;
 
 ESP8266WebServer server(80);
 
@@ -305,7 +308,19 @@ void AwtrixWiFi::setup() {
     server.begin();
 
     if(AUTO_UPDATE) checkForUpdates();
+    fauxmo.addDevice("AWTRIX");
+    fauxmo.enable(true);
 
+    fauxmo.onSetState([](unsigned char device_id, const char * device_name, bool state) {
+        if (state){
+          DisplayManager::getInstance().setBrightness(BRIGHTNESS);
+        }else{
+          DisplayManager::getInstance().setBrightness(0);
+        }
+    });
+    fauxmo.onGetState([](unsigned char device_id, const char * device_name) {
+        return true; // whatever the state of the device is
+    });
 
 }
 

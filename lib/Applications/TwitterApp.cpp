@@ -10,7 +10,7 @@ void TwitterApp::enable() {
 String payload;
   HTTPClient http;  //Declare an object of class HTTPClient
  
-    http.begin("http://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=blueray88");  //Specify request destination
+    http.begin(String("http://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=blueray88")+TWITTER_PROFILE);  //Specify request destination
     int httpCode = http.GET();                                                                  //Send the request
  
     if (httpCode > 0) { //Check the returning code
