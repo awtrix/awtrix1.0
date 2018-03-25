@@ -5,12 +5,12 @@
 #include "config.h"
 #include <FS.h>
 #include <Settings.h>
-#include <fauxmoESP.h>
+
 
 const int FW_VERSION = 5;
 const char* fwUrlBase = "http://blueforcer.de/awtrix/";
 File fsUploadFile;
-fauxmoESP fauxmo;
+int brightSave;
 
 ESP8266WebServer server(80);
 
@@ -308,18 +308,24 @@ void AwtrixWiFi::setup() {
     server.begin();
 
     if(AUTO_UPDATE) checkForUpdates();
-    fauxmo.addDevice("AWTRIX");
-    fauxmo.enable(true);
+    alexa.addDevice("ATRIX");
+    alexa.enable(true);
 
-    fauxmo.onSetState([](unsigned char device_id, const char * device_name, bool state) {
+    alexa.onSetState([](unsigned char device_id, const char * device_name, bool state) {
         if (state){
-          DisplayManager::getInstance().setBrightness(BRIGHTNESS);
+           DisplayManager::getInstance().setBrightness(brightSave);
         }else{
+          brightSave=BRIGHTNESS;
           DisplayManager::getInstance().setBrightness(0);
+        
         }
     });
-    fauxmo.onGetState([](unsigned char device_id, const char * device_name) {
-        return true; // whatever the state of the device is
+    alexa.onGetState([](unsigned char device_id, const char * device_name) {
+        if (BRIGHTNESS>0){
+          return true;
+        }else{
+          return false;
+        } // whatever the state of the device is
     });
 
 }
@@ -328,6 +334,7 @@ void AwtrixWiFi::setup() {
 
 void AwtrixWiFi::loop() {
  server.handleClient();
+ alexa.handle();
 }
 
 

@@ -9,9 +9,6 @@
 #include <AwtrixSound.h>
 #include "../lib/Awtrix/config.h"
 
-
-
-
 OverTheAirUpdate ota;
 AwtrixWiFi wifi;
 MQTT mqtt;
@@ -22,7 +19,7 @@ AwtrixSettings& settings = AwtrixSettings::getInstance();
 
 void setup() {
     Serial.begin(115200);
-    Serial1.begin(9800);
+    Serial.print("AWTRIX START");
     settings.loadSPIFFS();
     if (MATRIX_MODE) DisplayManager::getInstance().setLayout();
     wifi.setup();

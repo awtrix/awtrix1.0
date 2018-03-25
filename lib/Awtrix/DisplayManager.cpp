@@ -131,8 +131,9 @@ void DisplayManager::show() {
 
 
 void DisplayManager::setBrightness(int value) {
+     BRIGHTNESS=value;
     matrix.setBrightness(BRIGHTNESS);
-    BRIGHTNESS=value;
+   
 
 }
 

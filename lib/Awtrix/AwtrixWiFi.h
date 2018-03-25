@@ -6,12 +6,13 @@
 #include <ESP8266httpUpdate.h>
 #include <ESP8266HTTPUpdateServer.h>
 #include <WiFiClientSecure.h>
+#include <fauxmoESP.h>
 
 
 class AwtrixWiFi
 {
     private:
- 
+        fauxmoESP alexa;
         WiFiClientSecure client;
         String address;
 
