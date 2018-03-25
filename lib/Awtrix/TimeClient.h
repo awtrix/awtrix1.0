@@ -1,6 +1,7 @@
 /**The MIT License (MIT)
 
 Copyright (c) 2015 by Daniel Eichhorn
+modified by Stephan Mühl
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +26,7 @@ See more at http://blog.squix.ch
 #pragma once
 
 #include <ESPWiFi.h>
-
+#include "config.h"
 #define NTP_PACKET_SIZE 48
 
 class TimeClient {
@@ -34,24 +35,26 @@ class TimeClient {
     float myUtcOffset = 0;
     long localEpoc = 0;
     long localMillisAtUpdate;
-    String weekday;
+  
     const char* ntpServerName = "time.nist.gov";
     unsigned int localPort = 2390;
-    
+    long pMillis = 0; 
     byte packetBuffer[ NTP_PACKET_SIZE]; //buffer to hold incoming and outgoing packets
 
     
   public:
     TimeClient(float utcOffset);
     void updateTime();
+    void loop();
     void setUtcOffset(float utcOffset);
+    String weekday;
     String getHours();
     String getMinutes();
     String getSeconds();
-    String getFormattedTime();
+    String getTime();
+    String getTimeWithoutseconds();
     int getWeekday();
     long getCurrentEpoch();
     long getCurrentEpochWithUtcOffset();
-
 };
 

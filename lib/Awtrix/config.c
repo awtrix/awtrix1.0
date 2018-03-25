@@ -28,6 +28,7 @@
 
     int CURRENT_HR;
     int CURRENT_MIN;
+    int CURRENT_SEC;
     int SLEEP_START_MIN;
     int SLEEP_START_HR;
     int SLEEP_STOP_MIN;

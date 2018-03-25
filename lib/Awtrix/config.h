@@ -32,6 +32,8 @@
 
     extern int CURRENT_HR;
     extern int CURRENT_MIN;
+    extern int CURRENT_SEC;
+
     extern int SLEEP_START_MIN;
     extern int SLEEP_START_HR;
     extern int SLEEP_STOP_MIN;

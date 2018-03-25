@@ -2,7 +2,7 @@
 #define AwtrixTimeApplication_h
 
 #include <IApplication.h>
-#include <TimeClient.h>
+#include <../Awtrix/TimeClient.h>
 #include <../Awtrix/config.h>
 class TimeApp : public IApplication
 {

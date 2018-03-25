@@ -48,7 +48,7 @@ void TimeClient::updateTime() {
                String("Connection: close\r\n\r\n"));
   int repeatCounter = 0;
   while(!client.available() && repeatCounter < 10) {
-    delay(1000); 
+    delay(200); 
     Serial.println(".");
     repeatCounter++;
   }
@@ -65,7 +65,6 @@ void TimeClient::updateTime() {
       // date: Thu, 19 Nov 2015 20:25:40 GMT
       if (line.startsWith("DATE: ")) {
         weekday=line.substring(6,9);
-        Serial.println(weekday);
         int parsedHours = line.substring(23, 25).toInt();
         int parsedMinutes = line.substring(26, 28).toInt();
         int parsedSeconds = line.substring(29, 31).toInt();
@@ -122,8 +121,12 @@ String TimeClient::getSeconds() {
     return String(seconds);
 }
 
-String TimeClient::getFormattedTime() {
+String TimeClient::getTime() {
   return getHours() + ":" + getMinutes() + ":" + getSeconds();
+}
+
+String TimeClient::getTimeWithoutseconds() {
+  return getHours() + ":" + getMinutes();
 }
 
 long TimeClient::getCurrentEpoch() {
@@ -133,5 +136,6 @@ long TimeClient::getCurrentEpoch() {
 long TimeClient::getCurrentEpochWithUtcOffset() {
   return round(getCurrentEpoch() + 3600 * myUtcOffset + 86400L) % 86400L;
 }
+
 
 

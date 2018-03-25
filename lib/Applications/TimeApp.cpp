@@ -1,13 +1,10 @@
 #include <TimeApp.h>
-#include <../Awtrix/config.h>
-#include <TimeLib.h>
-#include <NTPClient.h>
 
 unsigned long previousMillis = 0; 
 unsigned long interval = 1000; 
 
 void TimeApp::render(DisplayManager& display) {
-    String time = timeClient.getFormattedTime();
+    String time = timeClient.getTime();
     if (BIG_TIME==1){
     display.drawText(time, {1, 0}, true,false,true);
 

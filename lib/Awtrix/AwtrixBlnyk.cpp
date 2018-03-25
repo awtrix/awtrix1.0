@@ -86,16 +86,11 @@ BLYNK_WRITE(V7) {
    TimeInputParam t(param);
 
   // Process start time
-
-
     SLEEP_START_HR = t.getStartHour();
     SLEEP_START_MIN = t.getStartMinute();
-        Blynk.virtualWrite (V8, SLEEP_START_HR);
-
-
+ 
     SLEEP_STOP_HR = t.getStopHour();
     SLEEP_STOP_MIN = t.getStopMinute();
-      Blynk.virtualWrite (V8, SLEEP_STOP_HR);
 
   }
 

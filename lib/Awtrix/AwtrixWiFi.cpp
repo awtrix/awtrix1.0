@@ -146,6 +146,7 @@ void handleFileUpload() {
     if (fsUploadFile) {
       fsUploadFile.close();
         AwtrixSettings::getInstance().loadSPIFFS();
+        server.send(200, "text/plain", "Änderungen gespeichert!");
     }
   }
 }
@@ -201,7 +202,7 @@ void handleFileList() {
   String output = "[";
   while (dir.next()) {
     File entry = dir.openFile("r");
-    if (String(entry.name()).substring(1).indexOf("edit") != 0){
+    if (String(entry.name()).substring(1).indexOf("json") > 1){
     if (output != "[") {
       output += ',';
     }
@@ -260,7 +261,6 @@ server.on("/list", HTTP_GET, handleFileList);
     String json = "{";
     json += "\"FreeRAM\":" + String(ESP.getFreeHeap());
     json += ", \"BrighnessSensor\":" + String(analogRead(A0));
-    json += ", \"epoch\":" + String(EPOCH);
     json += "}";
     server.send(200, "text/json", json);
     json = String();
