@@ -13,6 +13,11 @@ void commands(String topic,String payload){
      if (topic=="awtrix/text"){
         DisplayManager::getInstance().scrollText(payload);
     }
+
+    if (topic=="awtrix/app"){
+
+        //DisplayManager::getInstance().drawApp(twitter,payload,{0,0},{255, 255, 255},true,200);;
+    }
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {

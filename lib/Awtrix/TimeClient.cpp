@@ -37,7 +37,7 @@ void TimeClient::setUtcOffset(float utcOffset) {
 void TimeClient::updateTime() {
   WiFiClient client;
   const int httpPort = 80;
-  if (!client.connect("www.google.com", httpPort)) {
+  if (!client.connect("www.google.de", httpPort)) {
     Serial.println("connection failed");
     return;
   }
