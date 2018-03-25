@@ -1,17 +1,15 @@
-#ifndef AwtrixYoutubeApplication_h
-#define AwtrixYoutubeApplication_h
+#ifndef AwtrixTwitterApplication_h
+#define AwtrixTwitterApplication_h
 
 #include <IApplication.h>
 #include <ArduinoJson.h>
 #include <../Awtrix/config.h>
+#include <ESP8266HTTPClient.h>
 
-
-class YoutubeApp : public IApplication
+class TwitterApp : public IApplication
 {
     private:
-        const char *host = "www.googleapis.com";
-        long subscribers = 0;
-
+        int followers;
     public:
         void render(DisplayManager&) override;
         void enable() override; 

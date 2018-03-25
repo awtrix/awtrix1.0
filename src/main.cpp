@@ -32,6 +32,8 @@ void setup() {
         if (BLYNK_ACTIVE) ESPblynk.setup();
         if (TIME_ACTIVE) applications.addApplication("Time");
         if (WEATHER_ACTIVE) applications.addApplication("Weather");
+        if (TWITTER_ACTIVE) applications.addApplication("Twitter");
+
         if (GOL_ACTIVE) applications.addApplication("Gol");
         if (YT_ACTIVE) applications.addApplication("Youtube");
         if (PET_ACTIVE) applications.addApplication("Pet");

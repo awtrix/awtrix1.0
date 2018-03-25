@@ -20,6 +20,7 @@
     int DHT_ACTIVE;
     int YT_ACTIVE;
     int FB_ACTIVE;
+    int TWITTER_ACTIVE;
     int FIRE_ACTIVE;
     int MQTT_ACTIVE;
     int BLYNK_ACTIVE;
@@ -43,6 +44,7 @@
     char* YT_API_KEY;
     char* YT_CHANNEL_ID;
     char* FB_API_URL;
+    char* TWITTER_PROFILE;
     char* FINGERPRINT;
     char* MQTT_SERVER;
     int MQTT_PORT;

@@ -64,6 +64,7 @@ void AwtrixSettings::loadSettings() {
     PET_ACTIVE = json["PET_ACTIVE"];
     FB_ACTIVE = json["FB_ACTIVE"];
     YT_ACTIVE = json["YT_ACTIVE"];
+    TWITTER_ACTIVE = json["TWITTER_ACTIVE"];
     DHT_ACTIVE = json["DHT_ACTIVE"];
     FIRE_ACTIVE = json["FIRE_ACTIVE"];
     APP_DURATION = json["APP_DURATION"];
@@ -145,6 +146,14 @@ if (json.containsKey("YT_CHANNEL_ID")){
     YT_ACTIVE=0;
 }
 
+if (json.containsKey("TWITTER_PROFILE")){
+    TWITTER_PROFILE = (char*)malloc(json["TWITTER_PROFILE"].measureLength()+1);
+    TWITTER_PROFILE[0] = '\0';
+    strcpy(TWITTER_PROFILE, (const char*)json["TWITTER_PROFILE"]);
+}else{
+    TWITTER_ACTIVE=0;
+}
+
 if (json.containsKey("FB_API_URL")){
     FB_API_URL = (char*)malloc(json["FB_API_URL"].measureLength()+1);
     FB_API_URL[0] = '\0';
@@ -219,6 +228,7 @@ bool AwtrixSettings::saveSettings() {
     json["SOUND"] = SOUND;
     json["TIME_ACTIVE"] = TIME_ACTIVE;
     json["WEATHER_ACTIVE"] = WEATHER_ACTIVE;
+    json["TWITTER_ACTIVE"] = TWITTER_ACTIVE;
     json["GOL_ACTIVE"] = GOL_ACTIVE;
     json["PET_ACTIVE"] = PET_ACTIVE;
     json["FB_ACTIVE"] = FB_ACTIVE;

@@ -24,6 +24,7 @@
     extern int DHT_ACTIVE;
     extern int YT_ACTIVE;
     extern int FB_ACTIVE;
+    extern int TWITTER_ACTIVE;
     extern int FIRE_ACTIVE;
     extern int MQTT_ACTIVE;
     extern int BLYNK_ACTIVE;
@@ -48,6 +49,7 @@
     extern char* YT_API_KEY;
     extern char* YT_CHANNEL_ID;
     extern char* FB_API_URL;
+    extern char* TWITTER_PROFILE;
     extern char* FINGERPRINT;
     extern char* MQTT_SERVER;
     extern int MQTT_PORT;

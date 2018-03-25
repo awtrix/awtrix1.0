@@ -8,6 +8,7 @@
 #include <GolApp.h>
 #include <FacebookApp.h>
 #include <FireApp.h>
+#include <TwitterApp.h>
 #include <../Awtrix/config.h>
 
  struct tcp_pcb;
@@ -51,6 +52,11 @@ IApplication* ApplicationManager::getApplicationWithName(String name) {
       if (name == "Fire") {
         return new FireApp();
     }
+
+          if (name == "Twitter") {
+        return new TwitterApp();
+    }
+
 
     return NULL;
 }
