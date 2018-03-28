@@ -8,6 +8,8 @@
 #include <AwtrixBlynk.h>
 #include <AwtrixSound.h>
 #include "../lib/Awtrix/config.h"
+#include <NtpClientLib.h>
+#include <TimeLib.h>
 
 OverTheAirUpdate ota;
 AwtrixWiFi wifi;
@@ -21,14 +23,21 @@ void setup() {
     Serial.begin(115200);
     Serial.print("AWTRIX START");
     settings.loadSPIFFS();
+    
+
     if (MATRIX_MODE) DisplayManager::getInstance().setLayout();
     wifi.setup();
+    NTP.begin ("pool.ntp.org", UTC_OFFSET, true, 0);
+    NTP.setInterval (63);
+    setSyncProvider(NTP.get());
+    setSyncInterval(3600);  
     if (SETTINGS_FOUND){
     ota.setup();
         if (MQTT_ACTIVE) mqtt.setup();
         if (BLYNK_ACTIVE) ESPblynk.setup();
+
         if (TIME_ACTIVE) applications.addApplication("Time");
-        if (WEATHER_ACTIVE) applications.addApplication("Weather");
+                if (WEATHER_ACTIVE) applications.addApplication("Weather");
         if (TWITTER_ACTIVE) applications.addApplication("Twitter");
 
         if (GOL_ACTIVE) applications.addApplication("Gol");
@@ -41,7 +50,7 @@ void setup() {
     }else{
         DisplayManager::getInstance().setERR();
     }
-     
+     Serial.print (NTP.getTimeDateString ());
 }
 
 

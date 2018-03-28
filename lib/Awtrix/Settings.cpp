@@ -106,26 +106,19 @@ void AwtrixSettings::loadConfig() {
         return;
     }
 
-if (json.containsKey("WUNDERGROUND_API_KEY")){
-    WUNDERGROUND_API_KEY = (char*)malloc(json["WUNDERGROUND_API_KEY"].measureLength()+1);
-    WUNDERGROUND_API_KEY[0] = '\0';
-    strcpy(WUNDERGROUND_API_KEY, (const char*)json["WUNDERGROUND_API_KEY"]);
+if (json.containsKey("OWM_API_KEY")){
+    OWM_API_KEY = (char*)malloc(json["OWM_API_KEY"].measureLength()+1);
+    OWM_API_KEY[0] = '\0';
+    strcpy(OWM_API_KEY, (const char*)json["OWM_API_KEY"]);
 }else{
     WEATHER_ACTIVE=0;
 }
 
-if (json.containsKey("WUNDERGROUND_LANGUAGE")){
-    WUNDERGROUND_LANGUAGE = (char*)malloc(json["WUNDERGROUND_LANGUAGE"].measureLength()+1);
-    WUNDERGROUND_LANGUAGE[0] = '\0';
-    strcpy(WUNDERGROUND_LANGUAGE, (const char*)json["WUNDERGROUND_LANGUAGE"]);
-}else{
-    WEATHER_ACTIVE=0;
-}
 
-if (json.containsKey("WUNDERGROUND_ZMW_CODE")){
-    WUNDERGROUND_ZMW_CODE = (char*)malloc(json["WUNDERGROUND_ZMW_CODE"].measureLength()+1);
-    WUNDERGROUND_ZMW_CODE[0] = '\0';
-    strcpy(WUNDERGROUND_ZMW_CODE, (const char*)json["WUNDERGROUND_ZMW_CODE"]);
+if (json.containsKey("OWM_LOCATION")){
+    OWM_LOCATION = (char*)malloc(json["OWM_LOCATION"].measureLength()+1);
+    OWM_LOCATION[0] = '\0';
+    strcpy(OWM_LOCATION, (const char*)json["OWM_LOCATION"]);
 }else{
     WEATHER_ACTIVE=0;
 }

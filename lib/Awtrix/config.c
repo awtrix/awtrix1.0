@@ -38,9 +38,8 @@
     long EPOCH;
 
     char* CURRENT_TIME;
-    char* WUNDERGROUND_API_KEY;
-    char* WUNDERGROUND_LANGUAGE;
-    char* WUNDERGROUND_ZMW_CODE;
+    char* OWM_API_KEY;
+    char* OWM_LOCATION;
     char* YT_API_KEY;
     char* YT_CHANNEL_ID;
     char* FB_API_URL;

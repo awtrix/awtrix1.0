@@ -3,9 +3,12 @@
 unsigned long previousMillis = 0; 
 unsigned long interval = 1000; 
 
+ 
+
+
 void TimeApp::render(DisplayManager& display) {
-    String time = timeClient.getTime();
-    if (BIG_TIME==1){
+    String time = NTP.getTimeStr(NTP.getTime());
+    if (BIG_TIME==0){
     display.drawText(time, {1, 0}, true,false,true);
 
     }else{
@@ -22,7 +25,7 @@ void TimeApp::render(DisplayManager& display) {
     }
    
     if (SHOW_WEEKDAY){
-        display.drawWeekday(timeClient.getWeekday());
+        display.drawWeekday(1);
         
     }
 
@@ -30,10 +33,6 @@ void TimeApp::render(DisplayManager& display) {
 }
 
 void TimeApp::enable() {
-
-    timeClient.updateTime();
-
-
 }
 
 
