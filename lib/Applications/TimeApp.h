@@ -3,9 +3,8 @@
 
 #include <IApplication.h>
 #include <../Awtrix/config.h>
-#include <NtpClientLib.h>
-
-
+#include <TimeLib.h>
+#include <Time.h>
 class TimeApp : public IApplication
 {
     private:
