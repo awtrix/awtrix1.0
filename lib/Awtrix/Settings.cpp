@@ -72,6 +72,7 @@ void AwtrixSettings::loadSettings() {
     SLEEP_START_HR = json["SLEEP_START_HR"];
     SLEEP_STOP_MIN = json["SLEEP_STOP_MIN"];
     SLEEP_STOP_HR= json["SLEEP_STOP_HR"];
+    SLEEP_MODE_ACTIVE = json["SLEEP_MODE_ACTIVE"];
 }
 
 
@@ -237,6 +238,7 @@ bool AwtrixSettings::saveSettings() {
     json["SLEEP_START_HR"] = SLEEP_START_HR;
     json["SLEEP_STOP_MIN"] = SLEEP_STOP_MIN;
     json["SLEEP_STOP_HR"] = SLEEP_STOP_HR;
+    json["SLEEP_MODE_ACTIVE"] = SLEEP_MODE_ACTIVE;
 
 
 
