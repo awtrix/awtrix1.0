@@ -121,6 +121,7 @@ void ApplicationManager::switchApplications() {
         }
     }else{
         if (AppIndex != activeApplicationIndex) {
+            DisplayManager::getInstance().setBrightness(BRIGHTNESS);
             DisplayManager::getInstance().drawPixel(31,7,{255,100,0}); 
             DisplayManager::getInstance().show();  
             applications[activeApplicationIndex]->disable();

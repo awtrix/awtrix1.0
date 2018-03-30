@@ -1,6 +1,6 @@
 {
-  "SHOW_IP_ON_BOOT": "1",       // Zeige IP-Adresse beim starten (0=AUS/1=AN)
-  "MATRIX_MODE": "0",       // Zeige IP-Adresse beim starten (0=AUS/1=AN)
+  "SHOW_IP_ON_BOOT": "1",   // Zeige IP-Adresse beim starten (0=AUS/1=AN)
+  "MATRIX_MODE": "0",       // Ändert die Ansteuerung der Matrix (0=COLLUM/1=ROW)
   "AUTO_BRIGHTNESS": "0",   // Aktivere die atomatische Helligkeitsregelung
   "BRIGHTNESS": "100",      // Standart Helligekeit wenn AUTO_BRIGHTNESS deaktivert ist
   "UTC_OFFSET": "1",        // UTC-Zeitverschiebung
@@ -24,5 +24,10 @@
   "FIRE_ACTIVE": "1",       // Aktiviert die Fire App (0=AUS/1=AN) 
   "MQTT_ACTIVE": "0",       // Aktivert MQTT Client (0=AUS/1=AN)
   "BLYNK_ACTIVE": "0",      // Aktiviert die Steuerung über BLYNK
-  "APP_DURATION": "30"      // Dauer, wie lang eine App angezeigt wird (in Sekunden)
+  "APP_DURATION": "30",     // Dauer, wie lang eine App angezeigt wird (in Sekunden)
+  "SLEEP_MODE_ACTIVE": "1", // Aktivert den Sleep Mode (0=AUS/1=AN)  
+  "SLEEP_START_HR": "23",    
+  "SLEEP_START_MIN": "0",   
+  "SLEEP_STOP_HR": "06",    
+  "SLEEP_STOP_MIN": "30"    
 }

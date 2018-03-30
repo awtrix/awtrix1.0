@@ -48,7 +48,9 @@ class DisplayManager
         void drawBitmap(unsigned char[], AwtrixPosition, AwtrixColor, int16_t, int16_t);
         void colorWipe(AwtrixColor);
         void fillScreen(int);
+        void showTime(char*, char*,bool,bool);
         void drawWeekday(int);
+        void setCursor(int,int);
         void flashProgress(unsigned int, unsigned int);
         void drawRect(uint16_t ,uint16_t ,uint16_t ,uint16_t ,AwtrixColor);
         void drawPixel(uint16_t ,uint16_t ,AwtrixColor);

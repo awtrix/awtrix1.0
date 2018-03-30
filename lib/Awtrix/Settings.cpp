@@ -58,7 +58,6 @@ void AwtrixSettings::loadSettings() {
     AUTO_UPDATE = json["AUTO_UPDATE"];
     SOUND = json["SOUND"];
     BLYNK_ACTIVE= json["BLYNK_ACTIVE"];
-    TIME_ACTIVE = json["TIME_ACTIVE"];
     WEATHER_ACTIVE = json["WEATHER_ACTIVE"];
     GOL_ACTIVE = json["GOL_ACTIVE"];
     PET_ACTIVE = json["PET_ACTIVE"];
@@ -69,6 +68,11 @@ void AwtrixSettings::loadSettings() {
     FIRE_ACTIVE = json["FIRE_ACTIVE"];
     APP_DURATION = json["APP_DURATION"];
     MQTT_ACTIVE= json["MQTT_ACTIVE"];
+
+        SLEEP_START_MIN = json["SLEEP_START_MIN"];
+    SLEEP_START_HR = json["SLEEP_START_HR"];
+    SLEEP_STOP_MIN = json["SLEEP_STOP_MIN"];
+    SLEEP_STOP_HR= json["SLEEP_STOP_HR"];
 }
 
 
@@ -219,7 +223,6 @@ bool AwtrixSettings::saveSettings() {
     json["SCROLL_SPEED"] = SCROLL_SPEED ;
     json["AUTO_UPDATE"] = AUTO_UPDATE ;
     json["SOUND"] = SOUND;
-    json["TIME_ACTIVE"] = TIME_ACTIVE;
     json["WEATHER_ACTIVE"] = WEATHER_ACTIVE;
     json["TWITTER_ACTIVE"] = TWITTER_ACTIVE;
     json["GOL_ACTIVE"] = GOL_ACTIVE;
@@ -231,6 +234,12 @@ bool AwtrixSettings::saveSettings() {
     json["MQTT_ACTIVE"] = MQTT_ACTIVE;
     json["BLYNK_ACTIVE"] = BLYNK_ACTIVE;
     json["APP_DURATION"] = APP_DURATION;
+
+    json["SLEEP_START_MIN"] = SLEEP_START_MIN;
+    json["SLEEP_START_HR"] = SLEEP_START_HR;
+    json["SLEEP_STOP_MIN"] = SLEEP_STOP_MIN;
+    json["SLEEP_STOP_HR"] = SLEEP_STOP_HR;
+
 
 
     File setFile = SPIFFS.open(settingsFile, "w");

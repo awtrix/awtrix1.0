@@ -34,7 +34,7 @@ void DisplayManager::setup() {
         fontsize=0;
     };
     matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
-    matrix.setBrightness(BRIGHTNESS);
+    setBrightness(BRIGHTNESS);
 
     clear();
 }
@@ -131,8 +131,8 @@ void DisplayManager::show() {
 
 
 void DisplayManager::setBrightness(int value) {
-     BRIGHTNESS=value;
-    matrix.setBrightness(BRIGHTNESS);
+     
+    matrix.setBrightness(value);
    
 
 }
@@ -171,7 +171,7 @@ void DisplayManager::drawText(String text, AwtrixPosition position, boolean refr
     }
     if (small) {
         matrix.setFont(&TomThumb);
-        matrix.setCursor(position.x, position.y+6);
+        matrix.setCursor(position.x+1, position.y+6);
     }else{
         matrix.setFont();
         matrix.setCursor(position.x, position.y);
@@ -232,6 +232,9 @@ void DisplayManager::flashProgress(unsigned int progress, unsigned int total) {
     matrix.show();
 }
 
+void DisplayManager::setCursor(int x,int y) {
+    matrix.setCursor(x,y);
+}
 
 void DisplayManager::scrollText(String text) {
     int x = 32;

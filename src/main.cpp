@@ -15,7 +15,6 @@ OverTheAirUpdate ota;
 AwtrixWiFi wifi;
 MQTT mqtt;
 NTP NTPclient;
-
 AwtrixBlynk ESPblynk;
 AwtrixSound sound;
 ApplicationManager& applications = ApplicationManager::getInstance();
@@ -38,7 +37,7 @@ void setup() {
         NTPclient.begin("0.pool.ntp.org",UTC_OFFSET);
         if (MQTT_ACTIVE) mqtt.setup();
         if (BLYNK_ACTIVE) ESPblynk.setup();
-        if (TIME_ACTIVE) applications.addApplication("Time");
+        applications.addApplication("Time");
         if (WEATHER_ACTIVE) applications.addApplication("Weather");
         if (TWITTER_ACTIVE) applications.addApplication("Twitter");
         if (GOL_ACTIVE) applications.addApplication("Gol");
@@ -52,7 +51,6 @@ void setup() {
         setSyncProvider(t);
         setSyncInterval(60);
     }else{
-
         DisplayManager::getInstance().setERR();
     }
      
@@ -63,17 +61,16 @@ void setup() {
 
 void loop() {
     ota.loop();
+    wifi.loop();   
     if (SETTINGS_FOUND){
-        if (!ota.isUpdating()) {
-            wifi.loop();
-
+        if (!ota.isUpdating()) {       
             if (MQTT_ACTIVE) mqtt.loop();
             if (SETTINGS_FOUND) applications.loop();
             if (BLYNK_ACTIVE)ESPblynk.loop();
-            if (AUTO_BRIGHTNESS) DisplayManager::getInstance().checkLight();
-           
+            if (AUTO_BRIGHTNESS) DisplayManager::getInstance().checkLight(); 
+            NTPclient.checkSleepMode();
+            }
         }
     }
-}
 
 

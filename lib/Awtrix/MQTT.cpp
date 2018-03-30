@@ -3,7 +3,8 @@
 #include <Settings.h>
 
 AwtrixSettings& settings1 = AwtrixSettings::getInstance();
-#define target_time 5000
+long lastReconnectAttempt = 0;
+
 
 void commands(String topic,String payload){
   if (topic=="awtrix/settings/json"){
@@ -31,9 +32,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
     commands(topic,Payload);
 }
 
-
-
-
 void MQTT::setup() {
     if (MQTT_SERVER=="") return;
     while (!mqttClient.connected())  {
@@ -56,33 +54,32 @@ void MQTT::setup() {
     mqttClient.subscribe("awtrix/settings/json");
 }
 
-void MQTT::reconnect() {
-    // Loop until we're reconnected
-    while (!mqttClient.connected())  {
-      Serial.println(F("Connecting to MQTT..."));
-        mqttClient.setServer(MQTT_SERVER, MQTT_PORT);
-        mqttClient.setCallback(callback);
-
-        if (mqttClient.connect("AWTRIX", MQTT_USERNAME, MQTT_PASSWORD)) {
-            Serial.println(F("MQTT Connected"));
-        } else {
-            Serial.print(F("failed with state "));
-            Serial.print(mqttClient.state());
-            delay(100);
-        }
+bool MQTT::reconnect() {
+    if (mqttClient.connect("AWTRIX")) {
+        mqttClient.publish("awtrix/message", "Hello from AWTRIX");
+        mqttClient.subscribe("awtrix/text");
+        mqttClient.subscribe("awtrix/settings");
+        mqttClient.subscribe("awtrix/settings/json");
     }
+    return mqttClient.connected();
+}
 
-    mqttClient.publish("awtrix/message", "Hello from AWTRIX");
-    mqttClient.subscribe("awtrix/text");
-    mqttClient.subscribe("awtrix/settings");
-    mqttClient.subscribe("awtrix/settings/json");
+void MQTT::loop() 
+{
+  if (!mqttClient.connected()) {
+    long now = millis();
+    if (now - lastReconnectAttempt > 5000) {
+      lastReconnectAttempt = now;
+      // Attempt to reconnect
+      if (reconnect()) {
+        lastReconnectAttempt = 0;
+      }
     }
-
-
-void MQTT::loop() {
+  } else {
+    // Client connected
 
     mqttClient.loop();
-
+  }
 }
 
 int MQTT::publish(char* topic, char* payload) {

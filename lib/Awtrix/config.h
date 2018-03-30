@@ -31,18 +31,13 @@
     extern int SETTINGS_FOUND;
     extern int APP_DURATION;
 
-    extern int CURRENT_HR;
-    extern int CURRENT_MIN;
-    extern int CURRENT_SEC;
-
     extern int SLEEP_START_MIN;
     extern int SLEEP_START_HR;
     extern int SLEEP_STOP_MIN;
     extern int SLEEP_STOP_HR;
     extern int SLEEP_MODE;
-    extern long EPOCH;
+    extern int SLEEP_MODE_ACTIVE;
 
-    extern char* CURRENT_TIME;
     extern char* OWM_API_KEY;
     extern char* OWM_LOCATION;
     extern char* YT_API_KEY;

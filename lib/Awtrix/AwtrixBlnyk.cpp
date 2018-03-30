@@ -95,7 +95,11 @@ BLYNK_WRITE(V7) {
   }
 
 
-
+BLYNK_WRITE(V9) // PET_MOOD
+{
+     SLEEP_MODE=param.asInt();
+     
+}
 
 BLYNK_READ(V10) //Display RAM
 {

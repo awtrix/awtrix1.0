@@ -14,14 +14,12 @@ void NTP::begin(const char* ntpServerName, int TimeZoneOffset)
 {
 	_serverName = ntpServerName;
 	_timeZoneOffset = TimeZoneOffset;
-	/* Start WiFiUDP socket, listening at local port LOCALPORT */
 	UDP.begin(LOCALPORT);	
 }
 
 time_t NTP::getNtpTime(void)
 {
-  while (UDP.parsePacket() > 0) ; // discard any previously received packets
-  //get a random server from the pool
+  while (UDP.parsePacket() > 0) ; 
   IPAddress timeServerIP;
   WiFi.hostByName(_serverName, timeServerIP); 
   sendNTPpacket(timeServerIP);
@@ -30,9 +28,8 @@ time_t NTP::getNtpTime(void)
     int size = UDP.parsePacket();
     if (size >= NTP_PACKET_SIZE) {
       Serial.println("Receive NTP Response");
-      UDP.read(packetBuffer, NTP_PACKET_SIZE);  // read packet into the buffer
+      UDP.read(packetBuffer, NTP_PACKET_SIZE); 
       time_t secsSince1900;
-      // convert four bytes starting at location 40 to a long integer
       secsSince1900 =  (time_t)packetBuffer[40] << 24;
       secsSince1900 |= (time_t)packetBuffer[41] << 16;
       secsSince1900 |= (time_t)packetBuffer[42] << 8;
@@ -44,13 +41,11 @@ time_t NTP::getNtpTime(void)
     yield();
   }
   Serial.println("No NTP Response :-(");
-  return 0; // return 0 if unable to get the time
+  return 0; 
 }
 
-// send an NTP request to the time server at the given address
 void NTP::sendNTPpacket(IPAddress &address)
 {
-  // set all bytes in the buffer to 0
   memset(packetBuffer, 0, NTP_PACKET_SIZE);
   packetBuffer[0] = 0b11100011;   // LI, Version, Mode
   packetBuffer[1] = 0;     // Stratum, or type of clock
@@ -60,14 +55,13 @@ void NTP::sendNTPpacket(IPAddress &address)
   packetBuffer[13]  = 0x4E;
   packetBuffer[14]  = 49;
   packetBuffer[15]  = 52;
-  UDP.beginPacket(address, 123); //NTP requests are to port 123
+  UDP.beginPacket(address, 123); 
   UDP.write(packetBuffer, NTP_PACKET_SIZE);
   UDP.endPacket();
 }
 
 uint8_t NTP::DSToffset(time_t date)
 {
-
   tmElements_t tm;
   tm.Month = 3; //MARCH
   tm.Year = year(date) - 1970;
@@ -78,5 +72,10 @@ uint8_t NTP::DSToffset(time_t date)
   tm.Day = 31; //last day of October;
   time_t endDST = nextSunday( makeTime(tm) );
   return (((date >= beginDST) && (date < endDST))? 1: 0);
+}
+
+void NTP::checkSleepMode(){
+  if (!SLEEP_MODE & hour() == SLEEP_START_HR & minute()==SLEEP_START_MIN) SLEEP_MODE=1; 
+  if (SLEEP_MODE & hour() == SLEEP_STOP_HR & minute()==SLEEP_STOP_MIN) SLEEP_MODE=0; 
 }
 
