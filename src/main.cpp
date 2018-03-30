@@ -68,7 +68,7 @@ void loop() {
             if (SETTINGS_FOUND) applications.loop();
             if (BLYNK_ACTIVE)ESPblynk.loop();
             if (AUTO_BRIGHTNESS) DisplayManager::getInstance().checkLight(); 
-            NTPclient.checkSleepMode();
+            if (SLEEP_MODE_ACTIVE) NTPclient.checkSleepMode();
             }
         }
     }
