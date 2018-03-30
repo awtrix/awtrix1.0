@@ -15,7 +15,6 @@ void sendStates() {
     Blynk.virtualWrite(5, PET_MOOD);
     Blynk.virtualWrite(6, SHOW_WEEKDAY);
     Blynk.virtualWrite(9, SLEEP_MODE_ACTIVE);
-
     Blynk.virtualWrite(11, WEATHER_ACTIVE);
     Blynk.virtualWrite(12, PET_ACTIVE);
     Blynk.virtualWrite(13, GOL_ACTIVE);
@@ -109,12 +108,6 @@ BLYNK_WRITE(V9) // SLEEP_MODE
      
 }
 
-
-BLYNK_WRITE(V9) // PET_MOOD
-{
-     SLEEP_MODE=param.asInt();
-     
-}
 
 BLYNK_READ(V10) //Display RAM
 {
