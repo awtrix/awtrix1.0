@@ -216,11 +216,11 @@ bool AwtrixSettings::saveSettings() {
     json["UTC_OFFSET"] = UTC_OFFSET;
     json["BIG_TIME"] = BIG_TIME;
     json["PET_MOOD"] = PET_MOOD;
-    json["TEXT_COLOR_R"] = TEXT_COLOR_R ;
-    json["TEXT_COLOR_G"] = TEXT_COLOR_G ;
+    json["TEXT_COLOR_R"] = TEXT_COLOR_R;
+    json["TEXT_COLOR_G"] = TEXT_COLOR_G;
     json["TEXT_COLOR_B"] = TEXT_COLOR_B;
-    json["SCROLL_SPEED"] = SCROLL_SPEED ;
-    json["AUTO_UPDATE"] = AUTO_UPDATE ;
+    json["SCROLL_SPEED"] = SCROLL_SPEED;
+    json["AUTO_UPDATE"] = AUTO_UPDATE;
     json["SOUND"] = SOUND;
     json["WEATHER_ACTIVE"] = WEATHER_ACTIVE;
     json["TWITTER_ACTIVE"] = TWITTER_ACTIVE;
