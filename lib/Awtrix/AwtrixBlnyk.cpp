@@ -14,7 +14,13 @@ void sendStates() {
     Blynk.virtualWrite(3, SCROLL_SPEED);
     Blynk.virtualWrite(5, PET_MOOD);
     Blynk.virtualWrite(6, SHOW_WEEKDAY);
-
+    Blynk.virtualWrite(11, WEATHER_ACTIVE);
+    Blynk.virtualWrite(12, PET_ACTIVE);
+    Blynk.virtualWrite(13, GOL_ACTIVE);
+    Blynk.virtualWrite(14, YT_ACTIVE);
+    Blynk.virtualWrite(15, FB_ACTIVE);
+    Blynk.virtualWrite(16, TWITTER_ACTIVE);
+    Blynk.virtualWrite(17, FIRE_ACTIVE);
 }
 
 
@@ -75,7 +81,7 @@ BLYNK_WRITE(V5) // PET_MOOD
      AwtrixSettings::getInstance().saveSettings();
 }
 
-BLYNK_WRITE(V6) // PET_MOOD
+BLYNK_WRITE(V6) // SHOW_WEEKDAY
 {
      SHOW_WEEKDAY=param.asInt();
      AwtrixSettings::getInstance().saveSettings();
@@ -104,5 +110,52 @@ BLYNK_WRITE(V9) // PET_MOOD
 BLYNK_READ(V10) //Display RAM
 {
     Blynk.virtualWrite(10, ESP.getFreeHeap());
+}
+
+
+
+BLYNK_WRITE(V11) 
+{
+     WEATHER_ACTIVE=param.asInt();
+}
+
+BLYNK_WRITE(V12) 
+{
+     PET_ACTIVE=param.asInt();
+}
+
+BLYNK_WRITE(V13) 
+{
+     GOL_ACTIVE=param.asInt();
+}
+
+BLYNK_WRITE(V14) 
+{
+     YT_ACTIVE=param.asInt();
+}
+
+BLYNK_WRITE(V15) 
+{
+     FB_ACTIVE=param.asInt();
+}
+
+BLYNK_WRITE(V16) 
+{
+     TWITTER_ACTIVE=param.asInt();
+}
+
+BLYNK_WRITE(V17) 
+{
+     FIRE_ACTIVE=param.asInt();
+}
+
+BLYNK_WRITE(V20) 
+{
+
+     if(param.asInt()==1){
+        AwtrixSettings::getInstance().saveSettings();
+        ESP.reset();
+     }
+         
 }
 
