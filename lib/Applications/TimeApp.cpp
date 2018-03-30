@@ -28,7 +28,7 @@ void TimeApp::render(DisplayManager& display) {
         display.drawText(d , {3, 0}, true,true,true);
         }
     
-   if (SHOW_WEEKDAY & !SLEEP_MODE){
+   if (SHOW_WEEKDAY && !SLEEP_MODE){
         long day = now() / 86400L;
         int day_of_the_week = (day+3) % 7;
         display.drawWeekday(day_of_the_week);
