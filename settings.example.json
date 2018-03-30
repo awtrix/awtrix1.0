@@ -10,7 +10,7 @@
   "TEXT_COLOR_R": "255",    // Rotanteil der Schriftfarbe (0-255)
   "TEXT_COLOR_G": "255",    // Grünanteil der Schriftfarbe (0-255)
   "TEXT_COLOR_B": "255",    // Blauanteil der Schriftfarbe (0-255)
-  "SCROLL_SPEED": " 70",    // Scrollgeschwindigkeit (1-100)
+  "SCROLL_SPEED": "70",    // Scrollgeschwindigkeit (1-100)
   "AUTO_UPDATE": "1",       // Es wird nach einem Neustart nach vorhanden Updates gesucht und installiert (0=AUS/1=AN)
   "SOUND": "0",             // Aktiviert die Tonausgabe (0=AUS/1=AN)
   "TIME_ACTIVE": "1",       // Akttiviert die Zeit-App (0=AUS/1=AN)
