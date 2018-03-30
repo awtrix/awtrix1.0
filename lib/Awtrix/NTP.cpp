@@ -36,6 +36,7 @@ time_t NTP::getNtpTime(void)
       secsSince1900 |= (time_t)packetBuffer[43];
       time_t secsSince1970 = secsSince1900 - 2208988800UL;
       int8_t totalOffset = (int8_t)(_timeZoneOffset + DSToffset(secsSince1970));
+      UDP.stop();
       return secsSince1970 + (time_t)(totalOffset * SECS_PER_HOUR) ;
     }
     yield();

@@ -25,9 +25,9 @@
   "MQTT_ACTIVE": "0",       // Aktivert MQTT Client (0=AUS/1=AN)
   "BLYNK_ACTIVE": "0",      // Aktiviert die Steuerung über BLYNK
   "APP_DURATION": "30",     // Dauer, wie lang eine App angezeigt wird (in Sekunden)
-  "SLEEP_MODE_ACTIVE": "1", // Aktivert den Sleep Mode (0=AUS/1=AN)  
-  "SLEEP_START_HR": "23",    
-  "SLEEP_START_MIN": "0",   
-  "SLEEP_STOP_HR": "06",    
-  "SLEEP_STOP_MIN": "30"    
+  "SLEEP_MODE_ACTIVE": "1", // Aktivert den Sleep Mode (0=AUS/1=AN)
+  "SLEEP_START_HR": "23",   //test 
+  "SLEEP_START_MIN": "0",   //test
+  "SLEEP_STOP_HR": "06",    //test
+  "SLEEP_STOP_MIN": "30"    //test
 }

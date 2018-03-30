@@ -11,8 +11,8 @@ class WeatherApp : public IApplication
     private:
         float temperature;
         float humidity;
-        String description;
-         String city;
+        String icon;
+        String city;
      
     public:
 

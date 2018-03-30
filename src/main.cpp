@@ -31,9 +31,9 @@ void setup() {
     settings.loadSPIFFS();
     if (MATRIX_MODE) DisplayManager::getInstance().setLayout();
     wifi.setup();
-
+    ota.setup();
     if (SETTINGS_FOUND){
-        ota.setup();
+        
         NTPclient.begin("0.pool.ntp.org",UTC_OFFSET);
         if (MQTT_ACTIVE) mqtt.setup();
         if (BLYNK_ACTIVE) ESPblynk.setup();

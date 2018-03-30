@@ -12,14 +12,13 @@
 class NTP
 {
   private:
-    #define LOCALPORT 2390 // local port to listen on for UDP packets
-    #define NTP_PACKET_SIZE 48 // NTP time stamp is in the first 48 bytes of the message
+    #define LOCALPORT 2390 
+    #define NTP_PACKET_SIZE 48 
     void sendNTPpacket(IPAddress &address);
     uint8_t DSToffset(time_t date);
-    uint8_t packetBuffer[ NTP_PACKET_SIZE]; //buffer to hold incoming and outgoing packets
+    uint8_t packetBuffer[ NTP_PACKET_SIZE]; 
     const char* _serverName;
     int8_t _timeZoneOffset;
-    int adjustDstEurope();
 
   public:
     NTP();

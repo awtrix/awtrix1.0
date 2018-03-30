@@ -31,7 +31,7 @@ void AwtrixSettings::loadSettings() {
 
     setFile.readBytes(buf.get(), size);
     setFile.close();
-    StaticJsonBuffer<500> jsonBuffer;
+    StaticJsonBuffer<800> jsonBuffer;
     JsonObject& json = jsonBuffer.parseObject(buf.get());
 
     if (!json.success()) {
@@ -68,8 +68,7 @@ void AwtrixSettings::loadSettings() {
     FIRE_ACTIVE = json["FIRE_ACTIVE"];
     APP_DURATION = json["APP_DURATION"];
     MQTT_ACTIVE= json["MQTT_ACTIVE"];
-
-        SLEEP_START_MIN = json["SLEEP_START_MIN"];
+    SLEEP_START_MIN = json["SLEEP_START_MIN"];
     SLEEP_START_HR = json["SLEEP_START_HR"];
     SLEEP_STOP_MIN = json["SLEEP_STOP_MIN"];
     SLEEP_STOP_HR= json["SLEEP_STOP_HR"];
@@ -207,7 +206,7 @@ if (json.containsKey("BLYNK_KEY")){
 }
 
 bool AwtrixSettings::saveSettings() {
-     StaticJsonBuffer<500> jsonBuffer;
+     StaticJsonBuffer<800> jsonBuffer;
     JsonObject& json = jsonBuffer.createObject();
     json["MATRIX_MODE"] = MATRIX_MODE;
     json["SHOW_IP_ON_BOOT"] = SHOW_IP_ON_BOOT;
@@ -234,7 +233,6 @@ bool AwtrixSettings::saveSettings() {
     json["MQTT_ACTIVE"] = MQTT_ACTIVE;
     json["BLYNK_ACTIVE"] = BLYNK_ACTIVE;
     json["APP_DURATION"] = APP_DURATION;
-
     json["SLEEP_START_MIN"] = SLEEP_START_MIN;
     json["SLEEP_START_HR"] = SLEEP_START_HR;
     json["SLEEP_STOP_MIN"] = SLEEP_STOP_MIN;
@@ -260,7 +258,7 @@ bool AwtrixSettings::saveSettings() {
 
 
 void AwtrixSettings::parseSettings(String json) {
-    StaticJsonBuffer<200> jsonBuffer;
+    StaticJsonBuffer<800> jsonBuffer;
     JsonObject& root = jsonBuffer.parseObject(json);
 
     if (!root.success()) {

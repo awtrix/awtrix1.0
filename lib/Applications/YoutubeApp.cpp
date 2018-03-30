@@ -19,7 +19,7 @@ void YoutubeApp::enable() {
 
   int repeatCounter = 10;
   while (!client.available() && repeatCounter--) {
-    delay(100);
+    delay(200);
   }
   String line,buf="";
   int startJson=0;
@@ -37,11 +37,7 @@ void YoutubeApp::enable() {
   client.stop();
 
   DynamicJsonBuffer jsonBuf;
-  JsonObject &root = jsonBuf.parseObject(buf);
-  if (!root.success()) {
-    delay(10);
-  }
-  
+  JsonObject &root = jsonBuf.parseObject(buf);  
   subscribers = root["items"]["statistics"]["subscriberCount"];
 
 }

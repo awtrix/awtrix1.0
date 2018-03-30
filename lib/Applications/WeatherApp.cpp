@@ -3,17 +3,26 @@
 
 
 void WeatherApp::render(DisplayManager& display) {
-    if (description == "Clouds") {
+    
+    if (icon == "01") {
          display.drawApp(cloudy, String(temperature) + "\xA7",{0,0},{255, 255, 255},true,200);
-    } else if (description == "partlycloudy") {
+    } else if (icon == "02") {
         display.drawApp(partlycloudy, String(temperature) + "\xA7",{0,0},{255, 255, 255},true,200);
-    } else if (description == "rain") {
+    } else if (icon == "03") {
         display.drawApp(rain, String(temperature) + "\xA7",{0,0},{255, 255, 255},true,200);
-    } else if (description == "snow") {
+    } else if (icon == "04") {
         //display.drawBitmap(snow, {0, 0}, {255, 255, 255}, 8, 8);
-    } else if (description == "tstorms") {
+    } else if (icon == "09") {
 
-    } else {
+    } else if (icon == "10") {
+
+    } else if (icon == "11") {
+
+    } else if (icon == "13") {
+
+    } else  if (icon == "50"){
+
+     } else {   
         display.drawApp(sun, String(temperature) + "\xA7",{0,0},{255, 255, 255},true,200);
 
     }
@@ -36,7 +45,10 @@ void WeatherApp::enable() {
         String city = owm_data["city"]["name"];
         temperature = owm_data["main"]["temp"];
         humidity = owm_data["main"]["humidity"];
-        owm_data["weather"][0]["main"].printTo(description);
+        icon="";
+        owm_data["weather"][0]["icon"].printTo(icon);
+        icon.remove(0,1);
+        icon.remove(icon.length()-2);
         }
     }
     http.end();
