@@ -105,7 +105,8 @@ BLYNK_WRITE(V7) {
 BLYNK_WRITE(V9) // SLEEP_MODE
 {
      SLEEP_MODE_ACTIVE=param.asInt();
-     
+          AwtrixSettings::getInstance().saveSettings();
+
 }
 
 
