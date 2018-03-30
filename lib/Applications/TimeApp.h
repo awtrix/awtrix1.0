@@ -11,10 +11,6 @@ class TimeApp : public IApplication
     String time1;
     bool blink=false;
     public:
-        
-
-       
-
         void render(DisplayManager&) override;
         void enable() override;
 };

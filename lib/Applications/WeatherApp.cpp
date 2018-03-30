@@ -11,16 +11,21 @@ void WeatherApp::render(DisplayManager& display) {
     } else if (icon == "03") {
         display.drawApp(rain, String(temperature) + "\xA7",{0,0},{255, 255, 255},true,200);
     } else if (icon == "04") {
-        //display.drawBitmap(snow, {0, 0}, {255, 255, 255}, 8, 8);
+         display.drawApp(cloudy, String(temperature) + "\xA7",{0,0},{255, 255, 255},true,200);
     } else if (icon == "09") {
+         display.drawApp(cloudy, String(temperature) + "\xA7",{0,0},{255, 255, 255},true,200);
 
     } else if (icon == "10") {
+         display.drawApp(cloudy, String(temperature) + "\xA7",{0,0},{255, 255, 255},true,200);
 
     } else if (icon == "11") {
+         display.drawApp(cloudy, String(temperature) + "\xA7",{0,0},{255, 255, 255},true,200);
 
     } else if (icon == "13") {
+         display.drawApp(cloudy, String(temperature) + "\xA7",{0,0},{255, 255, 255},true,200);
 
     } else  if (icon == "50"){
+         display.drawApp(cloudy, String(temperature) + "\xA7",{0,0},{255, 255, 255},true,200);
 
      } else {   
         display.drawApp(sun, String(temperature) + "\xA7",{0,0},{255, 255, 255},true,200);

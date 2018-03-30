@@ -9,7 +9,7 @@
 #include <AwtrixSound.h>
 #include "../lib/Awtrix/config.h"
 #include <NTP.h>
-#include <timeLib.h>
+#include <TimeLib.h>
 
 OverTheAirUpdate ota;
 AwtrixWiFi wifi;

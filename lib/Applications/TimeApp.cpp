@@ -8,11 +8,11 @@ const char * monname[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Au
 
 void TimeApp::render(DisplayManager& display) {
 
-    if (TD){
+    if (TD || SLEEP_MODE){
         char t[14];
         sprintf_P(t, PSTR("%02d:%02d:%02d"), hour(), minute(),second()); 
         display.drawText(t, {1, 0}, true,!BIG_TIME,true);
-            if ((millis() - previousMillis > interval) &  BIG_TIME ) {
+        if ((millis() - previousMillis > interval) &  BIG_TIME ) {
         previousMillis = millis(); 
         blink = !blink;
     }

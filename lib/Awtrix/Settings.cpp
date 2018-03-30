@@ -75,9 +75,6 @@ void AwtrixSettings::loadSettings() {
     SLEEP_MODE_ACTIVE = json["SLEEP_MODE_ACTIVE"];
 }
 
-
-
-
 void AwtrixSettings::loadConfig() {
      if (!SPIFFS.begin()) {
         Serial.println("Failed to mount file system");
