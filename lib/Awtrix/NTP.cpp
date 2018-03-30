@@ -24,10 +24,9 @@ time_t NTP::getNtpTime(void)
   WiFi.hostByName(_serverName, timeServerIP); 
   sendNTPpacket(timeServerIP);
   uint32_t beginWait = millis();
-  while (millis() - beginWait < 3000) {
+  while (millis() - beginWait < 1500) {
     int size = UDP.parsePacket();
     if (size >= NTP_PACKET_SIZE) {
-      Serial.println("Receive NTP Response");
       UDP.read(packetBuffer, NTP_PACKET_SIZE); 
       time_t secsSince1900;
       secsSince1900 =  (time_t)packetBuffer[40] << 24;
@@ -41,7 +40,6 @@ time_t NTP::getNtpTime(void)
     }
     yield();
   }
-  Serial.println("No NTP Response :-(");
   return 0; 
 }
 
