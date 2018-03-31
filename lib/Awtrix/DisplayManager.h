@@ -23,8 +23,8 @@ class DisplayManager
         AwtrixColor defaultTextColor;
         int fontsize;
         void setup();
+        int colorCircle;
         uint32_t color(AwtrixColor);
-        uint32_t Wheel(byte,int);
 
 
     public:
@@ -32,7 +32,7 @@ class DisplayManager
             static DisplayManager instance;
             return instance;
         }
-
+        uint32_t Wheel(byte);
         bool executeCommand(command_t, String, String);
         void drawApp(const uint16_t[], String,AwtrixPosition, AwtrixColor, bool, int);
         void clear();
@@ -43,6 +43,7 @@ class DisplayManager
         void checkLight();
         void setBrightness(int);
         void setColor(AwtrixColor);
+        void setColor2(uint32_t);
         void scrollText(String);
         void drawText(String, AwtrixPosition, boolean,boolean,boolean);
         void drawBitmap(unsigned char[], AwtrixPosition, AwtrixColor, int16_t, int16_t);

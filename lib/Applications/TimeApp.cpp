@@ -36,9 +36,11 @@ void TimeApp::render(DisplayManager& display) {
 
 
   display.show();
+  ++loopCounter;
 }
 
 void TimeApp::enable() {
+    loopCounter=0;
     TD=!TD;
 }
 

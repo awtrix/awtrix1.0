@@ -54,6 +54,7 @@ void AwtrixSettings::loadSettings() {
     TEXT_COLOR_R = json["TEXT_COLOR_R"];
     TEXT_COLOR_G = json["TEXT_COLOR_G"];
     TEXT_COLOR_B = json["TEXT_COLOR_B"];
+    RAINBOW = json["RAINBOW"];
     SCROLL_SPEED = json["SCROLL_SPEED"];
     AUTO_UPDATE = json["AUTO_UPDATE"];
     SOUND = json["SOUND"];
@@ -217,6 +218,7 @@ bool AwtrixSettings::saveSettings() {
     json["TEXT_COLOR_R"] = TEXT_COLOR_R;
     json["TEXT_COLOR_G"] = TEXT_COLOR_G;
     json["TEXT_COLOR_B"] = TEXT_COLOR_B;
+    json["RAINBOW"] = RAINBOW;
     json["SCROLL_SPEED"] = SCROLL_SPEED;
     json["AUTO_UPDATE"] = AUTO_UPDATE;
     json["SOUND"] = SOUND;

@@ -9,6 +9,7 @@
     char TEXT_COLOR_R;
     char TEXT_COLOR_G;
     char TEXT_COLOR_B;
+    int RAINBOW;
     int SCROLL_SPEED;
     int SOUND;
     int MATRIX_MODE;

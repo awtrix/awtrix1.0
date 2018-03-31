@@ -10,6 +10,7 @@ class TimeApp : public IApplication
     private:
     String time1;
     bool blink=false;
+    int loopCounter;
     public:
         void render(DisplayManager&) override;
         void enable() override;

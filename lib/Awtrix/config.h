@@ -12,6 +12,7 @@
     extern char TEXT_COLOR_R;
     extern char TEXT_COLOR_G;
     extern char TEXT_COLOR_B;
+    extern int RAINBOW;
     extern int SCROLL_SPEED;
     extern int AUTO_UPDATE;
     extern int SOUND;

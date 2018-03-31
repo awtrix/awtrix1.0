@@ -103,7 +103,7 @@ void GolApp::render(DisplayManager& display) {
             }
         }
     }
-    delay(300);
+    delay(200);
     display.show();
     DisplayManager::getInstance().clear();
 

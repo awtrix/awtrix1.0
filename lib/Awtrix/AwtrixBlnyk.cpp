@@ -163,3 +163,10 @@ BLYNK_WRITE(V20)
          
 }
 
+BLYNK_WRITE(V18) 
+{
+     RAINBOW=param.asInt();
+    AwtrixSettings::getInstance().saveSettings();
+
+}
+
