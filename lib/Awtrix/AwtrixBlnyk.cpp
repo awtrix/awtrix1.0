@@ -22,9 +22,8 @@ void sendStates() {
     Blynk.virtualWrite(15, FB_ACTIVE);
     Blynk.virtualWrite(16, TWITTER_ACTIVE);
     Blynk.virtualWrite(17, FIRE_ACTIVE);
+    Blynk.virtualWrite(18, RAINBOW);
 }
-
-
 
 void AwtrixBlynk::setup() {
     Serial.println(F("Setting up BLYNK"));
@@ -104,8 +103,8 @@ BLYNK_WRITE(V7) {
 
 BLYNK_WRITE(V9) // SLEEP_MODE
 {
-     SLEEP_MODE_ACTIVE=param.asInt();
-     if (SLEEP_MODE_ACTIVE==0) SLEEP_MODE=0;
+    SLEEP_MODE_ACTIVE=param.asInt();
+    if (SLEEP_MODE_ACTIVE==0) SLEEP_MODE=0;
     AwtrixSettings::getInstance().saveSettings();
 
 }

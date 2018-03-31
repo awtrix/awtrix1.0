@@ -12,6 +12,7 @@ class AwtrixSound
         void setup();
         void loop();
         void playMelody();
+        void playInfo();
 };
 
 #endif
