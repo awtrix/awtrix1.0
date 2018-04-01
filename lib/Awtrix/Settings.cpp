@@ -28,7 +28,6 @@ void AwtrixSettings::loadSettings() {
     Serial.println("Settings file loaded");
     // Allocate a buffer to store contents of the file.
     std::unique_ptr<char[]> buf(new char[size]);
-
     setFile.readBytes(buf.get(), size);
     setFile.close();
     StaticJsonBuffer<800> jsonBuffer;
@@ -36,8 +35,7 @@ void AwtrixSettings::loadSettings() {
 
     if (!json.success()) {
         Serial.println("Failed to parse settings file");
-     SETTINGS_FOUND=0;
-        
+        SETTINGS_FOUND=0; 
         return;
     }
 
@@ -45,6 +43,7 @@ void AwtrixSettings::loadSettings() {
 
     MATRIX_MODE = json["MATRIX_MODE"];
     SHOW_IP_ON_BOOT= json["SHOW_IP_ON_BOOT"];
+    ALEXA_ACTIVE = json["ALEXA_ACTIVE"];
     AUTO_BRIGHTNESS = json["AUTO_BRIGHTNESS"];
     BRIGHTNESS = json["BRIGHTNESS"];
     SHOW_WEEKDAY = json["SHOW_WEEKDAY"];
@@ -90,7 +89,6 @@ void AwtrixSettings::loadConfig() {
     }
 
     size_t size = confFile.size();
-    Serial.println(size);
     if (size > 2048) {
         Serial.println("Config file size is too large");
     }
@@ -103,8 +101,7 @@ void AwtrixSettings::loadConfig() {
 
     if (!json.success()) {
         Serial.println("Failed to parse config file");
-       SETTINGS_FOUND=0;
-        
+        SETTINGS_FOUND=0;
         return;
     }
 
@@ -209,6 +206,7 @@ bool AwtrixSettings::saveSettings() {
     JsonObject& json = jsonBuffer.createObject();
     json["MATRIX_MODE"] = MATRIX_MODE;
     json["SHOW_IP_ON_BOOT"] = SHOW_IP_ON_BOOT;
+    json["ALEXA_ACTIVE"] = ALEXA_ACTIVE;
     json["AUTO_BRIGHTNESS"] = AUTO_BRIGHTNESS;
     json["BRIGHTNESS"] = BRIGHTNESS;
     json["SHOW_WEEKDAY"] = SHOW_WEEKDAY;
@@ -239,11 +237,8 @@ bool AwtrixSettings::saveSettings() {
     json["SLEEP_STOP_HR"] = SLEEP_STOP_HR;
     json["SLEEP_MODE_ACTIVE"] = SLEEP_MODE_ACTIVE;
 
-
-
     File setFile = SPIFFS.open(settingsFile, "w");
     if (!setFile) {
-
         Serial.println("Failed to open Settings file for writing");
         return false;
     }
@@ -251,8 +246,6 @@ bool AwtrixSettings::saveSettings() {
     json.printTo(setFile);
     setFile.close();
     Serial.println("Settings file saved");
-
-
     delay(500);
     return true;
 }

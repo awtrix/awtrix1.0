@@ -10,15 +10,9 @@
 #include <FireApp.h>
 #include <TwitterApp.h>
 #include <../Awtrix/config.h>
+#include <TimeLib.h>
 
- struct tcp_pcb;
-        extern struct tcp_pcb* tcp_tw_pcbs;
-        extern "C" void tcp_abort (struct tcp_pcb* pcb);
-
-void tcpCleanup (void) {
   while (tcp_tw_pcbs)
-    tcp_abort(tcp_tw_pcbs);
-}
 
 IApplication* ApplicationManager::getApplicationWithName(String name) {
     if (name == "Time") {
@@ -108,6 +102,8 @@ void ApplicationManager::switchApplications() {
     //if (applicationRuntime >= activeApplication()->DefaultDisplayTime) {
     if (applicationRuntime >= (APP_DURATION*1000)) {
          AppIndex = activeApplicationIndex + 1;
+  
+        
         if (AppIndex >= numberOfApplications) {
             AppIndex = 0;
         }

@@ -366,6 +366,23 @@ void DisplayManager::checkLight() {
    
 }
 
+void DisplayManager::showBoot(){
+    matrix.setBrightness(100);
+    matrix.setTextColor(color({255,51,00}));
+    matrix.setCursor(4, 0);
+    matrix.print("B");
+    matrix.setTextColor(color({255,255,0}));
+    matrix.setCursor(10, 0);
+    matrix.print("O");
+    matrix.setTextColor(color({102,255,51}));
+    matrix.setCursor(17, 0);
+    matrix.print("O");
+    matrix.setTextColor(color({51,204,204}));
+    matrix.setCursor(23, 0);
+    matrix.print("T");
+    matrix.show();
+}
+
 /*
 
 

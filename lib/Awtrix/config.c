@@ -15,6 +15,7 @@
     int MATRIX_MODE;
 
     int TIME_ACTIVE;
+    int ALEXA_ACTIVE;
     int WEATHER_ACTIVE;
     int PET_ACTIVE;
     int GOL_ACTIVE;

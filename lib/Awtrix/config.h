@@ -18,6 +18,7 @@
     extern int SOUND;
 
     extern int MATRIX_MODE;
+    extern int ALEXA_ACTIVE;
     extern int TIME_ACTIVE;
     extern int WEATHER_ACTIVE;
     extern int PET_ACTIVE;

@@ -6,6 +6,10 @@
 
  WiFiUDP UDP;
 
+long startsecondswd;            // weekday start time in seconds
+long stopsecondswd;             // weekday stop  time in seconds
+long nowseconds;  
+
 NTP::NTP(void)
 {
 }
@@ -74,7 +78,17 @@ uint8_t NTP::DSToffset(time_t date)
 }
 
 void NTP::checkSleepMode(){
-  if (!SLEEP_MODE & hour() == SLEEP_START_HR & minute()==SLEEP_START_MIN) SLEEP_MODE=1; 
-  if (SLEEP_MODE & hour() == SLEEP_STOP_HR & minute()==SLEEP_STOP_MIN) SLEEP_MODE=0; 
-}
+  uint32_t nowseconds, startsecondswd,stopsecondswd;
+      nowseconds = ((hour() * 3600) + (minute() * 60) + second());
+      startsecondswd = (SLEEP_START_HR * 3600) + (SLEEP_START_MIN * 60);
+      stopsecondswd = (SLEEP_STOP_HR * 3600) + (SLEEP_STOP_MIN * 60);
 
+
+      if(nowseconds >= startsecondswd && nowseconds <= stopsecondswd){
+         SLEEP_MODE=1;
+      }
+      else if (nowseconds>=stopsecondswd-24*3600)
+      {
+        SLEEP_MODE=0;
+      }
+}

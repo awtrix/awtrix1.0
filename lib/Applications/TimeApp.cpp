@@ -40,6 +40,7 @@ void TimeApp::render(DisplayManager& display) {
 }
 
 void TimeApp::enable() {
+    Serial.println("TimeApp started");
     loopCounter=0;
     TD=!TD;
 }

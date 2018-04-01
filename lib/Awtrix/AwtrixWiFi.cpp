@@ -272,68 +272,50 @@ server.on("/list", HTTP_GET, handleFileList);
 
 void AwtrixWiFi::setup() {
     Serial.println(F("Setup WiFi"));
-    DisplayManager::getInstance().setColor({255,51,00});
-    DisplayManager::getInstance().drawText("B", {4, 0}, true,false,false);
-    DisplayManager::getInstance().setColor({255,255,0});
-    DisplayManager::getInstance().drawText("O", {10, 0}, false,false,false);
-    DisplayManager::getInstance().setColor({102,255,51});
-    DisplayManager::getInstance().drawText("O", {17, 0}, false,false,false);
-    DisplayManager::getInstance().setColor({51,204,204});
-    DisplayManager::getInstance().drawText("T", {23, 0}, false,false,false);
-    DisplayManager::getInstance().show();
     WiFiManager wifiManager;
     wifiManager.setTimeout(120);
     wifiManager.setAPCallback(configModeCallback);
-
     wifiManager.autoConnect("AWTRIX");
-
     address = WiFi.localIP().toString();
-    Serial.println(F("WiFi connected"));
-    Serial.print(F("IP address: "));
-    Serial.println(address); 
-
-    if (SHOW_IP_ON_BOOT==1)  DisplayManager::getInstance().scrollText(address);
- 
     if (MDNS.begin("AWTRIX")) { 
         Serial.println(F("mDNS responder started"));
         MDNS.addService("http", "tcp", 80);
     } else {
         Serial.println(F("Error setting up MDNS responder!"));
     }
-
-
     httpUpdater.setup(&server, "awtrix", "admin"); 
     setupServer();
     server.begin();
 
     if(AUTO_UPDATE) checkForUpdates();
-    alexa.addDevice("ATRIX");
-    alexa.enable(true);
 
-    alexa.onSetState([](unsigned char device_id, const char * device_name, bool state) {
-        if (state){
-           DisplayManager::getInstance().setBrightness(brightSave);
-        }else{
-          brightSave=BRIGHTNESS;
-          DisplayManager::getInstance().setBrightness(0);
-        
-        }
-    });
-    alexa.onGetState([](unsigned char device_id, const char * device_name) {
-        if (BRIGHTNESS>0){
-          return true;
-        }else{
-          return false;
-        } // whatever the state of the device is
-    });
+    if(ALEXA_ACTIVE){
+      alexa.addDevice("ATRIX");
+      alexa.enable(true);
+      alexa.onSetState([](unsigned char device_id, const char * device_name, bool state) {
+          if (state){
+            DisplayManager::getInstance().setBrightness(brightSave);
+          }else{
+            brightSave=BRIGHTNESS;
+            DisplayManager::getInstance().setBrightness(0);
+          }
+      });
+      alexa.onGetState([](unsigned char device_id, const char * device_name) {
+          if (BRIGHTNESS>0){
+            return true;
+          }else{
+            return false;
+          } // whatever the state of the device is
+      });
+    }
 
+     if (SHOW_IP_ON_BOOT==1)  DisplayManager::getInstance().scrollText(address);
 }
 
 
-
 void AwtrixWiFi::loop() {
- server.handleClient();
- alexa.handle();
+  server.handleClient();
+  alexa.handle();
 }
 
 

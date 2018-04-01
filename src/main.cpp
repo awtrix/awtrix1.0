@@ -22,19 +22,22 @@ AwtrixSettings& settings = AwtrixSettings::getInstance();
 
 time_t NTPgetTime()
 {
-return NTPclient.getNtpTime();
+    return NTPclient.getNtpTime();
 }
 
 void setup() {
     Serial.begin(115200);
     Serial.print("AWTRIX START");
+    DisplayManager::getInstance().showBoot();
     settings.loadSPIFFS();
     if (MATRIX_MODE) DisplayManager::getInstance().setLayout();
     wifi.setup();
     ota.setup();
     if (SETTINGS_FOUND){
-        
         NTPclient.begin("0.pool.ntp.org",UTC_OFFSET);
+        getExternalTime t = NTPgetTime;
+        setSyncProvider(t);
+        setSyncInterval(APP_DURATION);
         if (MQTT_ACTIVE) mqtt.setup();
         if (BLYNK_ACTIVE) ESPblynk.setup();
         applications.addApplication("Time");
@@ -47,33 +50,11 @@ void setup() {
         if (FB_ACTIVE) applications.addApplication("Facebook");
         if (FIRE_ACTIVE) applications.addApplication("Fire");
         if (SOUND) sound.setup();
-        getExternalTime t = NTPgetTime;
-        setSyncProvider(t);
-        setSyncInterval(60);
     }else{
         DisplayManager::getInstance().setERR();
     }
      
 }
-
-const char* wl_status_to_string(wl_status_t status) {
-  switch (status) {
-    case WL_NO_SHIELD: return "WL_NO_SHIELD";
-    case WL_IDLE_STATUS: return "WL_IDLE_STATUS";
-    case WL_NO_SSID_AVAIL: return "WL_NO_SSID_AVAIL";
-    case WL_SCAN_COMPLETED: return "WL_SCAN_COMPLETED";
-    case WL_CONNECTED: return "WL_CONNECTED";
-    case WL_CONNECT_FAILED: return "WL_CONNECT_FAILED";
-    case WL_CONNECTION_LOST: return "WL_CONNECTION_LOST";
-    case WL_DISCONNECTED: return "WL_DISCONNECTED";
-  }
-}
-
-  
-
-
-
-
 
 void loop() {
     ota.loop();
@@ -87,8 +68,4 @@ void loop() {
             if (SLEEP_MODE_ACTIVE) NTPclient.checkSleepMode();
             }
         }
-       
     }
-
-
-
