@@ -12,7 +12,6 @@
 #include <../Awtrix/config.h>
 #include <TimeLib.h>
 
-  while (tcp_tw_pcbs)
 
 IApplication* ApplicationManager::getApplicationWithName(String name) {
     if (name == "Time") {
