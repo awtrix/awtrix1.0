@@ -1,0 +1,63 @@
+#!/bin/bash
+
+set -uo pipefail
+trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
+IFS=$'\n\t'
+
+# Ensure we are root
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root" 1>&2
+    exit 1
+fi
+
+mount="mnt"
+script="setup"
+rpi_tar="ArchLinuxARM-rpi-latest.tar.gz"
+rpi_url="http://archlinuxarm.org/os/${rpi_tar}"
+
+size="${1:-2G}"
+image="${2:-awtrix-rpi.img}"
+
+cleanup() {
+    [[ -f "${mount}/tmp/${script}" ]] && rm "${mount}/tmp/${script}"
+    if [[ -d "${mount}" ]]; then
+        umount "${mount}/dev" || true
+        umount "${mount}/proc" || true
+        umount "${mount}/sys" || true
+        umount "${mount}/boot" || true
+        umount "${mount}" || true
+        rmdir "${mount}" || true
+    fi
+    [ -n "${loopdev}" ] && losetup --detach "${loopdev}" || true
+}
+trap cleanup EXIT
+
+[ ! -f "${rpi_tar}" ] && wget "${rpi_url}"
+
+fallocate -l "${size}" "${image}"
+loopdev=$(losetup --find --show "${image}")
+parted --script "${loopdev}" mklabel msdos
+parted --script "${loopdev}" mkpart primary fat32 0% 100M
+parted --script "${loopdev}" mkpart primary ext4 100M 100%
+bootdev=$(ls "${loopdev}"*1)
+rootdev=$(ls "${loopdev}"*2)
+mkfs.vfat -F32 ${bootdev}
+mkfs.ext4 -F ${rootdev}
+
+[ ! -d "${mount}" ] && mkdir "${mount}"
+mount "${rootdev}" "${mount}"
+[ ! -d "${mount}/boot" ] && mkdir "${mount}/boot"
+mount "${bootdev}" "${mount}/boot"
+
+tar -xpf "${rpi_tar}" -C ${mount} 2> >(grep -v "Ignoring unknown extended header keyword")
+
+install -Dm755 scripts/"${script}" "${mount}/tmp/${script}"
+
+mount -t proc none ${mount}/proc
+mount -t sysfs none ${mount}/sys
+mount -o bind /dev ${mount}/dev
+rm ${mount}/etc/resolv.conf
+cp /etc/resolv.conf ${mount}/etc/resolv.conf
+cp /usr/bin/qemu-arm-static ${mount}/usr/bin/
+
+chroot ${mount}  "/tmp/${script}"

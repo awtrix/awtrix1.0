@@ -1,0 +1,38 @@
+#!/bin/bash
+set -uo pipefail
+trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
+IFS=$'\n\t'
+
+# Install any packages we want
+pacman -Syu --noconfirm vim bash-completion zsh grml-zsh-config sudo avahi nss-mdns wpa_supplicant termite-terminfo
+
+# Update the hostname
+echo awtrix-rpi > /etc/hostname
+
+# Configure sudo
+echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers.d/wheel
+
+# Install zero-conf to make the pi easier to find on the network
+sed -i '/^hosts: /s/files dns/files mdns dns/' /etc/nsswitch.conf
+ln -sf /usr/lib/systemd/system/avahi-daemon.service /etc/systemd/system/multi-user.target.wants/avahi-daemon.service
+
+# Enable wireless, actual connection details will be configured by the user, likely over usb-serial.
+# No not put any secrets like wifi passphrases in here as they will be publicly exposed in the repo and image.
+pacman -S --noconfirm wpa_supplicant wpa_actiond ifplugd crda dialog
+ln -sf /usr/lib/systemd/system/netctl-auto@.service /etc/systemd/system/multi-user.target.wants/netctl-auto@wlan0.service
+ln -sf /usr/lib/systemd/system/netctl-ifplugd@.service /etc/systemd/system/multi-user.target.wants/netctl-ifplugd@eth0.service
+
+# Enable the usb serial, this will make it easier to add any wifi credentials on the pi zero (will not work on other models).
+grep 'dtoverlay=dwc2' /boot/config.txt >/dev/null || echo 'dtoverlay=dwc2' >> /boot/config.txt
+grep 'modules-load=dwc2,g_serial' /boot/cmdline.txt >/dev/null || sed -i 's/.*rootwait.*/& modules-load=dwc2,g_serial/' /boot/cmdline.txt
+ln -sf /usr/lib/systemd/system/getty@ttyGS0.service /etc/systemd/system/getty.target.wants/getty@ttyGS0.service
+
+# Enable hardware pwm
+grep 'dtoverlay=pwm-2chan,pin=12,func=4,pin2=13,func2=4' /boot/config.txt >/dev/null || echo 'dtoverlay=pwm-2chan,pin=12,func=4,pin2=13,func2=4' >> /boot/config.txt
+
+# Set zsh as the default shell for root and alarm
+chsh -s /usr/bin/zsh root
+chsh -s /usr/bin/zsh alarm
+touch /root/.zshrc
+touch /home/alarm/.zshrc
+chown alarm. /home/alarm/.zshrc

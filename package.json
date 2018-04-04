@@ -1,0 +1,11 @@
+{
+  "name": "awtrix",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:awtrix/awtrix.git",
+  "author": "Christopher Mühl <github@padarom.io> (https://padarom.io)",
+  "contributors": [
+    "Stephan Mühl"
+  ],
+  "license": "MIT"
+}
