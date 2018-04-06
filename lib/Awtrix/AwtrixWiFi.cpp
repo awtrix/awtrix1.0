@@ -7,7 +7,7 @@
 #include <Settings.h>
 
 
-const int FW_VERSION = 5;
+const int FW_VERSION = 6;
 const char* fwUrlBase = "http://blueforcer.de/awtrix/";
 File fsUploadFile;
 int brightSave;
