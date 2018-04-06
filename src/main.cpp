@@ -33,11 +33,13 @@ void setup() {
     if (MATRIX_MODE) DisplayManager::getInstance().setLayout();
     wifi.setup();
     ota.setup();
-    if (SETTINGS_FOUND){
+        DisplayManager::getInstance().showBoot();
         NTPclient.begin("0.pool.ntp.org",UTC_OFFSET);
-        getExternalTime t = NTPgetTime;
-        setSyncProvider(t);
-        setSyncInterval(APP_DURATION);
+  
+        setSyncProvider(getExternalTime(NTPgetTime));
+        setSyncInterval(36000);
+    if (SETTINGS_FOUND){
+       
         if (MQTT_ACTIVE) mqtt.setup();
         if (BLYNK_ACTIVE) ESPblynk.setup();
         applications.addApplication("Time");
@@ -50,6 +52,7 @@ void setup() {
         if (FB_ACTIVE) applications.addApplication("Facebook");
         if (FIRE_ACTIVE) applications.addApplication("Fire");
         if (SOUND) sound.setup();
+          setSyncProvider(getExternalTime(NTPgetTime));
     }else{
         DisplayManager::getInstance().setERR();
     }
