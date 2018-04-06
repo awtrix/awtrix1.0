@@ -346,6 +346,7 @@ void DisplayManager::wipe(int wait){
 
 
 void DisplayManager::checkLight() {
+    if (SLEEP_MODE) return;
     int brightnessAnalog = analogRead(A0);
     if (brightnessAnalog<300)
       {
