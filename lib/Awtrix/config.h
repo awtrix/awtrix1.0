@@ -1,4 +1,4 @@
-#include <string>
+
 #ifndef config_h
 #define config_h
 
@@ -12,10 +12,13 @@
     extern char TEXT_COLOR_R;
     extern char TEXT_COLOR_G;
     extern char TEXT_COLOR_B;
+    extern int RAINBOW;
     extern int SCROLL_SPEED;
     extern int AUTO_UPDATE;
     extern int SOUND;
-    extern std::string test;
+
+    extern int MATRIX_MODE;
+    extern int ALEXA_ACTIVE;
     extern int TIME_ACTIVE;
     extern int WEATHER_ACTIVE;
     extern int PET_ACTIVE;
@@ -23,27 +26,26 @@
     extern int DHT_ACTIVE;
     extern int YT_ACTIVE;
     extern int FB_ACTIVE;
+    extern int TWITTER_ACTIVE;
     extern int FIRE_ACTIVE;
     extern int MQTT_ACTIVE;
     extern int BLYNK_ACTIVE;
     extern int SETTINGS_FOUND;
     extern int APP_DURATION;
 
-    extern int CURRENT_HR;
-    extern int CURRENT_MIN;
     extern int SLEEP_START_MIN;
     extern int SLEEP_START_HR;
     extern int SLEEP_STOP_MIN;
     extern int SLEEP_STOP_HR;
     extern int SLEEP_MODE;
+    extern int SLEEP_MODE_ACTIVE;
 
-    extern char* CURRENT_TIME;
-    extern char* WUNDERGROUND_API_KEY;
-    extern char* WUNDERGROUND_LANGUAGE;
-    extern char* WUNDERGROUND_ZMW_CODE;
+    extern char* OWM_API_KEY;
+    extern char* OWM_LOCATION;
     extern char* YT_API_KEY;
     extern char* YT_CHANNEL_ID;
     extern char* FB_API_URL;
+    extern char* TWITTER_PROFILE;
     extern char* FINGERPRINT;
     extern char* MQTT_SERVER;
     extern int MQTT_PORT;

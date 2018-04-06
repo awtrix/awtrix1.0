@@ -6,18 +6,18 @@
 #include <ESP8266httpUpdate.h>
 #include <ESP8266HTTPUpdateServer.h>
 #include <WiFiClientSecure.h>
+#include <fauxmoESP.h>
+
 
 class AwtrixWiFi
 {
     private:
-        void tcpLoop();
-
-        ESP8266WebServer httpServer;
-         WiFiClientSecure client;
+        fauxmoESP alexa;
+        WiFiClientSecure client;
         String address;
 
     public:
-        AwtrixWiFi() : httpServer(80) {};
+
         void setup();
         void loop();
        

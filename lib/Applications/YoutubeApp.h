@@ -4,15 +4,15 @@
 #include <IApplication.h>
 #include <ArduinoJson.h>
 #include <../Awtrix/config.h>
+#include <WiFiClientSecure.h>
 
 
 class YoutubeApp : public IApplication
 {
     private:
         const char *host = "www.googleapis.com";
-        long subscribers,subscribersBefore = 0;
-        String val;
-        void getSubscribers(); 
+        long subscribers = 0;
+        WiFiClientSecure client;
     public:
         void render(DisplayManager&) override;
         void enable() override; 

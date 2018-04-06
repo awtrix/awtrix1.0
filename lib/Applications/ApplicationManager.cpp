@@ -8,16 +8,10 @@
 #include <GolApp.h>
 #include <FacebookApp.h>
 #include <FireApp.h>
+#include <TwitterApp.h>
 #include <../Awtrix/config.h>
+#include <TimeLib.h>
 
- struct tcp_pcb;
-        extern struct tcp_pcb* tcp_tw_pcbs;
-        extern "C" void tcp_abort (struct tcp_pcb* pcb);
-
-void tcpCleanup (void) {
-  while (tcp_tw_pcbs)
-    tcp_abort(tcp_tw_pcbs);
-}
 
 IApplication* ApplicationManager::getApplicationWithName(String name) {
     if (name == "Time") {
@@ -52,6 +46,11 @@ IApplication* ApplicationManager::getApplicationWithName(String name) {
         return new FireApp();
     }
 
+          if (name == "Twitter") {
+        return new TwitterApp();
+    }
+
+
     return NULL;
 }
 
@@ -74,9 +73,11 @@ void ApplicationManager::loop() {
     lastTick = thisTick;
 }
 
+
+
 void ApplicationManager::nextApplication() {
     applicationRuntime=0;
-            DisplayManager::getInstance().drawPixel(31,7,{255,100,0}); 
+        DisplayManager::getInstance().drawPixel(31,7,{255,100,0}); 
         DisplayManager::getInstance().show();
         applications[activeApplicationIndex]->disable();
 
@@ -100,21 +101,32 @@ void ApplicationManager::switchApplications() {
     //if (applicationRuntime >= activeApplication()->DefaultDisplayTime) {
     if (applicationRuntime >= (APP_DURATION*1000)) {
          AppIndex = activeApplicationIndex + 1;
+  
+        
         if (AppIndex >= numberOfApplications) {
             AppIndex = 0;
         }
 
+    if (SLEEP_MODE & SLEEP_MODE_ACTIVE){
+        DisplayManager::getInstance().setBrightness(5);
+        if (activeApplicationIndex != 0){
+            applications[activeApplicationIndex]->disable();
+            applications[0]->enable();
+            activeApplicationIndex = 0;
+        }
+    }else{
         if (AppIndex != activeApplicationIndex) {
-                      DisplayManager::getInstance().drawPixel(31,7,{255,100,0}); 
+            DisplayManager::getInstance().setBrightness(BRIGHTNESS);
+            DisplayManager::getInstance().drawPixel(31,7,{255,100,0}); 
             DisplayManager::getInstance().show();  
             applications[activeApplicationIndex]->disable();
 
             applications[AppIndex]->enable();
             DisplayManager::getInstance().wipe({500});
             activeApplicationIndex = AppIndex;
-           
+        }
+    }
 
-           }
 
         applicationRuntime = 0;
     }

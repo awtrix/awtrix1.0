@@ -2,16 +2,16 @@
 #define AwtrixTimeApplication_h
 
 #include <IApplication.h>
-#include <TimeClient.h>
 #include <../Awtrix/config.h>
+#include <TimeLib.h>
+#include <Time.h>
 class TimeApp : public IApplication
 {
     private:
-        TimeClient timeClient;
-        bool blink=false;
+    String time1;
+    bool blink=false;
+    int loopCounter;
     public:
-        TimeApp() : timeClient(UTC_OFFSET) {}
-
         void render(DisplayManager&) override;
         void enable() override;
 };

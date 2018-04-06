@@ -39,7 +39,7 @@ void FireApp::render(DisplayManager& display) {
 	}
 
     display.show();
-	delay(50);
+	delay(40);
 }
 
 void FireApp::enable() {

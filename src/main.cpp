@@ -7,33 +7,42 @@
 #include <DisplayManager.h>
 #include <AwtrixBlynk.h>
 #include <AwtrixSound.h>
-
-
 #include "../lib/Awtrix/config.h"
-#define BUTTON_RESET_CONFIG  D3
+#include <NTP.h>
+#include <TimeLib.h>
 
 OverTheAirUpdate ota;
 AwtrixWiFi wifi;
 MQTT mqtt;
-
-
+NTP NTPclient;
 AwtrixBlynk ESPblynk;
 AwtrixSound sound;
 ApplicationManager& applications = ApplicationManager::getInstance();
 AwtrixSettings& settings = AwtrixSettings::getInstance();
 
+time_t NTPgetTime()
+{
+    return NTPclient.getNtpTime();
+}
+
 void setup() {
     Serial.begin(115200);
-    pinMode(BUTTON_RESET_CONFIG, INPUT);
+    Serial.print("AWTRIX START");
+    DisplayManager::getInstance().showBoot();
     settings.loadSPIFFS();
+    if (MATRIX_MODE) DisplayManager::getInstance().setLayout();
     wifi.setup();
-
-    if (SETTINGS_FOUND){
     ota.setup();
+    if (SETTINGS_FOUND){
+        NTPclient.begin("0.pool.ntp.org",UTC_OFFSET);
+        getExternalTime t = NTPgetTime;
+        setSyncProvider(t);
+        setSyncInterval(APP_DURATION);
         if (MQTT_ACTIVE) mqtt.setup();
         if (BLYNK_ACTIVE) ESPblynk.setup();
-        if (TIME_ACTIVE) applications.addApplication("Time");
+        applications.addApplication("Time");
         if (WEATHER_ACTIVE) applications.addApplication("Weather");
+        if (TWITTER_ACTIVE) applications.addApplication("Twitter");
         if (GOL_ACTIVE) applications.addApplication("Gol");
         if (YT_ACTIVE) applications.addApplication("Youtube");
         if (PET_ACTIVE) applications.addApplication("Pet");
@@ -43,22 +52,20 @@ void setup() {
         if (SOUND) sound.setup();
     }else{
         DisplayManager::getInstance().setERR();
-        
     }
-    
+     
 }
 
 void loop() {
     ota.loop();
-    
-    if (!ota.isUpdating()) {
-        wifi.loop();
-        if (MQTT_ACTIVE) mqtt.loop();
-        applications.loop();
-        if (BLYNK_ACTIVE)ESPblynk.loop();
-        if (AUTO_BRIGHTNESS) DisplayManager::getInstance().checkLight();
-       
+    wifi.loop();   
+    if (SETTINGS_FOUND){
+        if (!ota.isUpdating()) {       
+            if (MQTT_ACTIVE) mqtt.loop();
+            if (SETTINGS_FOUND) applications.loop();
+            if (BLYNK_ACTIVE)ESPblynk.loop();
+            if (AUTO_BRIGHTNESS) DisplayManager::getInstance().checkLight(); 
+            if (SLEEP_MODE_ACTIVE) NTPclient.checkSleepMode();
+            }
+        }
     }
-}
-
-

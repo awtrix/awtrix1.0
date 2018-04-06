@@ -3,7 +3,7 @@
 
 #define DHTTYPE DHT11
 #define DHTPIN 2
-bool TH;;
+bool TH;
 
 
 DHT22App::DHT22App() : dht(DHTPIN, DHTTYPE) {

@@ -15,7 +15,9 @@ void AwtrixSettings::loadSettings() {
 
     File setFile = SPIFFS.open(settingsFile, "r");
     if (!setFile) {
+        SETTINGS_FOUND=0;
         Serial.println("Settings file not found!");
+        return;
     }
 
     size_t size = setFile.size();
@@ -26,21 +28,22 @@ void AwtrixSettings::loadSettings() {
     Serial.println("Settings file loaded");
     // Allocate a buffer to store contents of the file.
     std::unique_ptr<char[]> buf(new char[size]);
-
     setFile.readBytes(buf.get(), size);
     setFile.close();
-    StaticJsonBuffer<500> jsonBuffer;
+    StaticJsonBuffer<800> jsonBuffer;
     JsonObject& json = jsonBuffer.parseObject(buf.get());
 
     if (!json.success()) {
         Serial.println("Failed to parse settings file");
-        ESP.restart();
-        delay(1000);
+        SETTINGS_FOUND=0; 
+        return;
     }
 
     SETTINGS_FOUND=1;
 
+    MATRIX_MODE = json["MATRIX_MODE"];
     SHOW_IP_ON_BOOT= json["SHOW_IP_ON_BOOT"];
+    ALEXA_ACTIVE = json["ALEXA_ACTIVE"];
     AUTO_BRIGHTNESS = json["AUTO_BRIGHTNESS"];
     BRIGHTNESS = json["BRIGHTNESS"];
     SHOW_WEEKDAY = json["SHOW_WEEKDAY"];
@@ -50,24 +53,27 @@ void AwtrixSettings::loadSettings() {
     TEXT_COLOR_R = json["TEXT_COLOR_R"];
     TEXT_COLOR_G = json["TEXT_COLOR_G"];
     TEXT_COLOR_B = json["TEXT_COLOR_B"];
+    RAINBOW = json["RAINBOW"];
     SCROLL_SPEED = json["SCROLL_SPEED"];
     AUTO_UPDATE = json["AUTO_UPDATE"];
     SOUND = json["SOUND"];
     BLYNK_ACTIVE= json["BLYNK_ACTIVE"];
-    TIME_ACTIVE = json["TIME_ACTIVE"];
     WEATHER_ACTIVE = json["WEATHER_ACTIVE"];
     GOL_ACTIVE = json["GOL_ACTIVE"];
     PET_ACTIVE = json["PET_ACTIVE"];
     FB_ACTIVE = json["FB_ACTIVE"];
     YT_ACTIVE = json["YT_ACTIVE"];
+    TWITTER_ACTIVE = json["TWITTER_ACTIVE"];
     DHT_ACTIVE = json["DHT_ACTIVE"];
     FIRE_ACTIVE = json["FIRE_ACTIVE"];
     APP_DURATION = json["APP_DURATION"];
     MQTT_ACTIVE= json["MQTT_ACTIVE"];
+    SLEEP_START_MIN = json["SLEEP_START_MIN"];
+    SLEEP_START_HR = json["SLEEP_START_HR"];
+    SLEEP_STOP_MIN = json["SLEEP_STOP_MIN"];
+    SLEEP_STOP_HR= json["SLEEP_STOP_HR"];
+    SLEEP_MODE_ACTIVE = json["SLEEP_MODE_ACTIVE"];
 }
-
-
-
 
 void AwtrixSettings::loadConfig() {
      if (!SPIFFS.begin()) {
@@ -77,11 +83,12 @@ void AwtrixSettings::loadConfig() {
     File confFile = SPIFFS.open(configFile, "r");
     if (!confFile) {
         Serial.println("Config File not found!");
-       
+        SETTINGS_FOUND=0;
+        
+        return;
     }
 
     size_t size = confFile.size();
-    Serial.println(size);
     if (size > 2048) {
         Serial.println("Config file size is too large");
     }
@@ -94,30 +101,23 @@ void AwtrixSettings::loadConfig() {
 
     if (!json.success()) {
         Serial.println("Failed to parse config file");
-        ESP.restart();
-        delay(1000);
+        SETTINGS_FOUND=0;
+        return;
     }
 
-if (json.containsKey("WUNDERGROUND_API_KEY")){
-    WUNDERGROUND_API_KEY = (char*)malloc(json["WUNDERGROUND_API_KEY"].measureLength()+1);
-    WUNDERGROUND_API_KEY[0] = '\0';
-    strcpy(WUNDERGROUND_API_KEY, (const char*)json["WUNDERGROUND_API_KEY"]);
+if (json.containsKey("OWM_API_KEY")){
+    OWM_API_KEY = (char*)malloc(json["OWM_API_KEY"].measureLength()+1);
+    OWM_API_KEY[0] = '\0';
+    strcpy(OWM_API_KEY, (const char*)json["OWM_API_KEY"]);
 }else{
     WEATHER_ACTIVE=0;
 }
 
-if (json.containsKey("WUNDERGROUND_LANGUAGE")){
-    WUNDERGROUND_LANGUAGE = (char*)malloc(json["WUNDERGROUND_LANGUAGE"].measureLength()+1);
-    WUNDERGROUND_LANGUAGE[0] = '\0';
-    strcpy(WUNDERGROUND_LANGUAGE, (const char*)json["WUNDERGROUND_LANGUAGE"]);
-}else{
-    WEATHER_ACTIVE=0;
-}
 
-if (json.containsKey("WUNDERGROUND_ZMW_CODE")){
-    WUNDERGROUND_ZMW_CODE = (char*)malloc(json["WUNDERGROUND_ZMW_CODE"].measureLength()+1);
-    WUNDERGROUND_ZMW_CODE[0] = '\0';
-    strcpy(WUNDERGROUND_ZMW_CODE, (const char*)json["WUNDERGROUND_ZMW_CODE"]);
+if (json.containsKey("OWM_LOCATION")){
+    OWM_LOCATION = (char*)malloc(json["OWM_LOCATION"].measureLength()+1);
+    OWM_LOCATION[0] = '\0';
+    strcpy(OWM_LOCATION, (const char*)json["OWM_LOCATION"]);
 }else{
     WEATHER_ACTIVE=0;
 }
@@ -136,6 +136,14 @@ if (json.containsKey("YT_CHANNEL_ID")){
     strcpy(YT_CHANNEL_ID, (const char*)json["YT_CHANNEL_ID"]);
 }else{
     YT_ACTIVE=0;
+}
+
+if (json.containsKey("TWITTER_PROFILE")){
+    TWITTER_PROFILE = (char*)malloc(json["TWITTER_PROFILE"].measureLength()+1);
+    TWITTER_PROFILE[0] = '\0';
+    strcpy(TWITTER_PROFILE, (const char*)json["TWITTER_PROFILE"]);
+}else{
+    TWITTER_ACTIVE=0;
 }
 
 if (json.containsKey("FB_API_URL")){
@@ -194,24 +202,26 @@ if (json.containsKey("BLYNK_KEY")){
 }
 
 bool AwtrixSettings::saveSettings() {
-     StaticJsonBuffer<500> jsonBuffer;
+     StaticJsonBuffer<800> jsonBuffer;
     JsonObject& json = jsonBuffer.createObject();
-
+    json["MATRIX_MODE"] = MATRIX_MODE;
     json["SHOW_IP_ON_BOOT"] = SHOW_IP_ON_BOOT;
+    json["ALEXA_ACTIVE"] = ALEXA_ACTIVE;
     json["AUTO_BRIGHTNESS"] = AUTO_BRIGHTNESS;
     json["BRIGHTNESS"] = BRIGHTNESS;
     json["SHOW_WEEKDAY"] = SHOW_WEEKDAY;
     json["UTC_OFFSET"] = UTC_OFFSET;
     json["BIG_TIME"] = BIG_TIME;
     json["PET_MOOD"] = PET_MOOD;
-    json["TEXT_COLOR_R"] = TEXT_COLOR_R ;
-    json["TEXT_COLOR_G"] = TEXT_COLOR_G ;
+    json["TEXT_COLOR_R"] = TEXT_COLOR_R;
+    json["TEXT_COLOR_G"] = TEXT_COLOR_G;
     json["TEXT_COLOR_B"] = TEXT_COLOR_B;
-    json["SCROLL_SPEED"] = SCROLL_SPEED ;
-    json["AUTO_UPDATE"] = AUTO_UPDATE ;
+    json["RAINBOW"] = RAINBOW;
+    json["SCROLL_SPEED"] = SCROLL_SPEED;
+    json["AUTO_UPDATE"] = AUTO_UPDATE;
     json["SOUND"] = SOUND;
-    json["TIME_ACTIVE"] = TIME_ACTIVE;
     json["WEATHER_ACTIVE"] = WEATHER_ACTIVE;
+    json["TWITTER_ACTIVE"] = TWITTER_ACTIVE;
     json["GOL_ACTIVE"] = GOL_ACTIVE;
     json["PET_ACTIVE"] = PET_ACTIVE;
     json["FB_ACTIVE"] = FB_ACTIVE;
@@ -221,11 +231,14 @@ bool AwtrixSettings::saveSettings() {
     json["MQTT_ACTIVE"] = MQTT_ACTIVE;
     json["BLYNK_ACTIVE"] = BLYNK_ACTIVE;
     json["APP_DURATION"] = APP_DURATION;
-
+    json["SLEEP_START_MIN"] = SLEEP_START_MIN;
+    json["SLEEP_START_HR"] = SLEEP_START_HR;
+    json["SLEEP_STOP_MIN"] = SLEEP_STOP_MIN;
+    json["SLEEP_STOP_HR"] = SLEEP_STOP_HR;
+    json["SLEEP_MODE_ACTIVE"] = SLEEP_MODE_ACTIVE;
 
     File setFile = SPIFFS.open(settingsFile, "w");
     if (!setFile) {
-
         Serial.println("Failed to open Settings file for writing");
         return false;
     }
@@ -233,15 +246,13 @@ bool AwtrixSettings::saveSettings() {
     json.printTo(setFile);
     setFile.close();
     Serial.println("Settings file saved");
-
-
     delay(500);
     return true;
 }
 
 
 void AwtrixSettings::parseSettings(String json) {
-    StaticJsonBuffer<200> jsonBuffer;
+    StaticJsonBuffer<800> jsonBuffer;
     JsonObject& root = jsonBuffer.parseObject(json);
 
     if (!root.success()) {
