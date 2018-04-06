@@ -9,7 +9,7 @@
 long startsecondswd;            // weekday start time in seconds
 long stopsecondswd;             // weekday stop  time in seconds
 long nowseconds;  
-
+IPAddress ntpServer(94,100,3,214);
 NTP::NTP(void)
 {
 }
@@ -24,11 +24,10 @@ void NTP::begin(const char* ntpServerName, int TimeZoneOffset)
 time_t NTP::getNtpTime(void)
 {
   while (UDP.parsePacket() > 0) ; 
-  IPAddress timeServerIP;
-  WiFi.hostByName(_serverName, timeServerIP); 
-  sendNTPpacket(timeServerIP);
+
+  sendNTPpacket(ntpServer);
   uint32_t beginWait = millis();
-  while (millis() - beginWait < 1500) {
+  while (millis() - beginWait < 3500) {
     int size = UDP.parsePacket();
     if (size >= NTP_PACKET_SIZE) {
       UDP.read(packetBuffer, NTP_PACKET_SIZE); 
@@ -40,10 +39,13 @@ time_t NTP::getNtpTime(void)
       time_t secsSince1970 = secsSince1900 - 2208988800UL;
       int8_t totalOffset = (int8_t)(_timeZoneOffset + DSToffset(secsSince1970));
       UDP.stop();
+      Serial.println("Update Time");
       return secsSince1970 + (time_t)(totalOffset * SECS_PER_HOUR) ;
     }
     yield();
   }
+   Serial.println("Got no Time");
+   
   return 0; 
 }
 

@@ -133,7 +133,7 @@ void DisplayManager::show() {
 
 
 void DisplayManager::setBrightness(int value) {
-     
+    if (AUTO_BRIGHTNESS) return;
     matrix.setBrightness(value);
    
 
@@ -350,19 +350,19 @@ void DisplayManager::checkLight() {
     int brightnessAnalog = analogRead(A0);
     if (brightnessAnalog<300)
       {
-        setBrightness(30);
+        matrix.setBrightness(30);
       }else if(brightnessAnalog<400)
       {
-         setBrightness(70);
+         matrix.setBrightness(70);
       }else if(brightnessAnalog>500)
       {
-         setBrightness(100);
+         matrix.setBrightness(100);
       }else if(brightnessAnalog<600)
       {
-         setBrightness(150);
+         matrix.setBrightness(150);
       }else if(brightnessAnalog>600)
       {
-         setBrightness(200);
+         matrix.setBrightness(200);
       }
    
 }
