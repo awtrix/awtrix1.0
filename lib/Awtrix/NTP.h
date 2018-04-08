@@ -19,7 +19,7 @@ class NTP
     uint8_t packetBuffer[ NTP_PACKET_SIZE]; 
     const char* _serverName;
     int8_t _timeZoneOffset;
-
+ WiFiUDP UDP;
   public:
     NTP();
     void begin(const char* ntpServerName, int TimeZoneOffset);

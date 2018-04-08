@@ -4,7 +4,7 @@
 #include "NTP.h"
 #include <TimeLib.h>
 
- WiFiUDP UDP;
+
 
 long startsecondswd;            // weekday start time in seconds
 long stopsecondswd;             // weekday stop  time in seconds
@@ -45,7 +45,7 @@ time_t NTP::getNtpTime(void)
     yield();
   }
    Serial.println("Got no Time");
-   
+   UDP.stop();
   return 0; 
 }
 
