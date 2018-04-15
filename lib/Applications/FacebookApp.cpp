@@ -17,7 +17,7 @@ void FacebookApp::render(DisplayManager& display) {
 void FacebookApp::enable() {
     // Is called up once every time the app is started
     WiFiClientSecure client;
-     while (!client.connect(host, httpsPort)) {
+     while (!client.connect(host, 443)) {
     };
 
     client.verify(FINGERPRINT, host);
@@ -27,13 +27,14 @@ void FacebookApp::enable() {
                 "User-Agent: BuildFailureDetectorESP8266\r\n" + 
                 "Connection: close\r\n\r\n"); 
 
-    while (client.connected()) { 
-    String line = client.readStringUntil('\n'); 
-    if (line == "\r") { 
-        break; 
+    while (client.connected()) {
+    String line = client.readStringUntil('\n');
+    if (line == "\r") {
+      break;
     }
+  }
 
-    } 
+    
     // JSON 
     String line = client.readStringUntil('\n'); 
     DynamicJsonBuffer jsonBuffer; 
