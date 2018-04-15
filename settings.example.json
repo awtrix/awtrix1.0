@@ -1,26 +1,35 @@
 {
-  "MATRIX_MODE": "0",   // Zeige IP-Adresse beim starten (0=AUS/1=AN)
+  "SHOW_IP_ON_BOOT": "1",   // Zeige IP-Adresse beim starten (0=AUS/1=AN)
+  "MATRIX_MODE": "0",       // Ändert die Ansteuerung der Matrix (0=COLLUM/1=ROW)
+  "ALEXA_ACTIVE": "0",      // Aktivert die Steuerung über Amazons Alexa
   "AUTO_BRIGHTNESS": "0",   // Aktivere die atomatische Helligkeitsregelung
-  "BRIGHTNESS": "100",      // Standart Helligekeit wenn AUTO_BRIGHTNESS deaktivert ist
+  "BRIGHTNESS": "50",      // Standart Helligekeit wenn AUTO_BRIGHTNESS deaktivert ist
   "UTC_OFFSET": "1",        // UTC-Zeitverschiebung
-  "BIG_TIME": "1",          // Zeigt die Uhrzeit ohne Sekunden an (0=AUS/1=AN)
+  "BIG_TIME": "0",          // Zeigt die Uhrzeit ohne Sekunden an (0=AUS/1=AN)
   "SHOW_WEEKDAY": "1",      // Zeigt den Wochentag unter der Uhrzeit an (0=AUS/1=AN)
-  "PET_MOOD": "1",          // Ändert die "Emotion" der Augen (0=traurig, 1= neutral, 2= glücklich, 3=böse)
+  "PET_MOOD": "0",          // Ändert die "Emotion" der Augen (0=traurig, 1= neutral, 2= glücklich, 3=böse)
   "TEXT_COLOR_R": "255",    // Rotanteil der Schriftfarbe (0-255)
-  "TEXT_COLOR_G": "100",    // Grünanteil der Schriftfarbe (0-255)
+  "TEXT_COLOR_G": "255",    // Grünanteil der Schriftfarbe (0-255)
   "TEXT_COLOR_B": "255",    // Blauanteil der Schriftfarbe (0-255)
-  "SCROLL_SPEED": " 70",     // Scrollgeschwindigkeit (1-100)
-  "AUTO_UPDATE": "1",       // Es wird nach einem Neustart nach vorhanden Updates gesucht und installiert (0=AUS/1=AN)
+  "RAINBOW": "0",           // Zeigt Texte mit Farbwechsel an
+  "SCROLL_SPEED": "70",     // Scrollgeschwindigkeit (1-100)
+  "AUTO_UPDATE": "0",       // Es wird nach einem Neustart nach vorhanden Updates gesucht und installiert (0=AUS/1=AN)
   "SOUND": "0",             // Aktiviert die Tonausgabe (0=AUS/1=AN)
   "TIME_ACTIVE": "1",       // Akttiviert die Zeit-App (0=AUS/1=AN)
-  "WEATHER_ACTIVE": "0",    // Aktiviert die Wetter-App (0=AUS/1=AN)
-  "GOL_ACTIVE": "1",        // Aktiviert die Game of Life App (0=AUS/1=AN)
-  "PET_ACTIVE": "1",        // Aktivert die Virtual Pet App (0=AUS/1=AN)
+  "WEATHER_ACTIVE": "1",    // Aktiviert die Wetter-App (0=AUS/1=AN)
+  "GOL_ACTIVE": "0",        // Aktiviert die Game of Life App (0=AUS/1=AN)
+  "PET_ACTIVE": "0",        // Aktivert die Virtual Pet App (0=AUS/1=AN)
   "FB_ACTIVE": "0",         // Aktiviert die Facebook App (0=AUS/1=AN)
   "YT_ACTIVE": "0",         // Aktiviert die Youtube App (0=AUS/1=AN)
+  "TWITTER_ACTIVE": "0",    // Aktiviert die Youtube App (0=AUS/1=AN)
   "DHT_ACTIVE": "0",        // Aktiviert die DHT Sensor App (0=AUS/1=AN)
   "FIRE_ACTIVE": "0",       // Aktiviert die Fire App (0=AUS/1=AN) 
   "MQTT_ACTIVE": "0",       // Aktivert MQTT Client (0=AUS/1=AN)
   "BLYNK_ACTIVE": "0",      // Aktiviert die Steuerung über BLYNK
-  "APP_DURATION": "30"      // Dauer, wie lang eine App angezeigt wird (in Sekunden)
+  "APP_DURATION": "30",     // Dauer, wie lang eine App angezeigt wird (in Sekunden)
+  "SLEEP_MODE_ACTIVE": "0", // Aktivert den Sleep Mode (0=AUS/1=AN)
+  "SLEEP_START_HR": "23",   // Stunde in der der Sleepmode aktiviert wird 
+  "SLEEP_START_MIN": "0",   // Stunde in der der Sleepmode aktiviert wird 
+  "SLEEP_STOP_HR": "06",    // Minute in der der Sleepmode beendet wird 
+  "SLEEP_STOP_MIN": "30"    // Minute in der der Sleepmode beendet wird 
 }
