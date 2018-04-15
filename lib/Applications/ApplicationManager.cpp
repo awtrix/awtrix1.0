@@ -27,7 +27,7 @@ IApplication* ApplicationManager::getApplicationWithName(String name) {
     }
 
     if (name == "Youtube") {
-        return new YoutubeApp();
+       // return new YoutubeApp();
     }
 
      if (name == "Pet") {

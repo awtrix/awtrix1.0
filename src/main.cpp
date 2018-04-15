@@ -20,10 +20,7 @@ AwtrixSound sound;
 ApplicationManager& applications = ApplicationManager::getInstance();
 AwtrixSettings& settings = AwtrixSettings::getInstance();
 
-time_t NTPgetTime()
-{
-    return NTPclient.getNtpTime();
-}
+
 
 void setup() {
     Serial.begin(115200);
@@ -36,8 +33,8 @@ void setup() {
         DisplayManager::getInstance().showBoot();
         NTPclient.begin("0.pool.ntp.org",UTC_OFFSET);
   
-        setSyncProvider(getExternalTime(NTPgetTime));
-        setSyncInterval(36000);
+       
+   
     if (SETTINGS_FOUND){
        
         if (MQTT_ACTIVE) mqtt.setup();
@@ -52,7 +49,6 @@ void setup() {
         if (FB_ACTIVE) applications.addApplication("Facebook");
         if (FIRE_ACTIVE) applications.addApplication("Fire");
         if (SOUND) sound.setup();
-          setSyncProvider(getExternalTime(NTPgetTime));
     }else{
         DisplayManager::getInstance().setERR();
     }

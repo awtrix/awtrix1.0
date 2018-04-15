@@ -4,13 +4,13 @@
 #include <IApplication.h>
 #include <../Awtrix/config.h>
 #include <TimeLib.h>
-#include <Time.h>
+#include <NTP.h>
 class TimeApp : public IApplication
 {
     private:
-    String time1;
     bool blink=false;
     int loopCounter;
+    const char * monname[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     public:
         void render(DisplayManager&) override;
         void enable() override;

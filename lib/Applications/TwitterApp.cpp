@@ -32,7 +32,7 @@ String payload;
     {
       Serial.println("Failed to parse JSON");
     }
-
+jsonBuffer.clear();
 }
 
 

@@ -1,10 +1,7 @@
 #include <TimeApp.h>
-#include <stdio.h>
 unsigned long previousMillis = 0; 
 unsigned long interval = 1000; 
 bool TD;
-const char * monname[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-
 
 void TimeApp::render(DisplayManager& display) {
 
@@ -34,9 +31,8 @@ void TimeApp::render(DisplayManager& display) {
         display.drawWeekday(day_of_the_week);
     }
 
-
   display.show();
-  ++loopCounter;
+ if (RAINBOW) ++loopCounter;
 }
 
 void TimeApp::enable() {

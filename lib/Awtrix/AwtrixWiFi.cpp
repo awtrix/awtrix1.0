@@ -315,7 +315,7 @@ void AwtrixWiFi::setup() {
 
 void AwtrixWiFi::loop() {
   server.handleClient();
-  alexa.handle();
+ if(ALEXA_ACTIVE) alexa.handle();
 }
 
 
