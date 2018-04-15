@@ -34,7 +34,7 @@ void DisplayManager::setup() {
         fontsize=0;
     };
     matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
-    setBrightness(BRIGHTNESS);
+    matrix.setBrightness(BRIGHTNESS);
 
     clear();
 }
@@ -43,17 +43,15 @@ void DisplayManager::setup() {
     matrix.setRemapFunction(Remap);
  }
 
-uint32_t DisplayManager::Wheel(byte WheelPos) {
-if (colorCircle==256) colorCircle=0;
-
+uint32_t DisplayManager::Wheel(byte WheelPos, int pos) {
   if(WheelPos < 85) {
-   return matrix.Color((WheelPos * 3), (255 - WheelPos * 3), 0);
+   return matrix.Color((WheelPos * 3)-pos, (255 - WheelPos * 3)-pos, 0);
   } else if(WheelPos < 170) {
    WheelPos -= 85;
-   return matrix.Color((255 - WheelPos * 3), 0, (WheelPos * 3));
+   return matrix.Color((255 - WheelPos * 3)-pos, 0, (WheelPos * 3)-pos);
   } else {
    WheelPos -= 170;
-   return matrix.Color(0, (WheelPos * 3), (255 - WheelPos * 3));
+   return matrix.Color(0, (WheelPos * 3)-pos, (255 - WheelPos * 3)-pos);
   }
 }
 
@@ -133,19 +131,13 @@ void DisplayManager::show() {
 
 
 void DisplayManager::setBrightness(int value) {
-    if (AUTO_BRIGHTNESS) return;
-    matrix.setBrightness(value);
-   
+    matrix.setBrightness(BRIGHTNESS);
+    BRIGHTNESS=value;
 
 }
 
 void DisplayManager::setColor(AwtrixColor textColor) {
      matrix.setTextColor(color(textColor));
-
-}
-
-void DisplayManager::setColor2(uint32_t color) {
-     matrix.setTextColor(color);
 
 }
 
@@ -178,55 +170,44 @@ void DisplayManager::drawText(String text, AwtrixPosition position, boolean refr
     }
     if (small) {
         matrix.setFont(&TomThumb);
-        matrix.setCursor(position.x+1, position.y+6);
+        matrix.setCursor(position.x, position.y+6);
     }else{
         matrix.setFont();
         matrix.setCursor(position.x, position.y);
     }
     if(gobalColor)matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
-    if(RAINBOW)matrix.setTextColor(Wheel(colorCircle));
+    
     matrix.print(text);
 
     matrix.setFont();
-    delay(20);
-    ++colorCircle;
 }
 
 void DisplayManager::drawApp(const uint16_t bmp[], String text, AwtrixPosition position, AwtrixColor textColor, bool autoScroll, int wait) {
     int pixelsInText = (text.length() * 6);
     int x = 24;
     int s = map(SCROLL_SPEED,1,100,60,1);
-
 if (autoScroll) {
     if (text.length()>4){
         while(x > (24 - (pixelsInText+24))){
         matrix.clear();
         matrix.setCursor(--x, 0);
-            matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
-    if(RAINBOW)matrix.setTextColor(Wheel(colorCircle));
         matrix.print(text);
-
+        matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
         matrix.drawRGBBitmap(0,0,bmp,8,8);
         matrix.drawFastVLine(8, 0, 8, 0);
         matrix.show();
-        ++colorCircle;
         delay(s);
         }
     }else{
+        matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
         matrix.setCursor(position.x+9, position.y);
-                    matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
-    if(RAINBOW)matrix.setTextColor(Wheel(colorCircle));
         matrix.print(text);
-        
         matrix.drawRGBBitmap(0,0,bmp,8,8);
         matrix.show();
         matrix.setFont();
-        ++colorCircle;
         }
     }
     delay(wait);
-    
-
 }
 
 
@@ -241,7 +222,7 @@ void DisplayManager::flashProgress(unsigned int progress, unsigned int total) {
     long num = MATRIX_WIDTH * MATRIX_HEIGHT * progress / total;
     for (unsigned char y = 0; y < MATRIX_HEIGHT; y++) {
         for (unsigned char x = 0; x < MATRIX_WIDTH; x++) {
-            if (num-- > 0) matrix.drawPixel(x, MATRIX_HEIGHT - y - 1, Wheel((num*16) & 255));
+            if (num-- > 0) matrix.drawPixel(x, MATRIX_HEIGHT - y - 1, Wheel((num*16) & 255,0));
         }
     }
     matrix.setCursor(1, 0);
@@ -250,9 +231,6 @@ void DisplayManager::flashProgress(unsigned int progress, unsigned int total) {
     matrix.show();
 }
 
-void DisplayManager::setCursor(int x,int y) {
-    matrix.setCursor(x,y);
-}
 
 void DisplayManager::scrollText(String text) {
     int x = 32;
@@ -336,7 +314,7 @@ uint32_t DisplayManager::color(AwtrixColor color)
 void DisplayManager::wipe(int wait){  
     matrix.clear();
     for(uint16_t i=0; i<32+1; i++) {
-        matrix.drawFastVLine(i, 0, 8, Wheel((i*8) & 255));
+        matrix.drawFastVLine(i, 0, 8, Wheel((i*8) & 255,0));
         matrix.drawFastVLine(i-1, 0, 8, 0);
         matrix.show();
         delay(10);
@@ -346,26 +324,26 @@ void DisplayManager::wipe(int wait){
 
 
 void DisplayManager::checkLight() {
-    if (SLEEP_MODE) return;
     int brightnessAnalog = analogRead(A0);
     if (brightnessAnalog<300)
       {
-        matrix.setBrightness(30);
+        setBrightness(30);
       }else if(brightnessAnalog<400)
       {
-         matrix.setBrightness(70);
+         setBrightness(70);
       }else if(brightnessAnalog>500)
       {
-         matrix.setBrightness(100);
+         setBrightness(100);
       }else if(brightnessAnalog<600)
       {
-         matrix.setBrightness(150);
+         setBrightness(150);
       }else if(brightnessAnalog>600)
       {
-         matrix.setBrightness(200);
+         setBrightness(200);
       }
    
 }
+
 
 void DisplayManager::showBoot(){
     matrix.setBrightness(100);

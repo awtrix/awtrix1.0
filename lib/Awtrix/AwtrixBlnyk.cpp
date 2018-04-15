@@ -146,7 +146,7 @@ BLYNK_WRITE(V15)
 
 BLYNK_WRITE(V16) 
 {
-     DHT_ACTIVE=param.asInt();
+     TWITTER_ACTIVE=param.asInt();
 }
 
 BLYNK_WRITE(V17) 
@@ -156,7 +156,7 @@ BLYNK_WRITE(V17)
 
 BLYNK_WRITE(V19) 
 {
-     FIRE_ACTIVE=param.asInt();
+     DHT_ACTIVE=param.asInt();
 }
 
 BLYNK_WRITE(V20) 
