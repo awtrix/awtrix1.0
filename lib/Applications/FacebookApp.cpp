@@ -39,7 +39,7 @@ void FacebookApp::enable() {
     DynamicJsonBuffer jsonBuffer; 
     JsonObject& root = jsonBuffer.parseObject(line); 
     pageLikes = root[String("fan_count")]; 
-    
+    client.stopAll();
     
 }
 
