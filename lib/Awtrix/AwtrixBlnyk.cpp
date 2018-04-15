@@ -12,6 +12,7 @@ void sendStates() {
     Blynk.virtualWrite(0, BRIGHTNESS);
     Blynk.virtualWrite(2, BIG_TIME);
     Blynk.virtualWrite(3, SCROLL_SPEED);
+
     Blynk.virtualWrite(5, PET_MOOD);
     Blynk.virtualWrite(6, SHOW_WEEKDAY);
     Blynk.virtualWrite(9, SLEEP_MODE_ACTIVE);
@@ -23,6 +24,7 @@ void sendStates() {
     Blynk.virtualWrite(16, TWITTER_ACTIVE);
     Blynk.virtualWrite(17, FIRE_ACTIVE);
     Blynk.virtualWrite(18, RAINBOW);
+    Blynk.virtualWrite(19, DHT_ACTIVE);
 }
 
 void AwtrixBlynk::setup() {
@@ -144,10 +146,15 @@ BLYNK_WRITE(V15)
 
 BLYNK_WRITE(V16) 
 {
-     TWITTER_ACTIVE=param.asInt();
+     DHT_ACTIVE=param.asInt();
 }
 
 BLYNK_WRITE(V17) 
+{
+     FIRE_ACTIVE=param.asInt();
+}
+
+BLYNK_WRITE(V19) 
 {
      FIRE_ACTIVE=param.asInt();
 }

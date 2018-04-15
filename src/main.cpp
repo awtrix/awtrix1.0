@@ -25,12 +25,13 @@ void setup() {
     Serial1.begin(9800);
     settings.loadSPIFFS();
     if (MATRIX_MODE) DisplayManager::getInstance().setLayout();
+    DisplayManager::getInstance().showBoot();
     wifi.setup();
-    if (SETTINGS_FOUND){
     ota.setup();
+    if (SETTINGS_FOUND){
         if (MQTT_ACTIVE) mqtt.setup();
         if (BLYNK_ACTIVE) ESPblynk.setup();
-       applications.addApplication("Time");
+            applications.addApplication("Time");
         if (WEATHER_ACTIVE) applications.addApplication("Weather");
         if (TWITTER_ACTIVE) applications.addApplication("Twitter");
 

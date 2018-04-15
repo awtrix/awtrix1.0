@@ -270,15 +270,6 @@ server.on("/list", HTTP_GET, handleFileList);
 
 void AwtrixWiFi::setup() {
     Serial.println(F("Setup WiFi"));
-    DisplayManager::getInstance().setColor({255,51,00});
-    DisplayManager::getInstance().drawText("B", {4, 0}, true,false,false);
-    DisplayManager::getInstance().setColor({255,255,0});
-    DisplayManager::getInstance().drawText("O", {10, 0}, false,false,false);
-    DisplayManager::getInstance().setColor({102,255,51});
-    DisplayManager::getInstance().drawText("O", {17, 0}, false,false,false);
-    DisplayManager::getInstance().setColor({51,204,204});
-    DisplayManager::getInstance().drawText("T", {23, 0}, false,false,false);
-    DisplayManager::getInstance().show();
     WiFiManager wifiManager;
     wifiManager.setTimeout(120);
     wifiManager.setAPCallback(configModeCallback);
