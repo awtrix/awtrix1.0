@@ -58,4 +58,5 @@ void WeatherApp::enable() {
         }
     }
     http.end();
+    jsonBuffer.clear();
   }

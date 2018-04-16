@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>AWTRIX Editor</title>
+    <title>AwTRIX Editor</title>
     <style type="text/css" media="screen">
       .contextMenu {
         z-index: 300;
@@ -180,7 +180,6 @@
             if(xmlHttp.status != 200) alert("ERROR["+xmlHttp.status+"]: "+xmlHttp.responseText);
             else {
               tree.refreshPath(path.value);
-              confirm(xmlHttp.responseText);
             }
           }
         }

@@ -48,4 +48,3 @@
     char* MQTT_USERNAME;
     char* MQTT_PASSWORD;
     char* BLYNK_KEY; 
-
