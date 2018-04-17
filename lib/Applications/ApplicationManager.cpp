@@ -65,7 +65,7 @@ void ApplicationManager::loop() {
     unsigned long thisTick = millis();
     unsigned long delta = thisTick - lastTick;
 
-    applicationRuntime += delta;
+  
     switchApplications();
 
     for (int i = 0; i < numberOfApplications; i++) {
@@ -75,6 +75,7 @@ void ApplicationManager::loop() {
     IApplication* application = activeApplication();
     if (application) {
         application->render(DisplayManager::getInstance());
+          applicationRuntime += delta;
     }
 
     lastTick = thisTick;
@@ -126,6 +127,7 @@ void ApplicationManager::switchApplications() {
             applications[activeApplicationIndex]->disable();
 
             applications[AppIndex]->enable();
+            applicationRuntime=0;
             DisplayManager::getInstance().wipe({500});
             activeApplicationIndex = AppIndex;
         }

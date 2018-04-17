@@ -8,6 +8,11 @@
 const int FW_VERSION = 7;
 const char* fwUrlBase = "http://blueforcer.de/awtrix/";
 File fsUploadFile;
+WiFiUDP Udp;
+String IP_ADRESS;
+char  ReplyBuffer[] = "OK";
+int localUdpPort = 52829;
+char inputBuffer[512];  
 
 ESP8266WebServer server(80);
 
@@ -146,7 +151,7 @@ void handleFileUpload() {
     if (fsUploadFile) {
       fsUploadFile.close();
         AwtrixSettings::getInstance().loadSPIFFS();
-        server.send(200, "text/plain", "Änderungen gespeichert!");
+  
     }
   }
 }
@@ -221,6 +226,30 @@ void handleFileList() {
   server.send(200, "text/json", output);
 }
 
+void handleFileUpload2(){ // upload a new file to the SPIFFS
+  Serial.print("test"); 
+  HTTPUpload& upload = server.upload();
+  if(upload.status == UPLOAD_FILE_START){
+    String filename = upload.filename;
+    if(!filename.startsWith("/")) filename = "/"+filename;
+    Serial.print("handleFileUpload Name: "); Serial.println(filename);
+    fsUploadFile = SPIFFS.open(filename, "w");            // Open the file for writing in SPIFFS (create if it doesn't exist)
+    filename = String();
+  } else if(upload.status == UPLOAD_FILE_WRITE){
+    if(fsUploadFile)
+      fsUploadFile.write(upload.buf, upload.currentSize); // Write the received bytes to the file
+  } else if(upload.status == UPLOAD_FILE_END){
+    if(fsUploadFile) {                                    // If the file was successfully created
+      fsUploadFile.close();                               // Close the file again
+      Serial.print("handleFileUpload Size: "); Serial.println(upload.totalSize);
+      server.sendHeader("Location","/success.html");      // Redirect the client to the success page
+      server.send(303);
+    } else {
+      server.send(500, "text/plain", "500: couldn't create file");
+    }
+  }
+}
+
 void setupServer(){
         SPIFFS.begin();
   {
@@ -248,6 +277,13 @@ server.on("/list", HTTP_GET, handleFileList);
     server.send(200, "text/plain", "");
   }, handleFileUpload);
 
+
+  server.on("/upload", HTTP_POST,                       // if the client posts to the upload page
+    [](){ server.send(200); },                          // Send status 200 (OK) to tell the client we are ready to receive
+    handleFileUpload2                                   // Receive and save the file
+  );
+
+
   //called when the url is not defined here
   //use it to load content from SPIFFS
   server.onNotFound([]() {
@@ -257,7 +293,7 @@ server.on("/list", HTTP_GET, handleFileList);
   });
 
   //get heap status, analog input value and all GPIO statuses in one json call
-  server.on("/all", HTTP_GET, []() {
+  server.on("/", HTTP_GET, []() {
     String json = "{";
     json += "\"FreeRAM\":" + String(ESP.getFreeHeap());
     json += ", \"BrighnessSensor\":" + String(analogRead(A0));
@@ -266,6 +302,49 @@ server.on("/list", HTTP_GET, handleFileList);
     json = String();
   });
 
+}
+
+
+void udpLoop() {
+    int packetSize = Udp.parsePacket();
+    if (packetSize) {
+     
+      Udp.read(inputBuffer, 256);
+      Serial.println("Contents:");
+      Serial.println(inputBuffer);
+      Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
+      Udp.write("ACK");
+      Udp.endPacket();
+        if (packetSize > 0)
+      {
+        inputBuffer[packetSize] = 0;
+      }
+       String dat;
+        String command;
+        String payload;
+        dat = String(inputBuffer);
+        command = dat.substring(0,dat.indexOf("%"));
+        payload = dat.substring(dat.indexOf("%")+1,dat.length());
+        
+        Serial.println("Command: " + command);
+        Serial.println("Payload: " +payload);
+
+
+        if (command == "bri"){
+          
+         BRIGHTNESS=payload.toInt();
+         
+        }
+
+        if (command == "settings"){
+          int str_len = payload.length() + 1; 
+          char char_array[str_len];
+          payload.toCharArray(char_array, str_len);
+          AwtrixSettings::getInstance().parseSettings(char_array);
+        }
+      
+    }
+    delay(10);
 }
 
 void AwtrixWiFi::setup() {
@@ -296,7 +375,7 @@ void AwtrixWiFi::setup() {
     server.begin();
 
     if(AUTO_UPDATE) checkForUpdates();
-
+    Udp.begin(localUdpPort);
 
 }
 
@@ -304,6 +383,7 @@ void AwtrixWiFi::setup() {
 
 void AwtrixWiFi::loop() {
  server.handleClient();
+ udpLoop();
 }
 
 

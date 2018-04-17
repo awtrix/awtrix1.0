@@ -260,16 +260,39 @@ void AwtrixSettings::parseSettings(String json) {
         return;
     }
 
-    if (root.containsKey("BRIGHTNESS")) BRIGHTNESS = root["BRIGHTNESS"];
-    if (root.containsKey("SHOW_IP_ON_BOOT")) SHOW_IP_ON_BOOT = root["SHOW_IP_ON_BOOT"];
-    if (root.containsKey("AUTO_BRIGHTNESS")) AUTO_BRIGHTNESS = root["AUTO_BRIGHTNESS"];
-    if (root.containsKey("UTC_OFFSET")) UTC_OFFSET = root["UTC_OFFSET"];
-    if (root.containsKey("BIG_TIME"))    BIG_TIME = root["BIG_TIME"];
-    if (root.containsKey("PET_MOOD"))  PET_MOOD = root["PET_MOOD"];
-    if (root.containsKey("AUTO_UPDATE"))  AUTO_UPDATE = root["AUTO_UPDATE"];
-    if (root.containsKey("TEXT_COLOR_R")) TEXT_COLOR_R = root["TEXT_COLOR_R"];
-    if (root.containsKey("TEXT_COLOR_G")) TEXT_COLOR_G = root["TEXT_COLOR_G"];
-    if (root.containsKey("TEXT_COLOR_B")) TEXT_COLOR_B = root["TEXT_COLOR_B"];
-    if (root.containsKey("SCROLL_SPEED")) SCROLL_SPEED = root["SCROLL_SPEED"];
+
+
+if (root.containsKey("MATRIX_MODE"))  MATRIX_MODE = root["BRIGHTNESS"];
+if (root.containsKey("SHOW_IP_ON_BOOT"))  SHOW_IP_ON_BOOT = root["BRIGHTNESS"];
+if (root.containsKey("ALEXA_ACTIVE"))  ALEXA_ACTIVE = root["BRIGHTNESS"];
+if (root.containsKey("AUTO_BRIGHTNESS"))  AUTO_BRIGHTNESS = root["BRIGHTNESS"];
+if (root.containsKey("BRIGHTNESS"))  BRIGHTNESS = root["BRIGHTNESS"];
+if (root.containsKey("SHOW_WEEKDAY"))  SHOW_WEEKDAY = root["BRIGHTNESS"];
+if (root.containsKey("UTC_OFFSET"))  UTC_OFFSET = root["BRIGHTNESS"];
+if (root.containsKey("BIG_TIME"))  BIG_TIME = root["BRIGHTNESS"];
+if (root.containsKey("PET_MOOD"))  PET_MOOD = root["BRIGHTNESS"];
+if (root.containsKey("TEXT_COLOR_R"))  TEXT_COLOR_R = root["BRIGHTNESS"];
+if (root.containsKey("TEXT_COLOR_G"))  TEXT_COLOR_G = root["BRIGHTNESS"];
+if (root.containsKey("TEXT_COLOR_B"))  TEXT_COLOR_B = root["BRIGHTNESS"];
+if (root.containsKey("RAINBOW"))  RAINBOW = root["BRIGHTNESS"];
+if (root.containsKey("SCROLL_SPEED"))  SCROLL_SPEED = root["BRIGHTNESS"];
+if (root.containsKey("AUTO_UPDATE"))  AUTO_UPDATE = root["BRIGHTNESS"];
+if (root.containsKey("SOUND"))  SOUND = root["BRIGHTNESS"];
+if (root.containsKey("WEATHER_ACTIVE"))  WEATHER_ACTIVE = root["BRIGHTNESS"];
+if (root.containsKey("TWITTER_ACTIVE"))  TWITTER_ACTIVE = root["BRIGHTNESS"];
+if (root.containsKey("GOL_ACTIVE"))  GOL_ACTIVE = root["BRIGHTNESS"];
+if (root.containsKey("PET_ACTIVE"))  PET_ACTIVE = root["BRIGHTNESS"];
+if (root.containsKey("FB_ACTIVE"))  FB_ACTIVE = root["BRIGHTNESS"];
+if (root.containsKey("YT_ACTIVE"))  YT_ACTIVE = root["BRIGHTNESS"];
+if (root.containsKey("DHT_ACTIVE"))  DHT_ACTIVE = root["BRIGHTNESS"];
+if (root.containsKey("FIRE_ACTIVE"))  FIRE_ACTIVE = root["BRIGHTNESS"];
+if (root.containsKey("MQTT_ACTIVE"))  MQTT_ACTIVE = root["BRIGHTNESS"];
+if (root.containsKey("BLYNK_ACTIVE"))  BLYNK_ACTIVE = root["BRIGHTNESS"];
+if (root.containsKey("APP_DURATION"))  APP_DURATION = root["BRIGHTNESS"];
+if (root.containsKey("SLEEP_START_MIN"))  SLEEP_START_MIN = root["BRIGHTNESS"];
+if (root.containsKey("SLEEP_START_HR"))  SLEEP_START_HR = root["BRIGHTNESS"];
+if (root.containsKey("SLEEP_STOP_MIN"))  SLEEP_STOP_MIN = root["BRIGHTNESS"];
+if (root.containsKey("SLEEP_STOP_HR"))  SLEEP_STOP_HR = root["BRIGHTNESS"];
+if (root.containsKey("SLEEP_MODE_ACTIVE"))  SLEEP_MODE_ACTIVE = root["BRIGHTNESS"];
     saveSettings();
 }
