@@ -8,13 +8,14 @@
 #include <AwtrixBlynk.h>
 #include <AwtrixSound.h>
 #include "../lib/Awtrix/config.h"
-
+#include <AwtrixUDP.h>
 
 
 
 OverTheAirUpdate ota;
 AwtrixWiFi wifi;
 MQTT mqtt;
+AwtrixUDP udp;
 AwtrixBlynk ESPblynk;
 AwtrixSound sound;
 ApplicationManager& applications = ApplicationManager::getInstance();
@@ -28,6 +29,7 @@ void setup() {
     DisplayManager::getInstance().showBoot();
     wifi.setup();
     ota.setup();
+    udp.setup();
     if (SETTINGS_FOUND){
         if (MQTT_ACTIVE) mqtt.setup();
         if (BLYNK_ACTIVE) ESPblynk.setup();
@@ -55,9 +57,10 @@ void loop() {
 
         if (!ota.isUpdating()) {
             wifi.loop();
+            udp.loop();
             if (MQTT_ACTIVE) mqtt.loop();
             if (SETTINGS_FOUND) applications.loop();
-            if (BLYNK_ACTIVE)ESPblynk.loop();
+            if (BLYNK_ACTIVE) ESPblynk.loop();
             if (AUTO_BRIGHTNESS) DisplayManager::getInstance().checkLight();
     }
 }

@@ -8,11 +8,7 @@
 const int FW_VERSION = 7;
 const char* fwUrlBase = "http://blueforcer.de/awtrix/";
 File fsUploadFile;
-WiFiUDP Udp;
-String IP_ADRESS;
-char  ReplyBuffer[] = "OK";
-int localUdpPort = 52829;
-char inputBuffer[512];  
+
 
 ESP8266WebServer server(80);
 
@@ -305,47 +301,7 @@ server.on("/list", HTTP_GET, handleFileList);
 }
 
 
-void udpLoop() {
-    int packetSize = Udp.parsePacket();
-    if (packetSize) {
-     
-      Udp.read(inputBuffer, 256);
-      Serial.println("Contents:");
-      Serial.println(inputBuffer);
-      Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
-      Udp.write("ACK");
-      Udp.endPacket();
-        if (packetSize > 0)
-      {
-        inputBuffer[packetSize] = 0;
-      }
-       String dat;
-        String command;
-        String payload;
-        dat = String(inputBuffer);
-        command = dat.substring(0,dat.indexOf("%"));
-        payload = dat.substring(dat.indexOf("%")+1,dat.length());
-        
-        Serial.println("Command: " + command);
-        Serial.println("Payload: " +payload);
 
-
-        if (command == "bri"){
-          
-         BRIGHTNESS=payload.toInt();
-         
-        }
-
-        if (command == "settings"){
-          int str_len = payload.length() + 1; 
-          char char_array[str_len];
-          payload.toCharArray(char_array, str_len);
-          AwtrixSettings::getInstance().parseSettings(char_array);
-        }
-      
-    }
-    delay(10);
-}
 
 void AwtrixWiFi::setup() {
     Serial.println(F("Setup WiFi"));
@@ -375,7 +331,7 @@ void AwtrixWiFi::setup() {
     server.begin();
 
     if(AUTO_UPDATE) checkForUpdates();
-    Udp.begin(localUdpPort);
+
 
 }
 
@@ -383,7 +339,7 @@ void AwtrixWiFi::setup() {
 
 void AwtrixWiFi::loop() {
  server.handleClient();
- udpLoop();
+
 }
 
 
