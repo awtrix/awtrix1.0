@@ -35,11 +35,11 @@ void AwtrixUDP::loop() {
 
       if (command == "bri"){   
         BRIGHTNESS=payload.toInt();
-        DisplayManager::getInstance().setBrightness(BRIGHTNESS);
+        DisplayManager::getInstance().setBrightness(payload.toInt());
       }
 
-      if (command== "apps"){
-
+      if (command== "save"){
+          AwtrixSettings::getInstance().saveSettings();
       }
 
       if (command== "reset"){

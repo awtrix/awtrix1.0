@@ -250,7 +250,11 @@ bool AwtrixSettings::saveSettings() {
     json.printTo(setFile);
     setFile.close();
     Serial.println("Settings file saved");
+ 
+    DisplayManager::getInstance().showSave();
     delay(500);
+     DisplayManager::getInstance().clear();
+     DisplayManager::getInstance().show();
     return true;
 }
 

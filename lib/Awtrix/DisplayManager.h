@@ -63,6 +63,7 @@ class DisplayManager
         void drawChar(uint16_t, uint16_t, char, AwtrixColor, uint16_t, uint8_t);
         void setLayout();
         void showBoot();
+        void showSave();
 };
 
 #endif

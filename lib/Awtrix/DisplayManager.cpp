@@ -131,8 +131,9 @@ void DisplayManager::show() {
 
 
 void DisplayManager::setBrightness(int value) {
-    matrix.setBrightness(BRIGHTNESS);
     BRIGHTNESS=value;
+    matrix.setBrightness(BRIGHTNESS);
+
 
 }
 
@@ -259,53 +260,10 @@ void DisplayManager::colorWipe(AwtrixColor wipeColor) {
     }
 }
 
-bool DisplayManager::executeCommand(command_t command, String payload1, String payload2)
-{
-    switch (command) {
-        case command_t::settings_get:
-            break;
-
-        case command_t::settings_set:
-            break;
-
-        case command_t::settings_reset:
-            break;
-
-        case command_t::bright:
-            if (payload1.toInt()>0){
-                setBrightness(payload1.toInt());
-            }
-                        
-            break;
-
-        case command_t::text:
-            break;
-
-        case command_t::color:
-            
-            break;
-
-        case command_t::screen:
-            break;
-
-        case command_t::notification:
-            if (payload1 == "E-Mail"){
-                drawApp(mail,payload2,{0,0},{255, 255, 255},true,2000);
-            } else if (payload1 == "Whatsapp") {   
-                drawApp(whatsapp,payload2,{0,0},{255, 255, 255},true,2000);
-           }
-
-           //drawApp(whatsapp,payload1,{0,0},{255, 255, 255},true,30,2000);
-            break;
-    }
-
-    return true;
-}
 
 uint32_t DisplayManager::color(AwtrixColor color)
 {
-  
-    return matrix.Color(color.red, color.green, color.blue);
+  return matrix.Color(color.red, color.green, color.blue);
     
 }
 
@@ -361,6 +319,15 @@ void DisplayManager::showBoot(){
     matrix.setTextColor(color({51,204,204}));
     matrix.setCursor(23, 0);
     matrix.print("T");
+    matrix.show();
+}
+
+void DisplayManager::showSave(){
+    matrix.clear();
+    matrix.setBrightness(BRIGHTNESS);
+    matrix.setTextColor(color({0,255,50}));
+    matrix.setCursor(4, 0);
+    matrix.print("SAVE");
     matrix.show();
 }
 
