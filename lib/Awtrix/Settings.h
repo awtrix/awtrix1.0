@@ -23,7 +23,7 @@ class AwtrixSettings {
             return instance;
         }
          
-        void loadSettings();
+        String loadSettings();
         void loadConfig();
         void restoreSettings();
         bool saveSettings();

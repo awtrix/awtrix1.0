@@ -67,7 +67,7 @@ void ApplicationManager::loop() {
 
   
     switchApplications();
-
+        applicationRuntime += delta;
     for (int i = 0; i < numberOfApplications; i++) {
         applications[i]->tick(delta);
     }
@@ -75,7 +75,7 @@ void ApplicationManager::loop() {
     IApplication* application = activeApplication();
     if (application) {
         application->render(DisplayManager::getInstance());
-          applicationRuntime += delta;
+  
     }
 
     lastTick = thisTick;
