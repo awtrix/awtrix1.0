@@ -9,12 +9,10 @@
 class MQTT
 {
     private:        
-
-
         WiFiClient espClient;
         PubSubClient mqttClient;
         void commands(String, String);
-        void reconnect();
+        bool reconnect();
     public:
         MQTT() : mqttClient(espClient) {};
         int publish(char*,char*);
