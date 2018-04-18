@@ -4,6 +4,7 @@
 #include "config.h"
 #include <DisplayManager.h>
 #include <Settings.h>
+#include <ApplicationManager.h>
 
 class AwtrixUDP
 {

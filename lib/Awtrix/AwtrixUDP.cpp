@@ -1,4 +1,5 @@
 #include <AwtrixUDP.h>
+
 char  ReplyBuffer[] = "OK";
 String IP_ADRESS;
 int localUdpPort = 52829;
@@ -41,22 +42,30 @@ void AwtrixUDP::loop() {
 
       }
 
-        if (command== "reset"){
+      if (command== "reset"){
           ESP.reset();
+      }
+
+      if (command== "mood"){
+          PET_MOOD=payload.toInt();
       }
 
       if (command== "text"){
           DisplayManager::getInstance().scrollText(payload);
       }
 
-  
-       if (command == "color"){
-          long number = (long) strtol( &payload[1], NULL, 16);
-          TEXT_COLOR_R = number >> 16;
-          TEXT_COLOR_G = number >> 8 & 0xff;
-          TEXT_COLOR_B = number & 0xff;
-          DisplayManager::getInstance().setColor({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B});
-}
+      if (command== "next"){
+         ApplicationManager::getInstance().nextApplication() ;
+      }
+
+     
+      if (command == "color"){
+        long number = (long) strtol( &payload[1], NULL, 16);
+        TEXT_COLOR_R = number >> 16;
+        TEXT_COLOR_G = number >> 8 & 0xff;
+        TEXT_COLOR_B = number & 0xff;
+        DisplayManager::getInstance().setColor({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B});
+        }
 
 
       if (command == "settings"){
