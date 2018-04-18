@@ -17,10 +17,7 @@ void AwtrixUDP::sendMSG(String msg){
 void AwtrixUDP::loop() {
     int packetSize = Udp.parsePacket();
     if (packetSize) {
-
-      Udp.read(inputBuffer, 256);
-      Serial.println("Contents:");
-      Serial.println(inputBuffer);
+      Udp.read(inputBuffer, 512);
       sendMSG("ACK");
       if (packetSize > 0)
         {

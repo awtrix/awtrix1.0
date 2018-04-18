@@ -256,6 +256,7 @@ bool AwtrixSettings::saveSettings() {
 
 
 void AwtrixSettings::parseSettings(String json) {
+   Serial.println("Got Settings"); 
     StaticJsonBuffer<800> jsonBuffer;
     JsonObject& root = jsonBuffer.parseObject(json);
 
