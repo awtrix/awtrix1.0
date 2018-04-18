@@ -3,6 +3,7 @@
 #include <AwtrixWiFi.h>
 #include "config.h"
 #include <DisplayManager.h>
+#include <Settings.h>
 
 class AwtrixUDP
 {
@@ -12,6 +13,7 @@ class AwtrixUDP
     public:
         void setup();
         void loop();
+        void sendMSG(String);
 };
 
 #endif

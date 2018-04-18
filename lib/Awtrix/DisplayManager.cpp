@@ -345,8 +345,10 @@ void DisplayManager::checkLight() {
 }
 
 
+
+
 void DisplayManager::showBoot(){
-    matrix.setBrightness(100);
+    matrix.setBrightness(BRIGHTNESS);
     matrix.setTextColor(color({255,51,00}));
     matrix.setCursor(4, 0);
     matrix.print("B");

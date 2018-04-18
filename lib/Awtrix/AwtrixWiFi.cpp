@@ -310,7 +310,7 @@ void AwtrixWiFi::setup() {
     wifiManager.setAPCallback(configModeCallback);
 
     wifiManager.autoConnect("AWTRIX");
-
+//wifiManager.resetSettings();
     address = WiFi.localIP().toString();
     Serial.println(F("WiFi connected"));
     Serial.print(F("IP address: "));
