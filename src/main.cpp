@@ -10,8 +10,6 @@
 #include "../lib/Awtrix/config.h"
 #include <AwtrixUDP.h>
 
-
-
 OverTheAirUpdate ota;
 AwtrixWiFi wifi;
 MQTT mqtt;
@@ -34,6 +32,7 @@ void setup() {
         if (MQTT_ACTIVE) mqtt.setup();
         if (BLYNK_ACTIVE) ESPblynk.setup();
         applications.addApplication("Time");
+        applications.addApplication("Pong");
         if (WEATHER_ACTIVE) applications.addApplication("Weather");
         if (TWITTER_ACTIVE) applications.addApplication("Twitter");
         if (GOL_ACTIVE) applications.addApplication("Gol");
@@ -49,14 +48,11 @@ void setup() {
      
 }
 
-
-
-
 void loop() {
     ota.loop();
 
         if (!ota.isUpdating()) {
-            wifi.loop();
+            //wifi.loop();
             udp.loop();
             if (MQTT_ACTIVE) mqtt.loop();
             if (SETTINGS_FOUND) applications.loop();

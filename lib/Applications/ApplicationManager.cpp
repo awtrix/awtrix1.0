@@ -6,19 +6,12 @@
 #include <DHT22App.h>
 #include <PetApp.h>
 #include <GolApp.h>
+#include <PongApp.h>
 #include <FacebookApp.h>
 #include <FireApp.h>
 #include <TwitterApp.h>
 #include <../Awtrix/config.h>
 
- struct tcp_pcb;
-        extern struct tcp_pcb* tcp_tw_pcbs;
-        extern "C" void tcp_abort (struct tcp_pcb* pcb);
-
-void tcpCleanup (void) {
-  while (tcp_tw_pcbs)
-    tcp_abort(tcp_tw_pcbs);
-}
 
 IApplication* ApplicationManager::getApplicationWithName(String name) {
     if (name == "Time") {
@@ -57,6 +50,11 @@ IApplication* ApplicationManager::getApplicationWithName(String name) {
         return new TwitterApp();
     }
 
+              if (name == "Pong") {
+        return new PongApp();
+    }
+
+
 
     return NULL;
 }
@@ -68,9 +66,7 @@ void ApplicationManager::loop() {
   
     switchApplications();
         applicationRuntime += delta;
-    for (int i = 0; i < numberOfApplications; i++) {
-        applications[i]->tick(delta);
-    }
+
 
     IApplication* application = activeApplication();
     if (application) {

@@ -1,3 +1,5 @@
+    int paddle;    
+    
     int SHOW_IP_ON_BOOT;
     int AUTO_BRIGHTNESS;
     int BRIGHTNESS;
@@ -28,6 +30,7 @@
     int BLYNK_ACTIVE;
     int SETTINGS_FOUND=0;
     int APP_DURATION=20;
+
 
     int SLEEP_START_MIN;
     int SLEEP_START_HR;

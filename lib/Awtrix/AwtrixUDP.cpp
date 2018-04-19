@@ -4,7 +4,6 @@ char  ReplyBuffer[] = "OK";
 String IP_ADRESS;
 int localUdpPort = 52829;
 char inputBuffer[512];
-
 void AwtrixUDP::setup(){
      Udp.begin(localUdpPort);
 }
@@ -30,8 +29,6 @@ void AwtrixUDP::loop() {
       dat = String(inputBuffer);
       command = dat.substring(0,dat.indexOf("%"));
       payload = dat.substring(dat.indexOf("%")+1,dat.length());
-      Serial.println("Command: " + command);
-      Serial.println("Payload: " +payload);
 
       if (command == "bri"){   
         BRIGHTNESS=payload.toInt();
@@ -48,6 +45,10 @@ void AwtrixUDP::loop() {
 
       if (command== "mood"){
           PET_MOOD=payload.toInt();
+      }
+
+      if (command== "pong"){
+         paddle=payload.toInt();
       }
 
       if (command== "text"){

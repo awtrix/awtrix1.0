@@ -2,6 +2,8 @@
 #ifndef config_h
 #define config_h
 
+    extern int paddle;
+
     extern int SHOW_IP_ON_BOOT;
     extern int AUTO_BRIGHTNESS;
     extern int BRIGHTNESS;
@@ -39,6 +41,8 @@
     extern int SLEEP_STOP_HR;
     extern int SLEEP_MODE;
     extern int SLEEP_MODE_ACTIVE;
+
+
 
     extern char* OWM_API_KEY;
     extern char* OWM_LOCATION;
