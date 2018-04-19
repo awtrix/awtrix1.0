@@ -3,6 +3,7 @@
 #define config_h
 
     extern int paddle;
+    extern int direction;
 
     extern int SHOW_IP_ON_BOOT;
     extern int AUTO_BRIGHTNESS;

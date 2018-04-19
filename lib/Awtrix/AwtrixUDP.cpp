@@ -51,6 +51,10 @@ void AwtrixUDP::loop() {
          paddle=payload.toInt();
       }
 
+      if (command== "snake"){
+         direction=payload.toInt();
+      }
+
       if (command== "text"){
           DisplayManager::getInstance().scrollText(payload);
       }

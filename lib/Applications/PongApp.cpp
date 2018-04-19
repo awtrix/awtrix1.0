@@ -35,7 +35,7 @@ void PongApp::render(DisplayManager& display) {
     oldPaddleY = paddleY;
     display.show();
 
-    if (currentMillis - prevMillis >= 150) {
+    if (currentMillis - prevMillis >= 100) {
         prevMillis = currentMillis;
 
     if (ballX > 32 - 1 || ballX < 0) {

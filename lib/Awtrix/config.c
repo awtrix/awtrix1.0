@@ -1,5 +1,6 @@
     int paddle;    
-    
+    int direction;
+     
     int SHOW_IP_ON_BOOT;
     int AUTO_BRIGHTNESS;
     int BRIGHTNESS;

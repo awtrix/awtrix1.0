@@ -9,6 +9,7 @@
 #include <PongApp.h>
 #include <FacebookApp.h>
 #include <FireApp.h>
+#include <SnakeApp.h>
 #include <TwitterApp.h>
 #include <../Awtrix/config.h>
 
@@ -53,6 +54,11 @@ IApplication* ApplicationManager::getApplicationWithName(String name) {
               if (name == "Pong") {
         return new PongApp();
     }
+
+                  if (name == "Snake") {
+        return new SnakeApp();
+    }
+
 
 
 
