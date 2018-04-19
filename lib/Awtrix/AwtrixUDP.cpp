@@ -55,7 +55,7 @@ void AwtrixUDP::loop() {
       }
 
       if (command== "next"){
-         ApplicationManager::getInstance().nextApplication() ;
+        // ApplicationManager::getInstance().nextApplication() ;
       }
 
      

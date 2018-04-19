@@ -270,12 +270,12 @@ uint32_t DisplayManager::color(AwtrixColor color)
 
 
 void DisplayManager::wipe(int wait){  
-    matrix.clear();
     for(uint16_t i=0; i<32+1; i++) {
+        matrix.fillRect(0,0,i-1,8,color({0,0,0}));
         matrix.drawFastVLine(i, 0, 8, Wheel((i*8) & 255,0));
         matrix.drawFastVLine(i-1, 0, 8, 0);
         matrix.show();
-        delay(10);
+        delay(15);
     }
 }
 
