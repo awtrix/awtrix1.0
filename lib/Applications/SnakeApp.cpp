@@ -126,11 +126,8 @@ void nextstep(){
   snakeCheck();  
 }
 
-
-
-
-
 void SnakeApp::enable() {
+     Serial.println("SnakeApp started");
     randomSeed(analogRead(0));
     snakeX[0] = 4;
     snakeY[0] = 7;
@@ -139,15 +136,7 @@ void SnakeApp::enable() {
     makeFruit();
 }
 
-void checkButtons(){
-
-  // wait for a new client:
-      
-    }
-
-void SnakeApp::render(DisplayManager& display) {
-    checkButtons();
-    
+void SnakeApp::render(DisplayManager& display) {  
     unsigned long currentTime = millis();
     if(currentTime - prevTime >= delayTime)
     {

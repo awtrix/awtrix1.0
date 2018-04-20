@@ -7,15 +7,14 @@ void TwitterApp::render(DisplayManager& display) {
 }
 
 void TwitterApp::enable() {
-String payload;
+   Serial.println("TwitterApp started");
+  String payload;
   HTTPClient http;  //Declare an object of class HTTPClient
  
     http.begin("http://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=" + String(TWITTER_PROFILE));  //Specify request destination
     int httpCode = http.GET();                                                                  //Send the request
- 
     if (httpCode > 0) { //Check the returning code
       payload = http.getString();   //Get the request response payload
-      Serial.println(payload);                     //Print the response payload
     }
  
     http.end();   //Close connection
@@ -23,7 +22,7 @@ String payload;
     payload.remove(payload.length() - 1, 1);
     DynamicJsonBuffer jsonBuffer;
     JsonObject& root = jsonBuffer.parseObject(payload);
-
+    payload="";
       if (root.containsKey("followers_count"))
       {
         followers= root["followers_count"];
@@ -32,7 +31,7 @@ String payload;
     {
       Serial.println("Failed to parse JSON");
     }
-
+jsonBuffer.clear();
 }
 
 

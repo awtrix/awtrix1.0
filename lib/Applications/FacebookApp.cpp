@@ -16,6 +16,7 @@ void FacebookApp::render(DisplayManager& display) {
 
 void FacebookApp::enable() {
     // Is called up once every time the app is started
+    Serial.println("FacebookApp started");
     WiFiClientSecure client;
      while (!client.connect(host, 443)) {
     };

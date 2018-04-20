@@ -125,5 +125,6 @@ void GolApp::render(DisplayManager& display) {
 }
 
 void GolApp::enable() {
+        Serial.println("GolApp started");
     gameOfLifeInit();
 }

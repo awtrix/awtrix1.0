@@ -8,10 +8,9 @@ void YoutubeApp::render(DisplayManager& display) {
 }
 
 void YoutubeApp::enable() {
+  Serial.println("YoutubeApp started");
+  WiFiClientSecure client;
 
-WiFiClientSecure client;
-
-  Serial.println(host);
   if (!client.connect(host, 443)) {
     Serial.println("connection failed");
   }

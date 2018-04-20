@@ -53,9 +53,8 @@ void setup() {
 
 void loop() {
     ota.loop();
-
         if (!ota.isUpdating()) {
-            //wifi.loop();
+            wifi.loop();
             udp.loop();
             if (MQTT_ACTIVE) mqtt.loop();
             if (SETTINGS_FOUND) applications.loop();

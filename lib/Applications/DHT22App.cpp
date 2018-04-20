@@ -21,6 +21,7 @@ void DHT22App::render(DisplayManager& display) {
 
 
 void DHT22App::enable() {
+     Serial.println("DHT22App started");
     int h=(int)dht.readHumidity(false);
     int t=(int)dht.readTemperature(false);
     if (h<100) humidity = h;

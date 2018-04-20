@@ -45,16 +45,13 @@ void WeatherApp::enable() {
         String payload = http.getString();
         JsonObject& owm_data = jsonBuffer.parseObject(payload);
         if (!owm_data.success()) {
-          Serial.println("Parsing failed");
           return;
         }
-        temperature = owm_data["main"]["temp"];
-        
-        icon="";
-        owm_data["weather"][0]["icon"].printTo(icon);
-        icon.remove(0,1);
-        icon.remove(icon.length()-2);
-
+            temperature = owm_data["main"]["temp"];
+            icon="";
+            owm_data["weather"][0]["icon"].printTo(icon);
+            icon.remove(0,1);
+            icon.remove(icon.length()-2);
         }
     }
     http.end();
