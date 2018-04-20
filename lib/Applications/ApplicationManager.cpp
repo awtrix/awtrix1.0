@@ -51,12 +51,11 @@ IApplication* ApplicationManager::getApplicationWithName(String name) {
         return new TwitterApp();
     }
 
-         if (name == "Pong") {
+              if (name == "Pong") {
         return new PongApp();
     }
 
-                  
-            if (name == "Snake") {
+    if (name == "Snake") {
         return new SnakeApp();
     }
 
@@ -72,7 +71,7 @@ void ApplicationManager::loop() {
 
   
     switchApplications();
-    applicationRuntime += delta;
+        applicationRuntime += delta;
 
 
     IApplication* application = activeApplication();
@@ -85,6 +84,7 @@ void ApplicationManager::loop() {
 }
 
 
+
 void ApplicationManager::nextApplication() {
     applicationRuntime=0;
         DisplayManager::getInstance().drawPixel(31,7,{255,100,0}); 
@@ -92,11 +92,8 @@ void ApplicationManager::nextApplication() {
         applications[activeApplicationIndex]->disable();
 
         AppIndex = activeApplicationIndex + 1;
-        if (AppIndex==0  || AppIndex==1) AppIndex = 2;
-
-
             if (AppIndex >= numberOfApplications) {
-                AppIndex = 2;
+                AppIndex = 0;
             }
         applications[AppIndex]->enable();
         DisplayManager::getInstance().wipe({500});
@@ -104,32 +101,26 @@ void ApplicationManager::nextApplication() {
 }
 
 void ApplicationManager::switchApplications() {
-
     if (activeApplicationIndex < 0 && numberOfApplications > 0) {
         // TODO: Check for nullptr
         applications[0]->enable();
-        activeApplicationIndex = 2; // Starte bei App 2 (Zeit)
+        activeApplicationIndex = 0;
         return;
     }
-
-    if (PONG_ACTIVE  || SNAKE_ACTIVE){
-        if (PONG_ACTIVE) activeApplicationIndex = 0;
-        if (SNAKE_ACTIVE) activeApplicationIndex = 1;
-    }else{
 
     //if (applicationRuntime >= activeApplication()->DefaultDisplayTime) {
     if (applicationRuntime >= (APP_DURATION*1000)) {
          AppIndex = activeApplicationIndex + 1;
         if (AppIndex >= numberOfApplications) {
-            AppIndex = 2;
+            AppIndex = 0;
         }
 
     if (SLEEP_MODE){
         DisplayManager::getInstance().setBrightness(5);
-        if (activeApplicationIndex != 2){
+        if (activeApplicationIndex != 0){
             applications[activeApplicationIndex]->disable();
-            applications[2]->enable();
-            activeApplicationIndex = 2;
+            applications[0]->enable();
+            activeApplicationIndex = 0;
         }
     }else{
         if (AppIndex != activeApplicationIndex) {
@@ -143,20 +134,14 @@ void ApplicationManager::switchApplications() {
             activeApplicationIndex = AppIndex;
         }
     }
+
+
         applicationRuntime = 0;
-    }
     }
 }
 
 IApplication* ApplicationManager::activeApplication() {
     return applications[activeApplicationIndex];
-}
-
-
-void ApplicationManager::loadDefault() {
-    addApplication("Pong");
-    addApplication("Snake");
-    addApplication("Time");
 }
 
 bool ApplicationManager::addApplication(String name) {

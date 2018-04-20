@@ -29,9 +29,9 @@ void setup() {
     ota.setup();
     udp.setup();
     if (SETTINGS_FOUND){
-        applications.loadDefault();
         if (MQTT_ACTIVE) mqtt.setup();
         if (BLYNK_ACTIVE) ESPblynk.setup();
+        applications.addApplication("Time");
         if (WEATHER_ACTIVE) applications.addApplication("Weather");
         if (TWITTER_ACTIVE) applications.addApplication("Twitter");
         if (GOL_ACTIVE) applications.addApplication("Gol");
@@ -40,6 +40,10 @@ void setup() {
         if (DHT_ACTIVE) applications.addApplication("DHT22");
         if (FB_ACTIVE) applications.addApplication("Facebook");
         if (FIRE_ACTIVE) applications.addApplication("Fire");
+
+        applications.addApplication("Snake");
+        applications.addApplication("Pong");
+
         if (SOUND) sound.setup();
     }else{
         DisplayManager::getInstance().setERR();
@@ -51,7 +55,7 @@ void loop() {
     ota.loop();
 
         if (!ota.isUpdating()) {
-            wifi.loop();
+            //wifi.loop();
             udp.loop();
             if (MQTT_ACTIVE) mqtt.loop();
             if (SETTINGS_FOUND) applications.loop();
