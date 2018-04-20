@@ -12,7 +12,7 @@ class GolApp : public IApplication
         
         void render(DisplayManager&) override;
         void enable() override;
-  
+        String name = "Gol";
 };
 
 #endif

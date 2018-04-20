@@ -20,6 +20,7 @@ class PongApp : public IApplication
         void enable() override;
         void paddleLeft();
         void paddleRight();
+        String name = "Pong";
 };
 
 #endif

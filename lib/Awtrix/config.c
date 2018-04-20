@@ -1,3 +1,5 @@
+    int game;
+    int gamemode;
     int paddle;    
     int direction;
      

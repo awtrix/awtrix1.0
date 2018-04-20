@@ -11,7 +11,7 @@ class SnakeApp : public IApplication
     public:
         void render(DisplayManager&) override;
         void enable() override;
-
+        String name = "Snake";
 };
 
 #endif

@@ -1,5 +1,4 @@
 
-#include "ESP8266WiFi.h"
 #include "Arduino.h"
 #include "NTP.h"
 #include <TimeLib.h>

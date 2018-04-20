@@ -18,6 +18,7 @@ class WeatherApp : public IApplication
 
         void render(DisplayManager&) override;
         void enable() override;
+        String name = "Weather";
 };
 
 #endif

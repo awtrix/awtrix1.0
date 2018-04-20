@@ -31,6 +31,7 @@ class ApplicationManager
         void loadDefault();
         void loop();
         bool addApplication(String);
+        void removeApplication(String);
         void nextApplication();
         void previousApplication();
 };

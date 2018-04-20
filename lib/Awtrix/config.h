@@ -2,6 +2,8 @@
 #ifndef config_h
 #define config_h
 
+    extern int game;
+    extern int gamemode;
     extern int paddle;
     extern int direction;
 

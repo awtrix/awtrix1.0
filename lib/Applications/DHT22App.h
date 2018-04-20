@@ -17,6 +17,7 @@ class DHT22App : public IApplication
         DHT22App();    
         void render(DisplayManager&) override;
         void enable() override;
+        String name = "DHT22";
 };  
 
 #endif

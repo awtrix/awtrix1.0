@@ -3,9 +3,7 @@
 
 long lastReconnectAttempt = 0;
 
-
 void commands(String topic,String payload){
-
      if (topic=="awtrix/text"){
         DisplayManager::getInstance().scrollText(payload);
     }
@@ -39,7 +37,7 @@ void MQTT::setup() {
         }
     }
 
-    mqttClient.publish("awtrix/message", "Hello from AWTRIX");
+    mqttClient.publish("awtrix", "Hello from AWTRIX");
     mqttClient.subscribe("awtrix/text");
     mqttClient.subscribe("awtrix/settings");
     mqttClient.subscribe("awtrix/settings/json");
@@ -47,7 +45,7 @@ void MQTT::setup() {
 
 bool MQTT::reconnect() {
     if (mqttClient.connect("AWTRIX")) {
-        mqttClient.publish("awtrix/message", "Hello from AWTRIX");
+        mqttClient.publish("awtrix", "Hello from AWTRIX");
         mqttClient.subscribe("awtrix/text");
         mqttClient.subscribe("awtrix/settings");
         mqttClient.subscribe("awtrix/settings/json");
@@ -67,8 +65,6 @@ void MQTT::loop()
       }
     }
   } else {
-    // Client connected
-
     mqttClient.loop();
   }
 }
