@@ -1,5 +1,4 @@
 
-#include "ESP8266WiFi.h"
 #include "Arduino.h"
 #include "NTP.h"
 #include <TimeLib.h>
@@ -39,7 +38,6 @@ time_t NTP::getNtpTime(void)
       time_t secsSince1970 = secsSince1900 - 2208988800UL;
       int8_t totalOffset = (int8_t)(_timeZoneOffset + DSToffset(secsSince1970));
       UDP.stop();
-      Serial.println("Update Time");
       return secsSince1970 + (time_t)(totalOffset * SECS_PER_HOUR) ;
     }
     yield();

@@ -17,7 +17,7 @@ class ApplicationManager
         int activeApplicationIndex = -1;
         int numberOfApplications = 0;
         IApplication** applications;
-
+     
         void switchApplications();
         IApplication* activeApplication();
         IApplication* getApplicationWithName(String);
@@ -28,9 +28,10 @@ class ApplicationManager
             static ApplicationManager instance;
             return instance;
         }
-
+        void loadDefault();
         void loop();
         bool addApplication(String);
+        void removeApplication(String);
         void nextApplication();
         void previousApplication();
 };

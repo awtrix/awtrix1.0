@@ -1,3 +1,8 @@
+    int game;
+    int gamemode;
+    int paddle;    
+    int direction;
+     
     int SHOW_IP_ON_BOOT;
     int AUTO_BRIGHTNESS;
     int BRIGHTNESS;
@@ -14,6 +19,8 @@
     int SOUND;
     int MATRIX_MODE;
 
+    int PONG_ACTIVE;
+    int SNAKE_ACTIVE;
     int TIME_ACTIVE;
     int ALEXA_ACTIVE;
     int WEATHER_ACTIVE;
@@ -28,6 +35,7 @@
     int BLYNK_ACTIVE;
     int SETTINGS_FOUND=0;
     int APP_DURATION=20;
+
 
     int SLEEP_START_MIN;
     int SLEEP_START_HR;

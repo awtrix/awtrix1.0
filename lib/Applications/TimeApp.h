@@ -15,6 +15,7 @@ class TimeApp : public IApplication
     public:
         void render(DisplayManager&) override;
         void enable() override;
+        String name = "Time";
 };
 
 #endif

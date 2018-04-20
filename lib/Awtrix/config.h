@@ -2,6 +2,11 @@
 #ifndef config_h
 #define config_h
 
+    extern int game;
+    extern int gamemode;
+    extern int paddle;
+    extern int direction;
+
     extern int SHOW_IP_ON_BOOT;
     extern int AUTO_BRIGHTNESS;
     extern int BRIGHTNESS;
@@ -19,6 +24,9 @@
 
     extern int MATRIX_MODE;
     extern int ALEXA_ACTIVE;
+
+    extern int SNAKE_ACTIVE;
+    extern int PONG_ACTIVE; 
     extern int TIME_ACTIVE;
     extern int WEATHER_ACTIVE;
     extern int PET_ACTIVE;
@@ -39,6 +47,8 @@
     extern int SLEEP_STOP_HR;
     extern int SLEEP_MODE;
     extern int SLEEP_MODE_ACTIVE;
+
+
 
     extern char* OWM_API_KEY;
     extern char* OWM_LOCATION;

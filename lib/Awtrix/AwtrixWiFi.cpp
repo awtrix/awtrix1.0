@@ -147,7 +147,6 @@ void handleFileUpload() {
     if (fsUploadFile) {
       fsUploadFile.close();
         AwtrixSettings::getInstance().loadSPIFFS();
-  
     }
   }
 }
@@ -257,18 +256,13 @@ void setupServer(){
   }
 
 server.on("/list", HTTP_GET, handleFileList);
-  //load editor
   server.on("/edit", HTTP_GET, []() {
     if (!handleFileRead("/edit.htm")) {
       server.send(404, "text/plain", "FileNotFound");
     }
   });
-  //create file
   server.on("/edit", HTTP_PUT, handleFileCreate);
-  //delete file
   server.on("/edit", HTTP_DELETE, handleFileDelete);
-  //first callback is called after the request has ended with all parsed arguments
-  //second callback handles file uploads at that location
   server.on("/edit", HTTP_POST, []() {
     server.send(200, "text/plain", "");
   }, handleFileUpload);
@@ -279,16 +273,12 @@ server.on("/list", HTTP_GET, handleFileList);
     handleFileUpload2                                   // Receive and save the file
   );
 
-
-  //called when the url is not defined here
-  //use it to load content from SPIFFS
   server.onNotFound([]() {
     if (!handleFileRead(server.uri())) {
       server.send(404, "text/plain", "FileNotFound");
     }
   });
 
-  //get heap status, analog input value and all GPIO statuses in one json call
   server.on("/", HTTP_GET, []() {
     String json = "{";
     json += "\"FreeRAM\":" + String(ESP.getFreeHeap());
@@ -299,9 +289,6 @@ server.on("/list", HTTP_GET, handleFileList);
   });
 
 }
-
-
-
 
 void AwtrixWiFi::setup() {
     Serial.println(F("Setup WiFi"));
@@ -338,8 +325,7 @@ void AwtrixWiFi::setup() {
 
 
 void AwtrixWiFi::loop() {
- server.handleClient();
-
+  server.handleClient();
 }
 
 

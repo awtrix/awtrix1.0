@@ -1,7 +1,5 @@
 #include <AwtrixUDP.h>
 
-char  ReplyBuffer[] = "OK";
-String IP_ADRESS;
 int localUdpPort = 52829;
 char inputBuffer[512];
 
@@ -24,14 +22,10 @@ void AwtrixUDP::loop() {
         {
           inputBuffer[packetSize] = 0;
         }
-      String dat;
-      String command;
-      String payload;
-      dat = String(inputBuffer);
-      command = dat.substring(0,dat.indexOf("%"));
-      payload = dat.substring(dat.indexOf("%")+1,dat.length());
-      Serial.println("Command: " + command);
-      Serial.println("Payload: " +payload);
+        String dat;
+        dat = String(inputBuffer);
+        String command = dat.substring(0,dat.indexOf("%"));
+        String payload = dat.substring(dat.indexOf("%")+1,dat.length());
 
       if (command == "bri"){   
         BRIGHTNESS=payload.toInt();
@@ -50,12 +44,36 @@ void AwtrixUDP::loop() {
           PET_MOOD=payload.toInt();
       }
 
+      if (command== "pong"){
+         PONG_ACTIVE=payload.toInt();
+      }
+
+      if (command== "snake"){
+         SNAKE_ACTIVE=payload.toInt();
+      }
+
+      if (command== "pongmove"){
+         paddle=payload.toInt();
+      }
+
+      if (command== "snakemove"){
+         direction=payload.toInt();
+      }
+
       if (command== "text"){
           DisplayManager::getInstance().scrollText(payload);
       }
 
       if (command== "next"){
-        ApplicationManager::getInstance().nextApplication() ;
+         //ApplicationManager::getInstance().nextApplication() ;
+      }
+
+      if (command== "game"){
+         game=payload.toInt();
+      }
+
+            if (command== "gamemode"){
+         gamemode=payload.toInt();
       }
 
      
@@ -65,21 +83,18 @@ void AwtrixUDP::loop() {
         TEXT_COLOR_G = number >> 8 & 0xff;
         TEXT_COLOR_B = number & 0xff;
         DisplayManager::getInstance().setColor({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B});
-        }
+      }
 
 
       if (command == "settings"){
         if (payload=="get"){
-           sendMSG(AwtrixSettings::getInstance().loadSettings());
-    
-          
+           sendMSG(AwtrixSettings::getInstance().loadSettings()); 
         }else{
           int str_len = payload.length() + 1; 
           char char_array[str_len];
           payload.toCharArray(char_array, str_len);
           AwtrixSettings::getInstance().parseSettings(char_array);
         }
-
       }
   sendMSG("ACK");
     }

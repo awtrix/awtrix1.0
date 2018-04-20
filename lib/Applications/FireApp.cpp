@@ -43,6 +43,7 @@ void FireApp::render(DisplayManager& display) {
 }
 
 void FireApp::enable() {
+	        Serial.println("FireApp started");
     for (int y = 0; y < 8; y++) {
 		for (int x = 0; x < 32; x++) {
 			fire[y][x] = 0;

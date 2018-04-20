@@ -18,6 +18,7 @@ class FacebookApp : public IApplication
         
         void render(DisplayManager&) override; 
         void enable() override; 
+        String name = "Facebook";
 };
 
 #endif

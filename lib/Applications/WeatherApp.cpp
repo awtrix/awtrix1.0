@@ -5,30 +5,30 @@
 void WeatherApp::render(DisplayManager& display) {
     
     if (icon == "01") {
-         display.drawApp(sun, String(temperature,1) + "\xA7",{0,0},{255, 255, 255},true,200);
+         display.drawApp(sun, String(temperature,0) + "\xA7",{0,0},{255, 255, 255},true,200);
     } else if (icon == "02") {
-        display.drawApp(partlycloudy, String(temperature,1) + "\xA7",{0,0},{255, 255, 255},true,200);
+        display.drawApp(partlycloudy, String(temperature,0) + "\xA7",{0,0},{255, 255, 255},true,200);
     } else if (icon == "03") {
-        display.drawApp(cloudy, String(temperature,1) + "\xA7",{0,0},{255, 255, 255},true,200);
+        display.drawApp(cloudy, String(temperature,0) + "\xA7",{0,0},{255, 255, 255},true,200);
     } else if (icon == "04") {
-         display.drawApp(cloudy, String(temperature,1) + "\xA7",{0,0},{255, 255, 255},true,200);
+         display.drawApp(cloudy, String(temperature,0) + "\xA7",{0,0},{255, 255, 255},true,200);
     } else if (icon == "09") {
-         display.drawApp(rain, String(temperature,1) + "\xA7",{0,0},{255, 255, 255},true,200);
+         display.drawApp(rain, String(temperature,0) + "\xA7",{0,0},{255, 255, 255},true,200);
 
     } else if (icon == "10") {
-         display.drawApp(rain, String(temperature,1) + "\xA7",{0,0},{255, 255, 255},true,200);
+         display.drawApp(rain, String(temperature,0) + "\xA7",{0,0},{255, 255, 255},true,200);
 
     } else if (icon == "11") {
-         display.drawApp(thunder, String(temperature,1) + "\xA7",{0,0},{255, 255, 255},true,200);
+         display.drawApp(thunder, String(temperature,0) + "\xA7",{0,0},{255, 255, 255},true,200);
 
     } else if (icon == "13") {
-         display.drawApp(snow, String(temperature,1) + "\xA7",{0,0},{255, 255, 255},true,200);
+         display.drawApp(snow, String(temperature,0) + "\xA7",{0,0},{255, 255, 255},true,200);
 
     } else  if (icon == "50"){
-         display.drawApp(mist, String(temperature,1) + "\xA7",{0,0},{255, 255, 255},true,200);
+         display.drawApp(mist, String(temperature,0) + "\xA7",{0,0},{255, 255, 255},true,200);
 
      } else {   
-        display.drawApp(sun, String(temperature,1) + "\xA7",{0,0},{255, 255, 255},true,200);
+        display.drawApp(sun, String(temperature,0) + "\xA7",{0,0},{255, 255, 255},true,200);
 
     }
     
@@ -45,16 +45,13 @@ void WeatherApp::enable() {
         String payload = http.getString();
         JsonObject& owm_data = jsonBuffer.parseObject(payload);
         if (!owm_data.success()) {
-          Serial.println("Parsing failed");
           return;
         }
-        temperature = owm_data["main"]["temp"];
-        
-        icon="";
-        owm_data["weather"][0]["icon"].printTo(icon);
-        icon.remove(0,1);
-        icon.remove(icon.length()-2);
-
+            temperature = owm_data["main"]["temp"];
+            icon="";
+            owm_data["weather"][0]["icon"].printTo(icon);
+            icon.remove(0,1);
+            icon.remove(icon.length()-2);
         }
     }
     http.end();
