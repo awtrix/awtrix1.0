@@ -11,7 +11,6 @@ class IApplication
     public:
         unsigned long const DefaultDisplayTime = 30000l;
         String name = "";
-
         virtual ~IApplication() {}
         virtual void disable() {}
         virtual void update() {}

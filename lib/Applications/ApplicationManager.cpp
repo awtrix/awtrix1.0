@@ -73,9 +73,7 @@ void ApplicationManager::loop() {
     if (application) {
         applicationRuntime += delta;
         application->render(DisplayManager::getInstance());
-  
     }
-
     lastTick = thisTick;
 }
 
