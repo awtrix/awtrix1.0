@@ -9,8 +9,8 @@
 class WeatherApp : public IApplication
 {
     private:
-        double temperature;
-        double humidity;
+        int temperature;
+        int humidity;
         String icon;
         String city;
      
