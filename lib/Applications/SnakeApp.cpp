@@ -6,12 +6,9 @@ const int RIGHT  = 1;
 const int BOTTOM = 2;
 const int LEFT   = 3;
 
-// Snake
 const int MAX_SNAKE_LENGTH = 15;
 
-// Variables
 
-                            // direction of movement
 int snakeX[MAX_SNAKE_LENGTH];                      // X-coordinates of snake
 int snakeY[MAX_SNAKE_LENGTH];                      // Y-coordinates of snake
 int snakeLength = 1;                               // nr of parts of snake
@@ -26,23 +23,18 @@ int matrixColor;
   
 
 void userLose(){
-
-  
+  //toDo
   snakeLength = 1;
-
 }
 
 void userWin(){
- 
-
-  
+   //toDo  
   snakeLength = 1;
-
 }
 
 
 boolean inPlayField(int x, int y){
-  return (x>=0) && (x<32) && (y>=0) && (y<8);
+  return (x>=1) && (x<32) && (y>=1) && (y<8);
 }
 
 boolean isPartOfSnake(int x, int y){
@@ -58,7 +50,7 @@ boolean isPartOfSnake(int x, int y){
 void snakeCheck(){  
     for(int i=1; i<snakeLength; i++)
     {
-      // snake touches itself
+
       if((snakeX[0] == snakeX[i]) && (snakeY[0] == snakeY[i])) 
         userLose();
     }
@@ -68,11 +60,11 @@ void snakeCheck(){
 
 void makeFruit(){
   int x, y;
-  x = random(0, 32);
-  y = random(0, 8);
+  x = random(1, 32);
+  y = random(1, 8);
   while(isPartOfSnake(x, y)){
-    x = random(0, 32);
-    y = random(0, 8);
+    x = random(1, 32);
+    y = random(1, 8);
   }
   fruitX = x;
   fruitY = y;
@@ -83,14 +75,14 @@ void makeFruit(){
 void nextstep(){  
   for(int i = snakeLength; i > 0; i--)
   {
-    if((direction == RIGHT) && (snakeX[0]-snakeLength == 31))
+    if((direction == RIGHT) && (snakeX[0]-snakeLength == 32))
       snakeX[0] = -1;
     else if((direction == LEFT) && (snakeX[0]+ snakeLength == 0))
       snakeX[0] = 32;
     else 
       snakeX[i] = snakeX[i-1];
     
-    if((direction == TOP) && (snakeY[0]+snakeLength == 0))
+    if((direction == TOP) && (snakeY[0]+snakeLength == 1))
       snakeY[0] = 8;
     else if((direction == BOTTOM) && (snakeY[0]-snakeLength == 7))
       snakeY[0] = -1;
@@ -153,14 +145,10 @@ void SnakeApp::render(DisplayManager& display) {
         unsigned long currenttime = millis();
         if(currenttime - fruitPrevTime >= fruitBlinkTime)
         {
-        //fruitLed = (fruitLed == LED_RED) ? LED_OFF : LED_RED;
         fruitPrevTime = currenttime;
         }
         display.drawPixel(fruitX, fruitY, {255,0,0});
   }
-
-
-
         display.show();      
 }
 

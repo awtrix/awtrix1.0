@@ -37,10 +37,13 @@ void YoutubeApp::enable() {
   JsonObject& root = jsonBuffer.parseObject(response);
   jsonBuffer.clear();
   if (!root.success()) {
-    Serial.println("Failed parsing API response");
+    Serial.println("Failed parsing API response. Use last response");
   }
-
- subscribers = root["items"][0]["statistics"]["subscriberCount"];
+  int sub = root["items"][0]["statistics"]["subscriberCount"];
+  if (sub>0){
+    subscribers = sub;
+  }
+  
 }
 
 

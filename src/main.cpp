@@ -20,6 +20,8 @@ ApplicationManager& applications = ApplicationManager::getInstance();
 AwtrixSettings& settings = AwtrixSettings::getInstance();
 
 void setup() {
+ESP.wdtDisable();
+ESP.wdtEnable(WDTO_8S);
     Serial.begin(115200);
     Serial1.begin(9800);
     settings.loadSPIFFS();
@@ -57,7 +59,11 @@ void loop() {
             wifi.loop();
             udp.loop();
             if (MQTT_ACTIVE) mqtt.loop();
+   
+ 
+
             if (SETTINGS_FOUND) applications.loop();
+             
             if (BLYNK_ACTIVE) ESPblynk.loop();
             if (AUTO_BRIGHTNESS) DisplayManager::getInstance().checkLight();
     }
