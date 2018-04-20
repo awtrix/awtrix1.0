@@ -48,10 +48,18 @@ void AwtrixUDP::loop() {
       }
 
       if (command== "pong"){
-         paddle=payload.toInt();
+         PONG_ACTIVE=payload.toInt();
       }
 
       if (command== "snake"){
+         SNAKE_ACTIVE=payload.toInt();
+      }
+
+      if (command== "pongmove"){
+         paddle=payload.toInt();
+      }
+
+      if (command== "snakemove"){
          direction=payload.toInt();
       }
 
@@ -60,7 +68,7 @@ void AwtrixUDP::loop() {
       }
 
       if (command== "next"){
-        ApplicationManager::getInstance().nextApplication() ;
+         ApplicationManager::getInstance().nextApplication() ;
       }
 
      

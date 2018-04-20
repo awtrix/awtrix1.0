@@ -17,6 +17,8 @@
     int SOUND;
     int MATRIX_MODE;
 
+    int PONG_ACTIVE;
+    int SNAKE_ACTIVE;
     int TIME_ACTIVE;
     int ALEXA_ACTIVE;
     int WEATHER_ACTIVE;
