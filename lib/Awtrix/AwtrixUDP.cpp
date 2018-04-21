@@ -5,10 +5,12 @@ char inputBuffer[512];
 
 void AwtrixUDP::setup(){
      Udp.begin(localUdpPort);
+     sendMSG("Awtrix Boot");
 }
 
 void AwtrixUDP::sendMSG(String msg){
-  Udp.beginPacket(Udp.remoteIP(), Udp.remotePort());
+
+  Udp.beginPacket(Udp.remoteIP(), 52828);
   Udp.print(msg);
   Udp.endPacket();
 }

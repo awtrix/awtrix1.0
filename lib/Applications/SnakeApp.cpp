@@ -13,7 +13,7 @@ int snakeX[MAX_SNAKE_LENGTH];                      // X-coordinates of snake
 int snakeY[MAX_SNAKE_LENGTH];                      // Y-coordinates of snake
 int snakeLength = 1;                               // nr of parts of snake
 unsigned long prevTime = 0;                        // for gamedelay (ms)
-unsigned long delayTime = 200;                     // Game step in ms
+unsigned long delayTime = 250;                     // Game step in ms
 
 int fruitX, fruitY;
 unsigned long fruitPrevTime = 0;

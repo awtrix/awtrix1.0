@@ -14,7 +14,7 @@ String AwtrixBroker::doJob(String command,String payload){
 
         if (command==  "reset"){
                 ESP.reset();
-                return "ACK";
+                               
         }
 
         if (command==  "mood"){
@@ -24,20 +24,20 @@ String AwtrixBroker::doJob(String command,String payload){
 
         if (command==  "pongmove"){
                 paddle=payload.toInt();
-                return "ACK";  
         } 
 
         if (command==  "snakemove"){
                 direction=payload.toInt();
-                return "ACK";
         }
 
         if (command==  "text"){
+                
                 DisplayManager::getInstance().scrollText(payload);
                 return "ACK";
         }
 
         if (command==  "next"){
+
                 //ApplicationManager::getInstance().nextApplication();
                 return "ACK";
         }

@@ -54,7 +54,6 @@ void TimeApp::render(DisplayManager& display) {
 void TimeApp::enable() {
     NTPclient.begin("0.pool.ntp.org",UTC_OFFSET);
     setSyncProvider(getExternalTime(NTPgetTime));
-
     Serial.println("TimeApp started");
     loopCounter=0;
     TD=!TD;
