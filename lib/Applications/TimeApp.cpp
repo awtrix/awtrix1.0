@@ -1,7 +1,7 @@
 #include <TimeApp.h>
 unsigned long previousMillis = 0; 
 unsigned long interval = 1000; 
-bool TD;
+bool TD = 1;
 NTP NTPclient;
 
 time_t NTPgetTime()
@@ -14,7 +14,7 @@ void TimeApp::render(DisplayManager& display) {
     if (TD || SLEEP_MODE){
         char t[14];
         sprintf_P(t, PSTR("%02d:%02d:%02d"), hour(), minute(),second());
-        if (year()>2000){
+        if ( timeStatus()){
             display.drawText(t, {2, 0}, true,!BIG_TIME,true);
         }else{
             display.drawText("SYNC", {2, 0}, true,!BIG_TIME,true);
@@ -33,7 +33,12 @@ void TimeApp::render(DisplayManager& display) {
     }else{
         char  d[14];
         sprintf_P(d, PSTR("%02d. %s"), day(), monname[month()-1]); 
-        display.drawText(d , {3, 0}, true,true,true);
+         if (timeStatus()){
+              display.drawText(d , {3, 0}, true,true,true);
+        }else{
+            display.drawText("SYNC", {2, 0}, true,!BIG_TIME,true);
+            }
+      
         }
     
    if (SHOW_WEEKDAY && !SLEEP_MODE){

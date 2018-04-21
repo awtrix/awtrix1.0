@@ -78,7 +78,7 @@ String AwtrixBroker::doJob(String command,String payload){
 }
 
     void AwtrixBroker::log(String msg){
-        MQTT::getInstance().publish("awtrix/log",msg);
+        MQTT::getInstance().sendLog(msg);
 
 
     }

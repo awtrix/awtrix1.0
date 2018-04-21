@@ -2,13 +2,25 @@
 #include <DisplayManager.h>
 
 long lastReconnectAttempt = 0;
-        WiFiClient espClient;
-PubSubClient mqttClient(espClient);
+    WiFiClient espClient;
+    PubSubClient mqttClient(espClient);
 
-void MQTT::publish(char* topic, String payload) {
-  char copy[payload.length()];
-  payload.toCharArray(copy, 50 );
+void publish(char* topic, String payload) {
+    char copy[payload.length()];
+    payload.toCharArray(copy, 50 );
     mqttClient.publish(topic, copy);
+}
+
+void MQTT::sendLog(String msg){
+    publish("awtrix/log",msg);
+}
+
+void commands(String topic,String payload){
+    if (topic == "awtrix/com"){
+        String comm = payload.substring(0,payload.indexOf("%"));
+        String payl = payload.substring(payload.indexOf("%")+1,payload.length());
+        publish("awtrix/com/response",AwtrixBroker::getInstance().doJob(comm,payl)); 
+    }
 }
 
 
@@ -20,15 +32,9 @@ void callback(char* topic, byte* payload, unsigned int length) {
     for (int i = 0; i < length; i++) {
         Payload += (char)payload[i];
     }
-    
 
-    if (topic == "awtrix/com"){
-        String comm = Payload.substring(0,Payload.indexOf("%"));
-        String payl = Payload.substring(Payload.indexOf("%")+1,Payload.length());
-        AwtrixBroker::getInstance().log("done");
-        AwtrixBroker::getInstance().doJob(comm,payl); 
-    }
-    
+     commands(topic,Payload);
+  
 }
 
 void MQTT::setup() {
@@ -49,11 +55,13 @@ void MQTT::setup() {
 
     mqttClient.publish("awtrix", "Hello from AWTRIX");
     mqttClient.subscribe("awtrix/com");
+     mqttClient.subscribe("awtrix/text");
 }
 
 bool MQTT::reconnect() {
     if (mqttClient.connect("AWTRIX")) {
         mqttClient.subscribe("awtrix/com");
+         mqttClient.subscribe("awtrix/text");
     }
     return mqttClient.connected();
 }

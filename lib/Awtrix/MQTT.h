@@ -15,8 +15,7 @@ class MQTT
             static MQTT instance;
             return instance;
         }
-        void publish(char*, String);
-
+        void sendLog(String);
         void setup();
         void loop();
 
