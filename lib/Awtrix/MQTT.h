@@ -1,24 +1,28 @@
 #ifndef AwtrixMQTT_h
 #define AwtrixMQTT_h
 
-
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include "config.h"
-
+#include <AwtrixBroker.h>
 
 class MQTT
 {
     private:        
-        WiFiClient espClient;
-        PubSubClient mqttClient;
-        void commands(String, String);
         bool reconnect();
     public:
-        MQTT() : mqttClient(espClient) {};
-        int publish(char*,char*);
+        static MQTT& getInstance() {
+            static MQTT instance;
+            return instance;
+        }
+        void publish(char*, String);
+
         void setup();
         void loop();
+
 };
+
+
+    
 
 #endif

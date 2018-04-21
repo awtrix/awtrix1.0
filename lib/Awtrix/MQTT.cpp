@@ -2,13 +2,15 @@
 #include <DisplayManager.h>
 
 long lastReconnectAttempt = 0;
+        WiFiClient espClient;
+PubSubClient mqttClient(espClient);
 
-void commands(String topic,String payload){
-     if (topic=="awtrix/text"){
-        DisplayManager::getInstance().scrollText(payload);
-    }
-
+void MQTT::publish(char* topic, String payload) {
+  char copy[payload.length()];
+  payload.toCharArray(copy, 50 );
+    mqttClient.publish(topic, copy);
 }
+
 
 void callback(char* topic, byte* payload, unsigned int length) {
     Serial.print(F("Message arrived ["));
@@ -18,7 +20,15 @@ void callback(char* topic, byte* payload, unsigned int length) {
     for (int i = 0; i < length; i++) {
         Payload += (char)payload[i];
     }
-    commands(topic,Payload);
+    
+
+    if (topic == "awtrix/com"){
+        String comm = Payload.substring(0,Payload.indexOf("%"));
+        String payl = Payload.substring(Payload.indexOf("%")+1,Payload.length());
+        AwtrixBroker::getInstance().log("done");
+        AwtrixBroker::getInstance().doJob(comm,payl); 
+    }
+    
 }
 
 void MQTT::setup() {
@@ -38,17 +48,12 @@ void MQTT::setup() {
     }
 
     mqttClient.publish("awtrix", "Hello from AWTRIX");
-    mqttClient.subscribe("awtrix/text");
-    mqttClient.subscribe("awtrix/settings");
-    mqttClient.subscribe("awtrix/settings/json");
+    mqttClient.subscribe("awtrix/com");
 }
 
 bool MQTT::reconnect() {
     if (mqttClient.connect("AWTRIX")) {
-        mqttClient.publish("awtrix", "Hello from AWTRIX");
-        mqttClient.subscribe("awtrix/text");
-        mqttClient.subscribe("awtrix/settings");
-        mqttClient.subscribe("awtrix/settings/json");
+        mqttClient.subscribe("awtrix/com");
     }
     return mqttClient.connected();
 }
@@ -67,8 +72,4 @@ void MQTT::loop()
   } else {
     mqttClient.loop();
   }
-}
-
-int MQTT::publish(char* topic, char* payload) {
-    mqttClient.publish(topic, payload);
 }

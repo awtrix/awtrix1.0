@@ -1,10 +1,8 @@
 #ifndef AwtrixUDP_h
 #define AwtrixUDP_h
 #include <AwtrixWiFi.h>
-#include "config.h"
-#include <DisplayManager.h>
-#include <Settings.h>
-//#include <ApplicationManager.h>
+#include <AwtrixBroker.h>
+
 
 class AwtrixUDP
 {

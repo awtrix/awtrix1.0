@@ -13,8 +13,13 @@ void TimeApp::render(DisplayManager& display) {
 
     if (TD || SLEEP_MODE){
         char t[14];
-        sprintf_P(t, PSTR("%02d:%02d:%02d"), hour(), minute(),second()); 
-        display.drawText(t, {2, 0}, true,!BIG_TIME,true);
+        sprintf_P(t, PSTR("%02d:%02d:%02d"), hour(), minute(),second());
+        if (year()>2000){
+            display.drawText(t, {2, 0}, true,!BIG_TIME,true);
+        }else{
+            display.drawText("SYNC", {2, 0}, true,!BIG_TIME,true);
+            }
+        
         if ((millis() - previousMillis > interval) &  BIG_TIME ) {
         previousMillis = millis(); 
         blink = !blink;

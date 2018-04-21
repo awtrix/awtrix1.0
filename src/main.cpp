@@ -55,11 +55,7 @@ void loop() {
             wifi.loop();
             udp.loop();
             if (MQTT_ACTIVE) mqtt.loop();
-   
- 
-
-            if (SETTINGS_FOUND) applications.loop();
-             
+            if (SETTINGS_FOUND) applications.loop();           
             if (BLYNK_ACTIVE) ESPblynk.loop();
             if (AUTO_BRIGHTNESS) DisplayManager::getInstance().checkLight();
     }

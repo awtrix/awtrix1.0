@@ -15,7 +15,6 @@
   "SCROLL_SPEED": "70",     // Scrollgeschwindigkeit (1-100)
   "AUTO_UPDATE": "0",       // Es wird nach einem Neustart nach vorhanden Updates gesucht und installiert (0=AUS/1=AN)
   "SOUND": "0",             // Aktiviert die Tonausgabe (0=AUS/1=AN)
-  "TIME_ACTIVE": "1",       // Akttiviert die Zeit-App (0=AUS/1=AN)
   "WEATHER_ACTIVE": "1",    // Aktiviert die Wetter-App (0=AUS/1=AN)
   "GOL_ACTIVE": "0",        // Aktiviert die Game of Life App (0=AUS/1=AN)
   "PET_ACTIVE": "0",        // Aktivert die Virtual Pet App (0=AUS/1=AN)
