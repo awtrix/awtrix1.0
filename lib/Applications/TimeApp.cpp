@@ -25,7 +25,7 @@ void TimeApp::render(DisplayManager& display) {
         blink = !blink;
     }
 
-    if (blink & BIG_TIME & !timeStatus()){
+    if (blink & BIG_TIME & timeStatus()){
         display.fillRect(14,0,5,6,{0,0,0});
     }
    
