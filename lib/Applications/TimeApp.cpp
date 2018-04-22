@@ -16,16 +16,17 @@ void TimeApp::render(DisplayManager& display) {
         sprintf_P(t, PSTR("%02d:%02d:%02d"), hour(), minute(),second());
         if ( timeStatus()){
             display.drawText(t, {1, 0}, true,!BIG_TIME,true);
+                    if ((millis() - previousMillis > interval) &  BIG_TIME ) {
+        previousMillis = millis(); 
+        blink = !blink;
+    }
         }else{
             display.drawText("SYNCING", {2, 0}, true,true,true);
             }
         
-        if ((millis() - previousMillis > interval) &  BIG_TIME ) {
-        previousMillis = millis(); 
-        blink = !blink;
-    }
 
-    if (blink & BIG_TIME & timeStatus()){
+
+    if (blink & BIG_TIME ){
         display.fillRect(14,0,5,6,{0,0,0});
     }
    
