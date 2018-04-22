@@ -2,66 +2,45 @@
 #include "Arduino.h"
 #include "NTP.h"
 #include <TimeLib.h>
-
-
-
-long startsecondswd;            // weekday start time in seconds
-long stopsecondswd;             // weekday stop  time in seconds
-long nowseconds;  
+WiFiUDP UDPNTP;
 IPAddress ntpServer(94,100,3,214);
-NTP::NTP(void)
-{
-}
 
-void NTP::begin(const char* ntpServerName, int TimeZoneOffset)
-{
-	_serverName = ntpServerName;
-	_timeZoneOffset = TimeZoneOffset;
-	UDP.begin(LOCALPORT);	
-}
 
-time_t NTP::getNtpTime(void)
-{
-  while (UDP.parsePacket() > 0) ; 
+time_t NTP::getNtpTime(){
+UDPNTP.begin(LOCALPORT);
+  while (UDPNTP.parsePacket() > 0) ; 
+    memset(packetBuffer, 0, NTP_PACKET_SIZE);
+    packetBuffer[0] = 0b11100011;   // LI, Version, Mode
+    packetBuffer[1] = 0;     // Stratum, or type of clock
+    packetBuffer[2] = 6;     // Polling Interval
+    packetBuffer[3] = 0xEC;  // Peer Clock Precision
+    packetBuffer[12]  = 49;
+    packetBuffer[13]  = 0x4E;
+    packetBuffer[14]  = 49;
+    packetBuffer[15]  = 52;
+    UDPNTP.beginPacket(ntpServer, 123); 
+    UDPNTP.write(packetBuffer, NTP_PACKET_SIZE);
+    UDPNTP.endPacket();
 
-  sendNTPpacket(ntpServer);
   uint32_t beginWait = millis();
-  while (millis() - beginWait < 3500) {
-    int size = UDP.parsePacket();
+  while (millis() - beginWait < 4500) {
+    int size = UDPNTP.parsePacket();
     if (size >= NTP_PACKET_SIZE) {
-      UDP.read(packetBuffer, NTP_PACKET_SIZE); 
+      UDPNTP.read(packetBuffer, NTP_PACKET_SIZE); 
       time_t secsSince1900;
       secsSince1900 =  (time_t)packetBuffer[40] << 24;
       secsSince1900 |= (time_t)packetBuffer[41] << 16;
       secsSince1900 |= (time_t)packetBuffer[42] << 8;
       secsSince1900 |= (time_t)packetBuffer[43];
       time_t secsSince1970 = secsSince1900 - 2208988800UL;
-      int8_t totalOffset = (int8_t)(_timeZoneOffset + DSToffset(secsSince1970));
-      UDP.stop();
+      int8_t totalOffset = (int8_t)(UTC_OFFSET + DSToffset(secsSince1970));
       return secsSince1970 + (time_t)(totalOffset * SECS_PER_HOUR) ;
     }
     yield();
-  }
-   Serial.println("Got no Time");
-   UDP.stop();
+  }  
   return 0; 
 }
 
-void NTP::sendNTPpacket(IPAddress &address)
-{
-  memset(packetBuffer, 0, NTP_PACKET_SIZE);
-  packetBuffer[0] = 0b11100011;   // LI, Version, Mode
-  packetBuffer[1] = 0;     // Stratum, or type of clock
-  packetBuffer[2] = 6;     // Polling Interval
-  packetBuffer[3] = 0xEC;  // Peer Clock Precision
-  packetBuffer[12]  = 49;
-  packetBuffer[13]  = 0x4E;
-  packetBuffer[14]  = 49;
-  packetBuffer[15]  = 52;
-  UDP.beginPacket(address, 123); 
-  UDP.write(packetBuffer, NTP_PACKET_SIZE);
-  UDP.endPacket();
-}
 
 uint8_t NTP::DSToffset(time_t date)
 {
