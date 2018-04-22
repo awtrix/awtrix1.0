@@ -1,6 +1,5 @@
 #include <PongApp.h>
 #include "config.h"
-// variables for the position of the ball and paddle
 
 
 boolean inPaddle(int x, int y, int rectX, int rectY, int rectWidth, int rectHeight) {
@@ -26,7 +25,7 @@ void PongApp::render(DisplayManager& display) {
 
     oldPaddleX = paddleX;
     oldPaddleY = paddleY;
-    display.show();
+
 
     if (currentMillis - prevMillis >= 150) {
         prevMillis = currentMillis;

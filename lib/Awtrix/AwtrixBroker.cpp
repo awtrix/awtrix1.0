@@ -1,6 +1,16 @@
 #include <AwtrixBroker.h>
 
 String AwtrixBroker::doJob(String command,String payload){
+
+        if (command==  "game"){
+                game=payload.toInt();
+                return "ACK";  
+        }
+
+        if (command==  "gamemode"){
+                gamemode=payload.toInt();
+                return "ACK";
+        }
         if (command== "bri"){
                 BRIGHTNESS=payload.toInt();
                 DisplayManager::getInstance().setBrightness(payload.toInt());
@@ -9,6 +19,10 @@ String AwtrixBroker::doJob(String command,String payload){
 
         if (command== "save"){
                 AwtrixSettings::getInstance().saveSettings();
+                DisplayManager::getInstance().showSave();
+                delay(200);
+                DisplayManager::getInstance().clear();
+                    DisplayManager::getInstance().show();
                 return "ACK";
         }
 
@@ -30,28 +44,17 @@ String AwtrixBroker::doJob(String command,String payload){
                 direction=payload.toInt();
         }
 
-        if (command==  "text"){
-                
+        if (command==  "text"){ 
                 DisplayManager::getInstance().scrollText(payload);
                 return "ACK";
         }
 
         if (command==  "next"){
-
                 //ApplicationManager::getInstance().nextApplication();
                 return "ACK";
         }
 
-        if (command==  "game"){
-                game=payload.toInt();
-                return "ACK";  
-        }
 
-        if (command==  "gamemode"){
-                gamemode=payload.toInt();
-            
-                return "ACK";
-        }
         if (command==  "color"){
                 long number = (long) strtol( &payload[1], NULL, 16);
                 TEXT_COLOR_R = number >> 16;

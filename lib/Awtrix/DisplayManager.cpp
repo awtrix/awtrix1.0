@@ -304,20 +304,28 @@ void DisplayManager::checkLight() {
 
 
 void DisplayManager::showBoot(){
+    matrix.setFont(&TomThumb);
     matrix.setBrightness(BRIGHTNESS);
-    matrix.setTextColor(color({255,51,00}));
-    matrix.setCursor(4, 0);
-    matrix.print("B");
+    matrix.setTextColor(color({255,0,00}));
+    matrix.setCursor(4, 6);
+    matrix.print("A");
+    matrix.setTextColor(color({255,165,0}));
+    matrix.setCursor(8, 6);
+    matrix.print("W");
     matrix.setTextColor(color({255,255,0}));
-    matrix.setCursor(10, 0);
-    matrix.print("O");
-    matrix.setTextColor(color({102,255,51}));
-    matrix.setCursor(17, 0);
-    matrix.print("O");
-    matrix.setTextColor(color({51,204,204}));
-    matrix.setCursor(23, 0);
+    matrix.setCursor(12, 6);
     matrix.print("T");
+    matrix.setTextColor(color({0,255,0}));
+    matrix.setCursor(17, 6);
+    matrix.print("R");
+    matrix.setTextColor(color({51,51,204}));
+    matrix.setCursor(21, 6);
+    matrix.print("I");
+    matrix.setTextColor(color({75,0,130}));
+    matrix.setCursor(25, 6);
+    matrix.print("X");
     matrix.show();
+    matrix.setFont();
 }
 
 void DisplayManager::showSave(){
