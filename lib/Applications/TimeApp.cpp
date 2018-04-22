@@ -15,9 +15,9 @@ void TimeApp::render(DisplayManager& display) {
         char t[14];
         sprintf_P(t, PSTR("%02d:%02d:%02d"), hour(), minute(),second());
         if ( timeStatus()){
-            display.drawText(t, {2, 0}, true,!BIG_TIME,true);
+            display.drawText(t, {1, 0}, true,!BIG_TIME,true);
         }else{
-            display.drawText("SYNC", {2, 0}, true,!BIG_TIME,true);
+            display.drawText("SYNCING", {2, 0}, true,true,true);
             }
         
         if ((millis() - previousMillis > interval) &  BIG_TIME ) {
@@ -25,7 +25,7 @@ void TimeApp::render(DisplayManager& display) {
         blink = !blink;
     }
 
-    if (blink & BIG_TIME){
+    if (blink & BIG_TIME & !timeStatus()){
         display.fillRect(14,0,5,6,{0,0,0});
     }
    
@@ -34,9 +34,9 @@ void TimeApp::render(DisplayManager& display) {
         char  d[14];
         sprintf_P(d, PSTR("%02d. %s"), day(), monname[month()-1]); 
          if (timeStatus()){
-              display.drawText(d , {3, 0}, true,true,true);
+              display.drawText(d , {4, 0}, true,true,true);
         }else{
-            display.drawText("SYNC", {2, 0}, true,!BIG_TIME,true);
+            display.drawText("SYNCING", {2, 0}, true,true,true);
             }
       
         }
