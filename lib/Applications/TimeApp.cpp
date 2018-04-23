@@ -1,8 +1,9 @@
 #include <TimeApp.h>
 unsigned long previousMillis = 0; 
 unsigned long interval = 1000; 
-bool TD;
+bool TD = 1;
 NTP NTPclient;
+
 
 time_t NTPgetTime()
 {
@@ -13,14 +14,20 @@ void TimeApp::render(DisplayManager& display) {
 
     if (TD || SLEEP_MODE){
         char t[14];
-        sprintf_P(t, PSTR("%02d:%02d:%02d"), hour(), minute(),second()); 
-        display.drawText(t, {1, 0}, true,!BIG_TIME,true);
-        if ((millis() - previousMillis > interval) &  BIG_TIME ) {
-        previousMillis = millis(); 
-        blink = !blink;
-    }
+        sprintf_P(t, PSTR("%02d:%02d:%02d"), hour(), minute(),second());
+        if ( timeStatus()){
+            display.drawText(t, {2, 0}, true,!BIG_TIME,true);
+            if ((millis() - previousMillis > interval) &  BIG_TIME ) {
+                previousMillis = millis(); 
+                blink = !blink;
+            }
+        }else{
+            display.drawText("SYNCING", {2, 0}, true,true,true);
+        }
+        
 
-    if (blink & BIG_TIME){
+
+    if (blink & BIG_TIME ){
         display.fillRect(14,0,5,6,{0,0,0});
     }
    
@@ -28,10 +35,15 @@ void TimeApp::render(DisplayManager& display) {
     }else{
         char  d[14];
         sprintf_P(d, PSTR("%02d. %s"), day(), monname[month()-1]); 
-        display.drawText(d , {3, 0}, true,true,true);
+         if (timeStatus()){
+              display.drawText(d , {4, 0}, true,true,true);
+        }else{
+            display.drawText("SYNCING", {2, 0}, true,true,true);
+            }
+      
         }
     
-   if (SHOW_WEEKDAY && !SLEEP_MODE){
+   if (SHOW_WEEKDAY && !SLEEP_MODE && timeStatus()){
         long day = now() / 86400L;
         int day_of_the_week = (day+3) % 7;
         display.drawWeekday(day_of_the_week);
@@ -42,7 +54,6 @@ void TimeApp::render(DisplayManager& display) {
 }
 
 void TimeApp::enable() {
-    NTPclient.begin("0.pool.ntp.org",UTC_OFFSET);
     setSyncProvider(getExternalTime(NTPgetTime));
 
     Serial.println("TimeApp started");

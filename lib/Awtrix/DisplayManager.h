@@ -37,7 +37,7 @@ class DisplayManager
         void drawApp(const uint16_t[], String,AwtrixPosition, AwtrixColor, bool, int);
         void clear();
         void refresh();
-        void wipe(int);
+        void wipe();
         void show();
         void setERR();
         void checkLight();
@@ -63,6 +63,7 @@ class DisplayManager
         void drawChar(uint16_t, uint16_t, char, AwtrixColor, uint16_t, uint8_t);
         void setLayout();
         void showBoot();
+        void showSave();
 };
 
 #endif

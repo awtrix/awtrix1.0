@@ -9,6 +9,7 @@ const int FW_VERSION = 7;
 const char* fwUrlBase = "http://blueforcer.de/awtrix/";
 File fsUploadFile;
 
+
 ESP8266WebServer server(80);
 
 const char* html1 = "<!DOCTYPE html><html><head><meta name=\"viewport\" content=\"width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1\"/></head><body style=\"background-color:#EEE;font-family:Arial,Tahoma,Verdana;\"><h1>Title</h1>";
@@ -24,7 +25,7 @@ void configModeCallback (WiFiManager *myWiFiManager) {
 }
 
 
-void checkForUpdates() {
+void ICACHE_FLASH_ATTR checkForUpdates() {
   String fwURL = String( fwUrlBase );
   String fwVersionURL = fwURL;
   fwVersionURL.concat( "firmware.version" );
@@ -76,7 +77,7 @@ void checkForUpdates() {
 
 
 
-String getContentType(String filename) {
+String ICACHE_FLASH_ATTR getContentType(String filename) {
   if (server.hasArg("download")) {
     return "application/octet-stream";
   } else if (filename.endsWith(".htm")) {
@@ -107,7 +108,7 @@ String getContentType(String filename) {
   return "text/plain";
 }
 
-bool handleFileRead(String path) {
+bool ICACHE_FLASH_ATTR handleFileRead(String path) {
   if (path.endsWith("/")) {
     path += "index.htm";
   }
@@ -125,7 +126,7 @@ bool handleFileRead(String path) {
   return false;
 }
 
-void handleFileUpload() {
+void ICACHE_FLASH_ATTR handleFileUpload() {
   if (server.uri() != "/edit") {
     return;
   }
@@ -146,12 +147,11 @@ void handleFileUpload() {
     if (fsUploadFile) {
       fsUploadFile.close();
         AwtrixSettings::getInstance().loadSPIFFS();
-        server.send(200, "text/plain", "Änderungen gespeichert!");
     }
   }
 }
 
-void handleFileDelete() {
+void ICACHE_FLASH_ATTR handleFileDelete() {
   if (server.args() == 0) {
     return server.send(500, "text/plain", "BAD ARGS");
   }
@@ -167,7 +167,7 @@ void handleFileDelete() {
   path = String();
 }
 
-void handleFileCreate() {
+void ICACHE_FLASH_ATTR handleFileCreate() {
   if (server.args() == 0) {
     return server.send(500, "text/plain", "BAD ARGS");
   }
@@ -189,7 +189,7 @@ void handleFileCreate() {
 
 }
 
-void handleFileList() {
+void ICACHE_FLASH_ATTR handleFileList() {
   if (!server.hasArg("dir")) {
     server.send(500, "text/plain", "BAD ARGS");
     return;
@@ -221,7 +221,31 @@ void handleFileList() {
   server.send(200, "text/json", output);
 }
 
-void setupServer(){
+void handleFileUpload2(){ // upload a new file to the SPIFFS
+  Serial.print("test"); 
+  HTTPUpload& upload = server.upload();
+  if(upload.status == UPLOAD_FILE_START){
+    String filename = upload.filename;
+    if(!filename.startsWith("/")) filename = "/"+filename;
+    Serial.print("handleFileUpload Name: "); Serial.println(filename);
+    fsUploadFile = SPIFFS.open(filename, "w");            // Open the file for writing in SPIFFS (create if it doesn't exist)
+    filename = String();
+  } else if(upload.status == UPLOAD_FILE_WRITE){
+    if(fsUploadFile)
+      fsUploadFile.write(upload.buf, upload.currentSize); // Write the received bytes to the file
+  } else if(upload.status == UPLOAD_FILE_END){
+    if(fsUploadFile) {                                    // If the file was successfully created
+      fsUploadFile.close();                               // Close the file again
+      Serial.print("handleFileUpload Size: "); Serial.println(upload.totalSize);
+      server.sendHeader("Location","/success.html");      // Redirect the client to the success page
+      server.send(303);
+    } else {
+      server.send(500, "text/plain", "500: couldn't create file");
+    }
+  }
+}
+
+void ICACHE_FLASH_ATTR setupServer(){
         SPIFFS.begin();
   {
     Dir dir = SPIFFS.openDir("/");
@@ -232,32 +256,30 @@ void setupServer(){
   }
 
 server.on("/list", HTTP_GET, handleFileList);
-  //load editor
   server.on("/edit", HTTP_GET, []() {
     if (!handleFileRead("/edit.htm")) {
       server.send(404, "text/plain", "FileNotFound");
     }
   });
-  //create file
   server.on("/edit", HTTP_PUT, handleFileCreate);
-  //delete file
   server.on("/edit", HTTP_DELETE, handleFileDelete);
-  //first callback is called after the request has ended with all parsed arguments
-  //second callback handles file uploads at that location
   server.on("/edit", HTTP_POST, []() {
     server.send(200, "text/plain", "");
   }, handleFileUpload);
 
-  //called when the url is not defined here
-  //use it to load content from SPIFFS
+
+  server.on("/upload", HTTP_POST,                       // if the client posts to the upload page
+    [](){ server.send(200); },                          // Send status 200 (OK) to tell the client we are ready to receive
+    handleFileUpload2                                   // Receive and save the file
+  );
+
   server.onNotFound([]() {
     if (!handleFileRead(server.uri())) {
       server.send(404, "text/plain", "FileNotFound");
     }
   });
 
-  //get heap status, analog input value and all GPIO statuses in one json call
-  server.on("/all", HTTP_GET, []() {
+  server.on("/", HTTP_GET, []() {
     String json = "{";
     json += "\"FreeRAM\":" + String(ESP.getFreeHeap());
     json += ", \"BrighnessSensor\":" + String(analogRead(A0));
@@ -268,14 +290,14 @@ server.on("/list", HTTP_GET, handleFileList);
 
 }
 
-void AwtrixWiFi::setup() {
+void ICACHE_FLASH_ATTR AwtrixWiFi::setup() {
     Serial.println(F("Setup WiFi"));
     WiFiManager wifiManager;
     wifiManager.setTimeout(120);
     wifiManager.setAPCallback(configModeCallback);
 
     wifiManager.autoConnect("AWTRIX");
-
+//wifiManager.resetSettings();
     address = WiFi.localIP().toString();
     Serial.println(F("WiFi connected"));
     Serial.print(F("IP address: "));
@@ -303,7 +325,7 @@ void AwtrixWiFi::setup() {
 
 
 void AwtrixWiFi::loop() {
- server.handleClient();
+  server.handleClient();
 }
 
 

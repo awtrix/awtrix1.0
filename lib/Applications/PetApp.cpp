@@ -130,6 +130,6 @@ if (PET_MOOD == 3){
       display.drawRect(eyeX+6, eyeY, 2, 2,{0,0,0});
       display.drawRect(eyeX+18, eyeY, 2, 2, {0,0,0});
     }
- delay(50);
+ delay(30);
     display.show();
 }

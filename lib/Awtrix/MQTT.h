@@ -4,22 +4,24 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include "config.h"
-
+#include <AwtrixBroker.h>
 
 class MQTT
 {
     private:        
-
-
-        WiFiClient espClient;
-        PubSubClient mqttClient;
-        void commands(String, String);
-        void reconnect();
+        bool reconnect();
     public:
-        MQTT() : mqttClient(espClient) {};
-        int publish(char*,char*);
+        static MQTT& getInstance() {
+            static MQTT instance;
+            return instance;
+        }
+        void sendLog(String);
         void setup();
         void loop();
+
 };
+
+
+    
 
 #endif

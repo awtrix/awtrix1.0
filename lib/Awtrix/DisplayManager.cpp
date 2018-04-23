@@ -131,9 +131,8 @@ void DisplayManager::show() {
 
 
 void DisplayManager::setBrightness(int value) {
-    matrix.setBrightness(BRIGHTNESS);
     BRIGHTNESS=value;
-
+    matrix.setBrightness(BRIGHTNESS);
 }
 
 void DisplayManager::setColor(AwtrixColor textColor) {
@@ -259,65 +258,20 @@ void DisplayManager::colorWipe(AwtrixColor wipeColor) {
     }
 }
 
-bool DisplayManager::executeCommand(command_t command, String payload1, String payload2)
-{
-    switch (command) {
-        case command_t::settings_get:
-            break;
-
-        case command_t::settings_set:
-            break;
-
-        case command_t::settings_reset:
-            break;
-
-        case command_t::bright:
-            if (payload1.toInt()>0){
-                setBrightness(payload1.toInt());
-            }
-                        
-            break;
-
-        case command_t::text:
-            break;
-
-        case command_t::color:
-            
-            break;
-
-        case command_t::screen:
-            break;
-
-        case command_t::notification:
-            if (payload1 == "E-Mail"){
-                drawApp(mail,payload2,{0,0},{255, 255, 255},true,2000);
-            } else if (payload1 == "Whatsapp") {   
-                drawApp(whatsapp,payload2,{0,0},{255, 255, 255},true,2000);
-           }
-
-           //drawApp(whatsapp,payload1,{0,0},{255, 255, 255},true,30,2000);
-            break;
-    }
-
-    return true;
-}
 
 uint32_t DisplayManager::color(AwtrixColor color)
 {
-  
-    return matrix.Color(color.red, color.green, color.blue);
+  return matrix.Color(color.red, color.green, color.blue);
     
 }
 
-
-
-void DisplayManager::wipe(int wait){  
-    matrix.clear();
+void DisplayManager::wipe(){  
     for(uint16_t i=0; i<32+1; i++) {
+        matrix.fillRect(0,0,i-1,8,color({0,0,0}));
         matrix.drawFastVLine(i, 0, 8, Wheel((i*8) & 255,0));
         matrix.drawFastVLine(i-1, 0, 8, 0);
         matrix.show();
-        delay(10);
+        delay(15);
     }
 }
 
@@ -345,20 +299,39 @@ void DisplayManager::checkLight() {
 }
 
 
+
+
 void DisplayManager::showBoot(){
-    matrix.setBrightness(100);
-    matrix.setTextColor(color({255,51,00}));
-    matrix.setCursor(4, 0);
-    matrix.print("B");
+    matrix.setFont(&TomThumb);
+    matrix.setBrightness(BRIGHTNESS);
+    matrix.setTextColor(color({255,0,00}));
+    matrix.setCursor(4, 6);
+    matrix.print("A");
+    matrix.setTextColor(color({255,165,0}));
+    matrix.setCursor(8, 6);
+    matrix.print("W");
     matrix.setTextColor(color({255,255,0}));
-    matrix.setCursor(10, 0);
-    matrix.print("O");
-    matrix.setTextColor(color({102,255,51}));
-    matrix.setCursor(17, 0);
-    matrix.print("O");
-    matrix.setTextColor(color({51,204,204}));
-    matrix.setCursor(23, 0);
+    matrix.setCursor(12, 6);
     matrix.print("T");
+    matrix.setTextColor(color({0,255,0}));
+    matrix.setCursor(17, 6);
+    matrix.print("R");
+    matrix.setTextColor(color({51,51,204}));
+    matrix.setCursor(21, 6);
+    matrix.print("I");
+    matrix.setTextColor(color({75,0,130}));
+    matrix.setCursor(25, 6);
+    matrix.print("X");
+    matrix.show();
+    matrix.setFont();
+}
+
+void DisplayManager::showSave(){
+    matrix.clear();
+    matrix.setBrightness(BRIGHTNESS);
+    matrix.setTextColor(color({0,255,50}));
+    matrix.setCursor(4, 0);
+    matrix.print("SAVE");
     matrix.show();
 }
 

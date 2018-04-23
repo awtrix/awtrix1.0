@@ -8,7 +8,7 @@
 
 WidgetTerminal terminal(V8);
 
-void sendStates() {
+void ICACHE_FLASH_ATTR sendStates() {
     Blynk.virtualWrite(0, BRIGHTNESS);
     Blynk.virtualWrite(2, BIG_TIME);
     Blynk.virtualWrite(3, SCROLL_SPEED);

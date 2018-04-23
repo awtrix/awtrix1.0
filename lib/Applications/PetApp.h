@@ -11,6 +11,7 @@ class PetApp : public IApplication
         AwtrixColor eyeColor = {255,255,255};      
     public:
         void render(DisplayManager&) override;
+        String name = "Pet";
 };
 
 #endif

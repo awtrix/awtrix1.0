@@ -15,6 +15,7 @@ class YoutubeApp : public IApplication
     public:
         void render(DisplayManager&) override;
         void enable() override; 
+        String name = "Youtube";
     
 };
 

@@ -30,6 +30,5 @@ void AwtrixSound::setup(){
     Serial.println(F("Setting up Sound"));
     pinMode(BUZZER,OUTPUT);
     playMelody();
-    Serial.println(F("Sound started"));
 }
 

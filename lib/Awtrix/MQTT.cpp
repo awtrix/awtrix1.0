@@ -1,19 +1,28 @@
 #include <MQTT.h>
 #include <DisplayManager.h>
-#include <Settings.h>
 
-AwtrixSettings& settings1 = AwtrixSettings::getInstance();
-#define target_time 5000
+long lastReconnectAttempt = 0;
+    WiFiClient espClient;
+    PubSubClient mqttClient(espClient);
+
+void publish(char* topic, String payload) {
+    char copy[payload.length()];
+    payload.toCharArray(copy, 50 );
+    mqttClient.publish(topic, copy);
+}
+
+void MQTT::sendLog(String msg){
+    publish("awtrix/log",msg);
+}
 
 void commands(String topic,String payload){
-  if (topic=="awtrix/settings/json"){
-        settings1.parseSettings(payload);
-    }
-
-     if (topic=="awtrix/text"){
-        DisplayManager::getInstance().scrollText(payload);
+    if (topic == "awtrix/com"){
+        String comm = payload.substring(0,payload.indexOf("%"));
+        String payl = payload.substring(payload.indexOf("%")+1,payload.length());
+        publish("awtrix/com/response",AwtrixBroker::getInstance().doJob(comm,payl)); 
     }
 }
+
 
 void callback(char* topic, byte* payload, unsigned int length) {
     Serial.print(F("Message arrived ["));
@@ -23,13 +32,12 @@ void callback(char* topic, byte* payload, unsigned int length) {
     for (int i = 0; i < length; i++) {
         Payload += (char)payload[i];
     }
-    commands(topic,Payload);
+
+     commands(topic,Payload);
+  
 }
 
-
-
-
-void MQTT::setup() {
+void ICACHE_FLASH_ATTR MQTT::setup() {
     if (MQTT_SERVER=="") return;
     while (!mqttClient.connected())  {
         Serial.println(F("Connecting to MQTT..."));
@@ -45,45 +53,31 @@ void MQTT::setup() {
         }
     }
 
-    mqttClient.publish("awtrix/message", "Hello from AWTRIX");
-    mqttClient.subscribe("awtrix/text");
-    mqttClient.subscribe("awtrix/settings");
-    mqttClient.subscribe("awtrix/settings/json");
+    mqttClient.publish("awtrix", "Hello from AWTRIX");
+    mqttClient.subscribe("awtrix/com");
+     mqttClient.subscribe("awtrix/text");
 }
 
-void MQTT::reconnect() {
-    // Loop until we're reconnected
-    while (!mqttClient.connected())  {
-      Serial.println(F("Connecting to MQTT..."));
-        mqttClient.setServer(MQTT_SERVER, MQTT_PORT);
-        mqttClient.setCallback(callback);
-
-        if (mqttClient.connect("AWTRIX", MQTT_USERNAME, MQTT_PASSWORD)) {
-            Serial.println(F("MQTT Connected"));
-        } else {
-            Serial.print(F("failed with state "));
-            Serial.print(mqttClient.state());
-            delay(100);
-        }
+bool MQTT::reconnect() {
+    if (mqttClient.connect("AWTRIX")) {
+        mqttClient.subscribe("awtrix/com");
+         mqttClient.subscribe("awtrix/text");
     }
+    return mqttClient.connected();
+}
 
-    mqttClient.publish("awtrix/message", "Hello from AWTRIX");
-    mqttClient.subscribe("awtrix/text");
-    mqttClient.subscribe("awtrix/settings");
-    mqttClient.subscribe("awtrix/settings/json");
+void MQTT::loop() 
+{
+  if (!mqttClient.connected()) {
+    long now = millis();
+    if (now - lastReconnectAttempt > 5000) {
+      lastReconnectAttempt = now;
+      // Attempt to reconnect
+      if (reconnect()) {
+        lastReconnectAttempt = 0;
+      }
     }
-
-
-void MQTT::loop() {
-
+  } else {
     mqttClient.loop();
-
+  }
 }
-
-int MQTT::publish(char* topic, char* payload) {
-    mqttClient.publish(topic, payload);
-}
-
-
-
-
