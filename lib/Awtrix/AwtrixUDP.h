@@ -8,7 +8,7 @@ class AwtrixUDP
 {
     private:
         WiFiUDP Udp;
-
+        
     public:
         void setup();
         void loop();

@@ -4,11 +4,6 @@ unsigned long interval = 1000;
 bool TD = 1;
 
 
-time_t NTPgetTime()
-{
-    return NTPclient.getNtpTime();
-}
-
 void TimeApp::render(DisplayManager& display) {
 
     if (TD || SLEEP_MODE){
@@ -16,13 +11,13 @@ void TimeApp::render(DisplayManager& display) {
         sprintf_P(t, PSTR("%02d:%02d:%02d"), hour(), minute(),second());
         if ( timeStatus()){
             display.drawText(t, {1, 0}, true,!BIG_TIME,true);
-                    if ((millis() - previousMillis > interval) &  BIG_TIME ) {
-        previousMillis = millis(); 
-        blink = !blink;
-    }
+            if ((millis() - previousMillis > interval) &  BIG_TIME ) {
+                previousMillis = millis(); 
+                blink = !blink;
+            }
         }else{
             display.drawText("SYNCING", {2, 0}, true,true,true);
-            }
+        }
         
 
 
@@ -53,8 +48,7 @@ void TimeApp::render(DisplayManager& display) {
 }
 
 void TimeApp::enable() {
-    //setSyncProvider(getExternalTime(NTPgetTime));
-  setTime(NTPclient.getNtpTime());
+    setTime(NTPclient.getNtpTime());
     Serial.println("TimeApp started");
     loopCounter=0;
     TD=!TD;

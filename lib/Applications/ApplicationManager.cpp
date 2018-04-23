@@ -97,7 +97,7 @@ void ApplicationManager::nextApplication() {
                 AppIndex = 2;
             }
         applications[AppIndex]->enable();
-        DisplayManager::getInstance().wipe({500});
+        DisplayManager::getInstance().wipe();
         activeApplicationIndex = AppIndex;
 }
 
@@ -143,13 +143,12 @@ void ApplicationManager::switchApplications() {
         }
     }else{
         if (AppIndex != activeApplicationIndex) {
-            DisplayManager::getInstance().drawPixel(31,7,{255,100,0}); 
-            DisplayManager::getInstance().show();  
+           
             applications[activeApplicationIndex]->disable();
 
             applications[AppIndex]->enable();
             applicationRuntime=0;
-            DisplayManager::getInstance().wipe({500});
+            DisplayManager::getInstance().wipe();
             activeApplicationIndex = AppIndex;
         }
     }
