@@ -1,5 +1,6 @@
 #include <SnakeApp.h>
 #include "config.h"
+#include <DisplayManager.h>
 // direction
 const int TOP    = 0;
 const int RIGHT  = 1;
@@ -23,18 +24,26 @@ int matrixColor;
   
 
 void userLose(){
-  //toDo
+ DisplayManager::getInstance().drawText("LOOSE", {0, 0}, true,false,false);
+ DisplayManager::getInstance().show();
+ delay(1000);
+  DisplayManager::getInstance().clear();
+  DisplayManager::getInstance().show();
   snakeLength = 1;
 }
 
 void userWin(){
-   //toDo  
+   DisplayManager::getInstance().drawText("WIN", {6, 0}, true,false,false);
+ DisplayManager::getInstance().show();
+ delay(1000);
+  DisplayManager::getInstance().clear();
+  DisplayManager::getInstance().show(); 
   snakeLength = 1;
 }
 
 
 boolean inPlayField(int x, int y){
-  return (x>=1) && (x<32) && (y>=1) && (y<8);
+  return (x>=1) && (x<31) && (y>=1) && (y<7);
 }
 
 boolean isPartOfSnake(int x, int y){
@@ -60,11 +69,11 @@ void snakeCheck(){
 
 void makeFruit(){
   int x, y;
-  x = random(1, 32);
-  y = random(1, 8);
+  x = random(1, 31);
+  y = random(1, 7);
   while(isPartOfSnake(x, y)){
-    x = random(1, 32);
-    y = random(1, 8);
+    x = random(1, 31);
+    y = random(1, 7);
   }
   fruitX = x;
   fruitY = y;

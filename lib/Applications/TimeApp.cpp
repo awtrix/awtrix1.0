@@ -10,7 +10,7 @@ void TimeApp::render(DisplayManager& display) {
         char t[14];
         sprintf_P(t, PSTR("%02d:%02d:%02d"), hour(), minute(),second());
         if ( timeStatus()){
-            display.drawText(t, {1, 0}, true,!BIG_TIME,true);
+            display.drawText(t, {2, 0}, true,!BIG_TIME,true);
             if ((millis() - previousMillis > interval) &  BIG_TIME ) {
                 previousMillis = millis(); 
                 blink = !blink;
@@ -37,7 +37,7 @@ void TimeApp::render(DisplayManager& display) {
       
         }
     
-   if (SHOW_WEEKDAY && !SLEEP_MODE){
+   if (SHOW_WEEKDAY && !SLEEP_MODE && timeStatus()){
         long day = now() / 86400L;
         int day_of_the_week = (day+3) % 7;
         display.drawWeekday(day_of_the_week);

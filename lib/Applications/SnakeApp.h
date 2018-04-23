@@ -2,7 +2,7 @@
 #define AwtrixSnakeApplication_h
 
 #include <IApplication.h>
-
+#include <DisplayManager.h>
 
 class SnakeApp : public IApplication
 {
@@ -11,7 +11,7 @@ class SnakeApp : public IApplication
     public:
         void render(DisplayManager&) override;
         void enable() override;
-        String name = "Snake";
+                String name = "Snake";
 };
 
 #endif

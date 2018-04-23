@@ -1,12 +1,13 @@
 #include <PongApp.h>
 #include "config.h"
-
+int points;
 
 boolean inPaddle(int x, int y, int rectX, int rectY, int rectWidth, int rectHeight) {
   boolean result = false;
   if ((x >= rectX && x <= (rectX + rectWidth)) &&
       (y >= rectY && y <= (rectY + rectHeight))) {
     result = true;
+    ++points;
   }
   return result;
 }
@@ -74,7 +75,8 @@ void PongApp::render(DisplayManager& display) {
     display.show();
     if(ballY > 8){
       
-        display.drawText("PONG", {2, 0}, true,false,true);
+        display.drawText(String(points), {4, 0}, true,false,true);
+        points=0;
         display.show();
         delay(1000);
         ballX = random(3,19);
@@ -88,6 +90,7 @@ void PongApp::render(DisplayManager& display) {
 
 void PongApp::enable() {
     Serial.println("PongApp started");
+    points=0;
 }
 
 

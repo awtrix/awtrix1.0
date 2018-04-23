@@ -102,7 +102,7 @@ void ApplicationManager::nextApplication() {
 }
 
 void ApplicationManager::switchApplications() {
-    if (gamemode>0){
+    if (gamemode){
         if (activeApplicationIndex > 1 || game != activeApplicationIndex){
             applications[activeApplicationIndex]->disable();
             applications[game]->enable();
