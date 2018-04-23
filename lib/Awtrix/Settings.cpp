@@ -8,7 +8,7 @@ void AwtrixSettings::loadSPIFFS() {
     loadConfig();
 }
 
-String AwtrixSettings::loadSettings() {
+String ICACHE_FLASH_ATTR AwtrixSettings::loadSettings() {
      if (!SPIFFS.begin()) {
         Serial.println("Failed to mount file system");
     }
@@ -79,7 +79,7 @@ String AwtrixSettings::loadSettings() {
     return JS;
 }
 
-void AwtrixSettings::loadConfig() {
+void ICACHE_FLASH_ATTR AwtrixSettings::loadConfig() {
      if (!SPIFFS.begin()) {
         Serial.println("Failed to mount file system");
     }
@@ -205,7 +205,7 @@ if (json.containsKey("BLYNK_KEY")){
     }
 }
 
-bool AwtrixSettings::saveSettings() {
+bool ICACHE_FLASH_ATTR AwtrixSettings::saveSettings() {
      StaticJsonBuffer<800> jsonBuffer;
     JsonObject& json = jsonBuffer.createObject();
     json["MATRIX_MODE"] = MATRIX_MODE;
@@ -255,7 +255,7 @@ bool AwtrixSettings::saveSettings() {
 }
 
 
-void AwtrixSettings::parseSettings(String json) {
+void ICACHE_FLASH_ATTR AwtrixSettings::parseSettings(String json) {
    Serial.println("Got Settings"); 
     StaticJsonBuffer<800> jsonBuffer;
     JsonObject& root = jsonBuffer.parseObject(json);

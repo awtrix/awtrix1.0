@@ -3,7 +3,7 @@
 int localUdpPort = 52829;
 char inputBuffer[512];
 
-void AwtrixUDP::setup(){
+void ICACHE_FLASH_ATTR AwtrixUDP::setup(){
      Udp.begin(localUdpPort);
      sendMSG("Awtrix Boot");
 }

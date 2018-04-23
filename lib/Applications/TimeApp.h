@@ -11,7 +11,6 @@ class TimeApp : public IApplication
     private:
     bool blink=false;
     int loopCounter;
-    NTP NTPclient;
     const char * monname[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     public:
         void render(DisplayManager&) override;

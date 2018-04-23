@@ -2,7 +2,13 @@
 unsigned long previousMillis = 0; 
 unsigned long interval = 1000; 
 bool TD = 1;
+NTP NTPclient;
 
+
+time_t NTPgetTime()
+{
+    return NTPclient.getNtpTime();
+}
 
 void TimeApp::render(DisplayManager& display) {
 
@@ -48,7 +54,8 @@ void TimeApp::render(DisplayManager& display) {
 }
 
 void TimeApp::enable() {
-    setTime(NTPclient.getNtpTime());
+    setSyncProvider(getExternalTime(NTPgetTime));
+
     Serial.println("TimeApp started");
     loopCounter=0;
     TD=!TD;

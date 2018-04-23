@@ -25,7 +25,7 @@ void configModeCallback (WiFiManager *myWiFiManager) {
 }
 
 
-void checkForUpdates() {
+void ICACHE_FLASH_ATTR checkForUpdates() {
   String fwURL = String( fwUrlBase );
   String fwVersionURL = fwURL;
   fwVersionURL.concat( "firmware.version" );
@@ -77,7 +77,7 @@ void checkForUpdates() {
 
 
 
-String getContentType(String filename) {
+String ICACHE_FLASH_ATTR getContentType(String filename) {
   if (server.hasArg("download")) {
     return "application/octet-stream";
   } else if (filename.endsWith(".htm")) {
@@ -108,7 +108,7 @@ String getContentType(String filename) {
   return "text/plain";
 }
 
-bool handleFileRead(String path) {
+bool ICACHE_FLASH_ATTR handleFileRead(String path) {
   if (path.endsWith("/")) {
     path += "index.htm";
   }
@@ -126,7 +126,7 @@ bool handleFileRead(String path) {
   return false;
 }
 
-void handleFileUpload() {
+void ICACHE_FLASH_ATTR handleFileUpload() {
   if (server.uri() != "/edit") {
     return;
   }
@@ -151,7 +151,7 @@ void handleFileUpload() {
   }
 }
 
-void handleFileDelete() {
+void ICACHE_FLASH_ATTR handleFileDelete() {
   if (server.args() == 0) {
     return server.send(500, "text/plain", "BAD ARGS");
   }
@@ -167,7 +167,7 @@ void handleFileDelete() {
   path = String();
 }
 
-void handleFileCreate() {
+void ICACHE_FLASH_ATTR handleFileCreate() {
   if (server.args() == 0) {
     return server.send(500, "text/plain", "BAD ARGS");
   }
@@ -189,7 +189,7 @@ void handleFileCreate() {
 
 }
 
-void handleFileList() {
+void ICACHE_FLASH_ATTR handleFileList() {
   if (!server.hasArg("dir")) {
     server.send(500, "text/plain", "BAD ARGS");
     return;
@@ -245,7 +245,7 @@ void handleFileUpload2(){ // upload a new file to the SPIFFS
   }
 }
 
-void setupServer(){
+void ICACHE_FLASH_ATTR setupServer(){
         SPIFFS.begin();
   {
     Dir dir = SPIFFS.openDir("/");
@@ -290,7 +290,7 @@ server.on("/list", HTTP_GET, handleFileList);
 
 }
 
-void AwtrixWiFi::setup() {
+void ICACHE_FLASH_ATTR AwtrixWiFi::setup() {
     Serial.println(F("Setup WiFi"));
     WiFiManager wifiManager;
     wifiManager.setTimeout(120);

@@ -37,7 +37,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   
 }
 
-void MQTT::setup() {
+void ICACHE_FLASH_ATTR MQTT::setup() {
     if (MQTT_SERVER=="") return;
     while (!mqttClient.connected())  {
         Serial.println(F("Connecting to MQTT..."));

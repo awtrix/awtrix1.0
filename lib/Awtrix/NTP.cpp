@@ -6,7 +6,7 @@ WiFiUDP UDPNTP;
 IPAddress ntpServer(94,100,3,214);
 
 
-time_t NTP::getNtpTime(){
+time_t ICACHE_FLASH_ATTR NTP::getNtpTime(){
 UDPNTP.begin(LOCALPORT);
   while (UDPNTP.parsePacket() > 0) ; 
     memset(packetBuffer, 0, NTP_PACKET_SIZE);
