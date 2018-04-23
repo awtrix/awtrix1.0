@@ -20,9 +20,9 @@ String AwtrixBroker::doJob(String command,String payload){
         if (command== "save"){
                 AwtrixSettings::getInstance().saveSettings();
                 DisplayManager::getInstance().showSave();
-                delay(200);
+                delay(300);
                 DisplayManager::getInstance().clear();
-                    DisplayManager::getInstance().show();
+                DisplayManager::getInstance().show();
                 return "ACK";
         }
 
@@ -72,6 +72,11 @@ String AwtrixBroker::doJob(String command,String payload){
                     char char_array[str_len];
                     payload.toCharArray(char_array, str_len);
                     AwtrixSettings::getInstance().parseSettings(char_array);
+                        AwtrixSettings::getInstance().saveSettings();
+                        DisplayManager::getInstance().showSave();
+                        delay(300);
+                        DisplayManager::getInstance().clear();
+                        DisplayManager::getInstance().show();
                 }
                 return "ACK";     
         }
