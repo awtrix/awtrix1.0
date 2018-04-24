@@ -42,6 +42,7 @@ class DisplayManager
         void setERR();
         void checkLight();
         void setBrightness(int);
+        void setSleepBrightness(int);
         void setColor(AwtrixColor);
         void scrollText(String);
         void drawText(String, AwtrixPosition, boolean,boolean,boolean);

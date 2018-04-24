@@ -13,6 +13,19 @@
 #include <TwitterApp.h>
 #include <../Awtrix/config.h>
 
+void checkSleepMode(){
+  uint32_t now, start, stop;
+      now = ((hour() * 3600) + (minute() * 60) + second());
+      start = (SLEEP_START_HR * 3600) + (SLEEP_START_MIN * 60);
+      stop = (SLEEP_STOP_HR * 3600) + (SLEEP_STOP_MIN * 60);
+
+      if (start < stop) {
+        SLEEP_MODE = (now >= start && now <= stop ) ? 1 : 0;
+      } else {
+        SLEEP_MODE = (now >= start || now <= stop) ? 1 : 0;
+      }
+}
+
 
 IApplication* ApplicationManager::getApplicationWithName(String name) {
     if (name == "Time") {
@@ -75,6 +88,14 @@ void ApplicationManager::loop() {
         application->render(DisplayManager::getInstance());
     }
     lastTick = thisTick;
+
+    if ((thisTick - prevMillis >= 30000)&SLEEP_MODE_ACTIVE) {
+    // save the last time you blinked the LED
+        prevMillis = thisTick;
+        checkSleepMode();
+    }
+
+ 
 }
 
 
@@ -135,7 +156,7 @@ void ApplicationManager::switchApplications() {
         }
 
     if (SLEEP_MODE){
-        DisplayManager::getInstance().setBrightness(5);
+        DisplayManager::getInstance().setSleepBrightness(5);
         if (activeApplicationIndex > 2 ){
             applications[activeApplicationIndex]->disable();
             applications[2]->enable();
@@ -143,7 +164,7 @@ void ApplicationManager::switchApplications() {
         }
     }else{
         if (AppIndex != activeApplicationIndex) {
-           
+           DisplayManager::getInstance().setBrightness(BRIGHTNESS);
             applications[activeApplicationIndex]->disable();
 
             applications[AppIndex]->enable();

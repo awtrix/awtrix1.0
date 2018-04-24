@@ -175,3 +175,4 @@ BLYNK_WRITE(V18)
     AwtrixSettings::getInstance().saveSettings();
 
 }
+

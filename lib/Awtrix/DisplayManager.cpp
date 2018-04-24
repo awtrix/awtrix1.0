@@ -135,6 +135,10 @@ void DisplayManager::setBrightness(int value) {
     matrix.setBrightness(BRIGHTNESS);
 }
 
+void DisplayManager::setSleepBrightness(int value) {
+    matrix.setBrightness(value);
+}
+
 void DisplayManager::setColor(AwtrixColor textColor) {
      matrix.setTextColor(color(textColor));
 

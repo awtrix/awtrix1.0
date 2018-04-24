@@ -21,8 +21,7 @@ class ApplicationManager
         void switchApplications();
         IApplication* activeApplication();
         IApplication* getApplicationWithName(String);
-        
-       
+        unsigned long prevMillis = 0;
     public:
         static ApplicationManager& getInstance() {
             static ApplicationManager instance;
