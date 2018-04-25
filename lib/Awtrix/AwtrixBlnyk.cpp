@@ -99,7 +99,7 @@ BLYNK_WRITE(V7) {
  
     SLEEP_STOP_HR = t.getStopHour();
     SLEEP_STOP_MIN = t.getStopMinute();
-
+    AwtrixSettings::getInstance().saveSettings();
   }
 
 

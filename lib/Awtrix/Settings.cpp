@@ -257,7 +257,7 @@ bool ICACHE_FLASH_ATTR AwtrixSettings::saveSettings() {
 
 void ICACHE_FLASH_ATTR AwtrixSettings::parseSettings(String json) {
    Serial.println("Got Settings"); 
-    StaticJsonBuffer<800> jsonBuffer;
+    StaticJsonBuffer<1000> jsonBuffer;
     JsonObject& root = jsonBuffer.parseObject(json);
 
     if (!root.success()) {
