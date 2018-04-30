@@ -1,7 +1,7 @@
 #include <DHT22App.h>
 #include <BMP.h>
 
-#define DHTTYPE DHT11
+#define DHTTYPE DHT22
 #define DHTPIN 2
 bool TH;;
 
