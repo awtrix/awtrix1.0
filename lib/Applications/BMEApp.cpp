@@ -24,8 +24,8 @@ void BMEApp::enable() {
     BMESensor.refresh();
     sprintf(bufout,"%c[1;0H",ASCII_ESC);
     Serial.print(bufout);
-    int h=(int)BMESensor.temperature;
-    int t=(int)BMESensor.humidity;
+    int h=(int)BMESensor.humidity;
+    int t=(int)BMESensor.temperature;
     if (h<100) humidity = h;
     if (t<100) temperature = t;
     TH=!TH;
