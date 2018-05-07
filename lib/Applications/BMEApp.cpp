@@ -1,8 +1,6 @@
 #include <BMEApp.h>
 #include <BMP.h>
 #define ASCII_ESC 27
-#define DHTTYPE DHT22
-#define DHTPIN 2
 bool TH;
 
 
