@@ -26,7 +26,7 @@
     int WEATHER_ACTIVE;
     int PET_ACTIVE;
     int GOL_ACTIVE;
-    int DHT_ACTIVE;
+    int BME_ACTIVE;
     int YT_ACTIVE;
     int FB_ACTIVE;
     int TWITTER_ACTIVE;

@@ -39,7 +39,7 @@ ESP.wdtEnable(WDTO_8S);
         if (GOL_ACTIVE) applications.addApplication("Gol");
         if (YT_ACTIVE) applications.addApplication("Youtube");
         if (PET_ACTIVE) applications.addApplication("Pet");
-        if (DHT_ACTIVE) applications.addApplication("DHT22");
+        if (BME_ACTIVE) applications.addApplication("BME");
         if (FB_ACTIVE) applications.addApplication("Facebook");
         if (FIRE_ACTIVE) applications.addApplication("Fire");
         if (SOUND) sound.setup();

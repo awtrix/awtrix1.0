@@ -31,7 +31,7 @@
     extern int WEATHER_ACTIVE;
     extern int PET_ACTIVE;
     extern int GOL_ACTIVE;
-    extern int DHT_ACTIVE;
+    extern int BME_ACTIVE;
     extern int YT_ACTIVE;
     extern int FB_ACTIVE;
     extern int TWITTER_ACTIVE;

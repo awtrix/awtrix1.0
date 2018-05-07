@@ -24,7 +24,7 @@ void ICACHE_FLASH_ATTR sendStates() {
     Blynk.virtualWrite(16, TWITTER_ACTIVE);
     Blynk.virtualWrite(17, FIRE_ACTIVE);
     Blynk.virtualWrite(18, RAINBOW);
-    Blynk.virtualWrite(19, DHT_ACTIVE);
+    Blynk.virtualWrite(19, BME_ACTIVE);
 }
 
 void AwtrixBlynk::setup() {
@@ -156,7 +156,7 @@ BLYNK_WRITE(V17)
 
 BLYNK_WRITE(V19) 
 {
-     DHT_ACTIVE=param.asInt();
+     BME_ACTIVE=param.asInt();
 }
 
 BLYNK_WRITE(V20) 

@@ -64,7 +64,7 @@ String ICACHE_FLASH_ATTR AwtrixSettings::loadSettings() {
     FB_ACTIVE = json["FB_ACTIVE"];
     YT_ACTIVE = json["YT_ACTIVE"];
     TWITTER_ACTIVE = json["TWITTER_ACTIVE"];
-    DHT_ACTIVE = json["DHT_ACTIVE"];
+    BME_ACTIVE = json["BME_ACTIVE"];
     FIRE_ACTIVE = json["FIRE_ACTIVE"];
     APP_DURATION = json["APP_DURATION"];
     MQTT_ACTIVE= json["MQTT_ACTIVE"];
@@ -230,7 +230,7 @@ bool ICACHE_FLASH_ATTR AwtrixSettings::saveSettings() {
     json["PET_ACTIVE"] = PET_ACTIVE;
     json["FB_ACTIVE"] = FB_ACTIVE;
     json["YT_ACTIVE"] = YT_ACTIVE;
-    json["DHT_ACTIVE"] = DHT_ACTIVE;
+    json["BME_ACTIVE"] = BME_ACTIVE;
     json["FIRE_ACTIVE"] = FIRE_ACTIVE;
     json["MQTT_ACTIVE"] = MQTT_ACTIVE;
     json["BLYNK_ACTIVE"] = BLYNK_ACTIVE;
@@ -287,7 +287,7 @@ void ICACHE_FLASH_ATTR AwtrixSettings::parseSettings(String json) {
     if (root.containsKey("PET_ACTIVE"))  PET_ACTIVE = root["PET_ACTIVE"];
     if (root.containsKey("FB_ACTIVE"))  FB_ACTIVE = root["FB_ACTIVE"];
     if (root.containsKey("YT_ACTIVE"))  YT_ACTIVE = root["YT_ACTIVE"];
-    if (root.containsKey("DHT_ACTIVE"))  DHT_ACTIVE = root["DHT_ACTIVE"];
+    if (root.containsKey("BME_ACTIVE"))  BME_ACTIVE = root["BME_ACTIVE"];
     if (root.containsKey("FIRE_ACTIVE"))  FIRE_ACTIVE = root["FIRE_ACTIVE"];
     if (root.containsKey("MQTT_ACTIVE"))  MQTT_ACTIVE = root["MQTT_ACTIVE"];
     if (root.containsKey("BLYNK_ACTIVE"))  BLYNK_ACTIVE = root["BLYNK_ACTIVE"];

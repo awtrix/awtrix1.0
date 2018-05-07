@@ -3,7 +3,7 @@
 #include <TimeApp.h>
 #include <WeatherApp.h>
 #include <YoutubeApp.h>
-#include <DHT22App.h>
+#include <BMEApp.h>
 #include <PetApp.h>
 #include <GolApp.h>
 #include <PongApp.h>
@@ -23,8 +23,8 @@ IApplication* ApplicationManager::getApplicationWithName(String name) {
         return new WeatherApp();
     }
 
-    if (name == "DHT22") {
-        return new DHT22App();
+    if (name == "BME") {
+        return new BMEApp();
     }
 
     if (name == "Youtube") {
