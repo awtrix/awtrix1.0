@@ -11,7 +11,7 @@
 #define c2 523    
 #define P 0
 
-int BUZZER= D3;
+int BUZZER= D1;
 
 int melodie[]={e1,a1,P,a1,g1,a1,e1};
 int dauer[] ={300,200,300,300,300,300,200};
