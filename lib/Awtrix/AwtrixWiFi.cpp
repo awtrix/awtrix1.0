@@ -5,7 +5,7 @@
 #include "config.h"
 #include <FS.h>
 #include <Settings.h>
-const int FW_VERSION = 7;
+const int FW_VERSION = 8;
 const char* fwUrlBase = "http://blueforcer.de/awtrix/";
 File fsUploadFile;
 
