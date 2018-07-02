@@ -3,7 +3,7 @@
 #include "NTP.h"
 #include <TimeLib.h>
 WiFiUDP UDPNTP;
-IPAddress ntpServer(94,100,3,214);
+IPAddress ntpServer(141,2,22,74);
 
 
 time_t ICACHE_FLASH_ATTR NTP::getNtpTime(){
