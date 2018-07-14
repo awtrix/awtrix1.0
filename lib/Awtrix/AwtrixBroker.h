@@ -5,13 +5,11 @@
 #include <DisplayManager.h>
 #include <Settings.h>
 #include <MQTT.h>
-//#include <ApplicationManager.h>
+
 
 class AwtrixBroker
 {
-    private:
-     
-
+    private: 
     public:
         static AwtrixBroker& getInstance() {
             static AwtrixBroker instance;

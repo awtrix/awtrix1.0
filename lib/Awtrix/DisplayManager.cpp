@@ -280,7 +280,6 @@ void DisplayManager::wipe(){
 }
 
 
-
 void DisplayManager::checkLight() {
     int brightnessAnalog = analogRead(A0);
     if (brightnessAnalog<300)

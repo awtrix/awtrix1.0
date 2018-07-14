@@ -2,15 +2,6 @@
 
 String AwtrixBroker::doJob(String command,String payload){
 
-        if (command==  "game"){
-                game=payload.toInt();
-                return "ACK";  
-        }
-
-        if (command==  "gamemode"){
-                gamemode=payload.toInt();
-                return "ACK";
-        }
         if (command== "bri"){
                 BRIGHTNESS=payload.toInt();
                 DisplayManager::getInstance().setBrightness(payload.toInt());
@@ -28,20 +19,12 @@ String AwtrixBroker::doJob(String command,String payload){
 
         if (command==  "reset"){
                 ESP.reset();
-                               
+                   
         }
 
         if (command==  "mood"){
                 PET_MOOD=payload.toInt();
                 return "ACK";
-        }
-
-        if (command==  "pongmove"){
-                paddle=payload.toInt();
-        } 
-
-        if (command==  "snakemove"){
-                direction=payload.toInt();
         }
 
         if (command==  "text"){ 
