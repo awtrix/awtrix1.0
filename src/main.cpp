@@ -67,16 +67,16 @@ void setup() {
 
 
 void loop() {
-    //ota.loop();
-   // wifi.loop();   
+    ota.loop();
+    wifi.loop();   
     if (SETTINGS_FOUND){
         if (!ota.isUpdating()) {       
             if (MQTT_ACTIVE) mqtt.loop();
            applications.loop();
             if (BLYNK_ACTIVE)ESPblynk.loop();
-            //if (AUTO_BRIGHTNESS) DisplayManager::getInstance().checkLight(); 
+            if (AUTO_BRIGHTNESS) DisplayManager::getInstance().checkLight(); 
 
-            //if (SLEEP_MODE_ACTIVE) checkSleepMode();
+            if (SLEEP_MODE_ACTIVE) checkSleepMode();
             }
         }
     }
