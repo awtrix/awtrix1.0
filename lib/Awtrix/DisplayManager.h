@@ -18,13 +18,13 @@ class DisplayManager
         DisplayManager();
         DisplayManager(DisplayManager const&);
         void operator = (DisplayManager const&);
-
+        int colorCircle;
         Adafruit_NeoMatrix matrix;
         AwtrixColor defaultTextColor;
         int fontsize;
         void setup();
         uint32_t color(AwtrixColor);
-        uint32_t Wheel(byte,int);
+        uint32_t Wheel(byte);
 
 
     public:

@@ -12,7 +12,7 @@ void publish(char* topic, String payload) {
 }
 
 void MQTT::sendLog(String msg){
-    publish("awtrix/log",msg);
+ 
 }
 
 void commands(String topic,String payload){
