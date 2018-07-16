@@ -59,6 +59,7 @@ String ICACHE_FLASH_ATTR AwtrixSettings::loadSettings() {
     SOUND = json["SOUND"];
     BLYNK_ACTIVE= json["BLYNK_ACTIVE"];
     WEATHER_ACTIVE = json["WEATHER_ACTIVE"];
+    WEATHERHUM_ACTIVE = json["WEATHERHUM_ACTIVE"];
     GOL_ACTIVE = json["GOL_ACTIVE"];
     PET_ACTIVE = json["PET_ACTIVE"];
     FB_ACTIVE = json["FB_ACTIVE"];
