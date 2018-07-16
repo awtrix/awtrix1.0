@@ -12,6 +12,7 @@
 #include <TimeLib.h>
 
 
+
 OverTheAirUpdate ota;
 AwtrixWiFi wifi;
 MQTT mqtt;
@@ -66,15 +67,16 @@ void setup() {
 
 
 void loop() {
-    ota.loop();
-    wifi.loop();   
+    //ota.loop();
+   // wifi.loop();   
     if (SETTINGS_FOUND){
         if (!ota.isUpdating()) {       
             if (MQTT_ACTIVE) mqtt.loop();
-            if (SETTINGS_FOUND) applications.loop();
+           applications.loop();
             if (BLYNK_ACTIVE)ESPblynk.loop();
-            if (AUTO_BRIGHTNESS) DisplayManager::getInstance().checkLight(); 
-            if (SLEEP_MODE_ACTIVE) checkSleepMode();
+            //if (AUTO_BRIGHTNESS) DisplayManager::getInstance().checkLight(); 
+
+            //if (SLEEP_MODE_ACTIVE) checkSleepMode();
             }
         }
     }
