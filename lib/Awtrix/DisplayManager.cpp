@@ -135,13 +135,10 @@ void DisplayManager::show() {
 void DisplayManager::setBrightness(int value) {
     BRIGHTNESS=value;
     matrix.setBrightness(BRIGHTNESS);
-     Serial.println("Set Helligkeit to");
-      Serial.println(BRIGHTNESS);
 }
 
 void DisplayManager::setSleepBrightness(int value) {
     matrix.setBrightness(value);
-    Serial.println("Set Sleep");
 }
 
 void DisplayManager::setColor(AwtrixColor textColor) {
