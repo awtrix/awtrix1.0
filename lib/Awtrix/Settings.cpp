@@ -226,6 +226,7 @@ bool ICACHE_FLASH_ATTR AwtrixSettings::saveSettings() {
     json["AUTO_UPDATE"] = AUTO_UPDATE;
     json["SOUND"] = SOUND;
     json["WEATHER_ACTIVE"] = WEATHER_ACTIVE;
+    json["WEATHERHUM_ACTIVE"] = WEATHERHUM_ACTIVE;
     json["TWITTER_ACTIVE"] = TWITTER_ACTIVE;
     json["GOL_ACTIVE"] = GOL_ACTIVE;
     json["PET_ACTIVE"] = PET_ACTIVE;
@@ -283,6 +284,7 @@ void ICACHE_FLASH_ATTR AwtrixSettings::parseSettings(String json) {
     if (root.containsKey("AUTO_UPDATE"))  AUTO_UPDATE = root["AUTO_UPDATE"];
     if (root.containsKey("SOUND"))  SOUND = root["SOUND"];
     if (root.containsKey("WEATHER_ACTIVE"))  WEATHER_ACTIVE = root["WEATHER_ACTIVE"];
+    if (root.containsKey("WEATHERHUM_ACTIVE"))  WEATHER_ACTIVE = root["WEATHERHUM_ACTIVE"];
     if (root.containsKey("TWITTER_ACTIVE"))  TWITTER_ACTIVE = root["TWITTER_ACTIVE"];
     if (root.containsKey("GOL_ACTIVE"))  GOL_ACTIVE = root["GOL_ACTIVE"];
     if (root.containsKey("PET_ACTIVE"))  PET_ACTIVE = root["PET_ACTIVE"];
