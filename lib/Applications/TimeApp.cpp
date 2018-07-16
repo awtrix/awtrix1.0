@@ -50,14 +50,14 @@ void TimeApp::render(DisplayManager& display) {
     }
 
   display.show();
- if (RAINBOW) ++loopCounter;
+
 }
 
 void TimeApp::enable() {
     setSyncProvider(getExternalTime(NTPgetTime));
 
     Serial.println("TimeApp started");
-    loopCounter=0;
+
     TD=!TD;
 }
 

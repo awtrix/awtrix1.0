@@ -11,6 +11,7 @@
 #include <NTP.h>
 #include <TimeLib.h>
 
+
 OverTheAirUpdate ota;
 AwtrixWiFi wifi;
 MQTT mqtt;
@@ -23,9 +24,11 @@ AwtrixSettings& settings = AwtrixSettings::getInstance();
 void setup() {
     Serial.begin(115200);
     Serial.print("AWTRIX START");
+     settings.loadSPIFFS();
     DisplayManager::getInstance().showBoot();
-    settings.loadSPIFFS();
+   
     if (MATRIX_MODE) DisplayManager::getInstance().setLayout();
+
     wifi.setup();
     ota.setup();
     if (SETTINGS_FOUND){
@@ -44,7 +47,7 @@ void setup() {
     }else{
         DisplayManager::getInstance().setERR();
     }
-     
+
 }
 
    void checkSleepMode(){
@@ -58,7 +61,9 @@ void setup() {
       } else {
         SLEEP_MODE = (now >= start || now <= stop) ? 1 : 0;
       }
-}
+
+      }
+
 
 void loop() {
     ota.loop();

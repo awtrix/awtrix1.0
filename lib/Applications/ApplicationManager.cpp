@@ -107,12 +107,13 @@ void ApplicationManager::switchApplications() {
     //if (applicationRuntime >= activeApplication()->DefaultDisplayTime) {
     if (applicationRuntime >= (APP_DURATION*1000)) {
          AppIndex = activeApplicationIndex + 1;
+         DisplayManager::getInstance().setBrightness(BRIGHTNESS);
         if (AppIndex >= numberOfApplications) {
             AppIndex = 0;
         }
 
     if (SLEEP_MODE){
-        DisplayManager::getInstance().setBrightness(5);
+        DisplayManager::getInstance().setSleepBrightness(5);
         if (activeApplicationIndex != 0){
             applications[activeApplicationIndex]->disable();
             applications[0]->enable();
@@ -122,6 +123,7 @@ void ApplicationManager::switchApplications() {
         if (AppIndex != activeApplicationIndex) {
             DisplayManager::getInstance().drawPixel(31,7,{255,100,0}); 
             DisplayManager::getInstance().show();  
+ 
             applications[activeApplicationIndex]->disable();
 
             applications[AppIndex]->enable();

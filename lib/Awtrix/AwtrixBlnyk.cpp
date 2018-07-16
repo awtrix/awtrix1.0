@@ -46,7 +46,7 @@ BLYNK_CONNECTED() {
 BLYNK_WRITE(V0) // Set Brightness
 {
     int Value = param.asInt(); 
-    BRIGHTNESS=Value;
+    Serial.println("Set Brightness");
     DisplayManager::getInstance().setBrightness(Value);
     AwtrixSettings::getInstance().saveSettings();
 }

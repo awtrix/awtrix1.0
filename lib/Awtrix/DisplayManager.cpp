@@ -34,8 +34,8 @@ void DisplayManager::setup() {
         fontsize=0;
     };
     matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
-    matrix.setBrightness(BRIGHTNESS);
-
+    setBrightness(BRIGHTNESS);
+    
     clear();
 }
 
@@ -135,10 +135,13 @@ void DisplayManager::show() {
 void DisplayManager::setBrightness(int value) {
     BRIGHTNESS=value;
     matrix.setBrightness(BRIGHTNESS);
+     Serial.println("Set Helligkeit to");
+      Serial.println(BRIGHTNESS);
 }
 
 void DisplayManager::setSleepBrightness(int value) {
     matrix.setBrightness(value);
+    Serial.println("Set Sleep");
 }
 
 void DisplayManager::setColor(AwtrixColor textColor) {
@@ -181,7 +184,7 @@ void DisplayManager::drawText(String text, AwtrixPosition position, boolean refr
         matrix.setCursor(position.x, position.y);
     }
     if(gobalColor)matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
-    if(RAINBOW)matrix.setTextColor(Wheel(colorCircle));
+    if(RAINBOW & !SLEEP_MODE)matrix.setTextColor(Wheel(colorCircle));
     matrix.print(text);
 
     matrix.setFont();
