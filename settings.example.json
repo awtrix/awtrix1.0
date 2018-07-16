@@ -1,6 +1,6 @@
 {
   "SHOW_IP_ON_BOOT": "1",   // Zeige IP-Adresse beim starten (0=AUS/1=AN)
-  "MATRIX_MODE": "0",       // Ändert die Ansteuerung der Matrix (0=COLLUM/1=ROW)
+  "MATRIX_MODE": "0",       // Ändert die Ansteuerung der Matrix (0=COLLUM/1=ROW) (BETA)
   "AUTO_BRIGHTNESS": "0",   // Aktivere die atomatische Helligkeitsregelung
   "BRIGHTNESS": "50",      // Standart Helligekeit wenn AUTO_BRIGHTNESS deaktivert ist
   "UTC_OFFSET": "1",        // UTC-Zeitverschiebung
