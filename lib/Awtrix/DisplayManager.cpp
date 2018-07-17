@@ -190,8 +190,6 @@ void DisplayManager::drawText(String text, AwtrixPosition position, boolean refr
     }
    
     if(RAINBOW & !SLEEP_MODE){
-     
-
       matrix.setTextColor(Wheel(colorCircle));
        ++colorCircle;
        delay(5);
