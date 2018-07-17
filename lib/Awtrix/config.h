@@ -29,6 +29,7 @@
     extern int PONG_ACTIVE; 
     extern int TIME_ACTIVE;
     extern int WEATHER_ACTIVE;
+    extern int WEATHERHUM_ACTIVE;
     extern int PET_ACTIVE;
     extern int GOL_ACTIVE;
     extern int DHT_ACTIVE;

@@ -2,6 +2,7 @@
 #include <Arduino.h>
 #include <TimeApp.h>
 #include <WeatherApp.h>
+#include <WeatherHumApp.h>
 #include <YoutubeApp.h>
 #include <DHT22App.h>
 #include <PetApp.h>
@@ -27,6 +28,10 @@ IApplication* ApplicationManager::getApplicationWithName(String name) {
 
     if (name == "Weather") {
         return new WeatherApp();
+    }
+    
+    if (name == "WeatherHum") {
+        return new WeatherHumApp();
     }
 
     if (name == "DHT22") {
