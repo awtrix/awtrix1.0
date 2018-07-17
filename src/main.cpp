@@ -10,9 +10,9 @@
 #include "../lib/Awtrix/config.h"
 #include <NTP.h>
 #include <TimeLib.h>
+#include <AwtrixUDP.h>
 
-
-
+AwtrixUDP udp;
 OverTheAirUpdate ota;
 AwtrixWiFi wifi;
 MQTT mqtt;
@@ -32,6 +32,7 @@ void setup() {
 
     wifi.setup();
     ota.setup();
+    udp.setup();
     if (SETTINGS_FOUND){
         if (MQTT_ACTIVE) mqtt.setup();
         if (BLYNK_ACTIVE) ESPblynk.setup();
@@ -69,6 +70,7 @@ void setup() {
 void loop() {
     ota.loop();
     wifi.loop();   
+     udp.loop();
     if (SETTINGS_FOUND){
         if (!ota.isUpdating()) {       
             if (MQTT_ACTIVE) mqtt.loop();

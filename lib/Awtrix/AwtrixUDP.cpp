@@ -28,15 +28,7 @@ void AwtrixUDP::loop() {
         dat = String(inputBuffer);
         String command = dat.substring(0,dat.indexOf("%"));
         String payload = dat.substring(dat.indexOf("%")+1,dat.length());
-        if (command==  "pongmove"){
-                paddle=payload.toInt();
-                return;
-        } 
-
-        if (command==  "snakemove"){
-                direction=payload.toInt();
-                return;
-        }
+       
         sendMSG(AwtrixBroker::getInstance().doJob(command,payload));
 
     }
