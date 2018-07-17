@@ -13,7 +13,8 @@
 #define MATRIX_MODE         NEO_MATRIX_TOP + NEO_MATRIX_LEFT + NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG
 #define MATRIX_TYPE         NEO_GRB + NEO_KHZ800
 
-
+int period = 20;
+unsigned long time_now = 0;
 
 DisplayManager::DisplayManager() : matrix(MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_PIN, MATRIX_MODE, MATRIX_TYPE) {
     setup();
@@ -47,6 +48,8 @@ void DisplayManager::setup() {
 
 
 uint32_t DisplayManager::Wheel(byte WheelPos) {
+
+  
 if (colorCircle==256) colorCircle=0;
 Serial.println(WheelPos);
   if(WheelPos < 85) {
@@ -59,6 +62,7 @@ Serial.println(WheelPos);
    return matrix.Color(0, WheelPos * 3, 255 - WheelPos * 3);
   }
 }
+
 
 
 void DisplayManager::drawRect(uint16_t  x0, uint16_t  y0,uint16_t  x1,uint16_t  y1, AwtrixColor rectColor) {
@@ -173,6 +177,7 @@ void DisplayManager::setERR() {
 }
 
 
+
 void DisplayManager::drawText(String text, AwtrixPosition position, boolean refresh,boolean small,boolean gobalColor) {
     if (refresh) {
         matrix.clear();
@@ -184,13 +189,20 @@ void DisplayManager::drawText(String text, AwtrixPosition position, boolean refr
         matrix.setFont();
         matrix.setCursor(position.x, position.y);
     }
-    //if(gobalColor)matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
-    if(RAINBOW)matrix.setTextColor(Wheel(colorCircle));
+      if(RAINBOW & !SLEEP_MODE){
+             if(millis() > time_now + period){
+                time_now = millis();
+                 matrix.setTextColor(Wheel(colorCircle));
+                 ++colorCircle;
+            }
+            }else{
+        matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
+           
+        }   
     matrix.print(text);
 
     matrix.setFont();
-    delay(15);
-    ++colorCircle;
+ 
 }
 
 
@@ -204,26 +216,43 @@ if (autoScroll) {
         while(x > (24 - (pixelsInText+24))){
         matrix.clear();
         matrix.setCursor(--x, 0);
-            matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
-      if(RAINBOW)matrix.setTextColor(Wheel(colorCircle));
+            if(RAINBOW){
+             if(millis() > time_now + period){
+                time_now = millis();
+                 matrix.setTextColor(Wheel(colorCircle));
+                 ++colorCircle;
+            }
+            }else{
+        matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
+           
+        }   
         matrix.print(text);
 
         matrix.drawRGBBitmap(0,0,bmp,8,8);
         matrix.drawFastVLine(8, 0, 8, 0);
         matrix.show();
-        ++colorCircle;
+     
         delay(s);
         }
     }else{
         matrix.setCursor(position.x+9, position.y);
-                    matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
-    if(RAINBOW)matrix.setTextColor(Wheel(colorCircle));
+            
+       if(RAINBOW){
+             if(millis() > time_now + period){
+                time_now = millis();
+                 matrix.setTextColor(Wheel(colorCircle));
+                 ++colorCircle;
+            }
+            }else{
+        matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
+           
+        }   
         matrix.print(text);
         
         matrix.drawRGBBitmap(0,0,bmp,8,8);
         matrix.show();
         matrix.setFont();
-        ++colorCircle;
+  
         }
     }
     if (text.length()>4) delay(wait);

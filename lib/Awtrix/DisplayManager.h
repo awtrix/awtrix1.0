@@ -38,6 +38,7 @@ class DisplayManager
         void clear();
         void refresh();
         void wipe();
+
         void show();
         void setERR();
         void checkLight();
