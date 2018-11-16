@@ -134,7 +134,7 @@ void ApplicationManager::switchApplications() {
             AppIndex = 2;
         }
 
-    if (SLEEP_MODE){
+    if (SLEEP_MODE && SLEEP_MODE_ACTIVE){
         DisplayManager::getInstance().setBrightness(5);
         if (activeApplicationIndex > 2 ){
             applications[activeApplicationIndex]->disable();

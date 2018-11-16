@@ -25,7 +25,7 @@ class DisplayManager
         void setup();
         uint32_t color(AwtrixColor);
         uint32_t Wheel(byte,int);
-
+        int colorCircle;
 
     public:
         static DisplayManager& getInstance() {
@@ -46,6 +46,7 @@ class DisplayManager
         void scrollText(String);
         void drawText(String, AwtrixPosition, boolean,boolean,boolean);
         void drawBitmap(unsigned char[], AwtrixPosition, AwtrixColor, int16_t, int16_t);
+        void drawRGB(const uint16_t bmp[]);
         void colorWipe(AwtrixColor);
         void fillScreen(int);
         void drawWeekday(int);

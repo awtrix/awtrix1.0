@@ -9,6 +9,7 @@
 #include <AwtrixSound.h>
 #include "../lib/Awtrix/config.h"
 #include <AwtrixUDP.h>
+#include <TimeLib.h>
 
 OverTheAirUpdate ota;
 AwtrixWiFi wifi;
@@ -49,6 +50,19 @@ ESP.wdtEnable(WDTO_8S);
      
 }
 
+ void checkSleepMode(){
+    uint32_t now, start, stop;
+      now = ((hour() * 3600) + (minute() * 60) + second());
+      start = (SLEEP_START_HR * 3600) + (SLEEP_START_MIN * 60);
+      stop = (SLEEP_STOP_HR * 3600) + (SLEEP_STOP_MIN * 60);
+
+      if (start < stop) {
+        SLEEP_MODE = (now >= start && now <= stop ) ? 1 : 0;
+      } else {
+        SLEEP_MODE = (now >= start || now <= stop) ? 1 : 0;
+      }
+}
+
 void loop() {
     ota.loop();
         if (!ota.isUpdating()) {
@@ -59,6 +73,7 @@ void loop() {
                 if (MQTT_ACTIVE) mqtt.loop();
                 if (BLYNK_ACTIVE) ESPblynk.loop();
                 if (AUTO_BRIGHTNESS) DisplayManager::getInstance().checkLight();
+                if (SLEEP_MODE_ACTIVE) checkSleepMode();
             }   
     }
 }

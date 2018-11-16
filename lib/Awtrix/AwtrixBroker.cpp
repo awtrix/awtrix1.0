@@ -1,5 +1,4 @@
 #include <AwtrixBroker.h>
-
 String AwtrixBroker::doJob(String command,String payload){
 
         if (command==  "game"){
@@ -19,20 +18,24 @@ String AwtrixBroker::doJob(String command,String payload){
 
         if (command== "save"){
                 AwtrixSettings::getInstance().saveSettings();
-                DisplayManager::getInstance().showSave();
-                delay(300);
-                DisplayManager::getInstance().clear();
-                DisplayManager::getInstance().show();
+              //  DisplayManager::getInstance().showSave();
+               // delay(300);
+              //  DisplayManager::getInstance().clear();
+               // DisplayManager::getInstance().show();
                 return "ACK";
         }
 
         if (command==  "reset"){
-                ESP.reset();
-                               
+                ESP.restart();          
         }
 
         if (command==  "mood"){
                 PET_MOOD=payload.toInt();
+                return "ACK";
+        }
+
+         if (command==  "BMP"){
+                
                 return "ACK";
         }
 
@@ -50,7 +53,7 @@ String AwtrixBroker::doJob(String command,String payload){
         }
 
         if (command==  "next"){
-                //ApplicationManager::getInstance().nextApplication();
+               //ApplicationManager::getInstance().nextApplication();
                 return "ACK";
         }
 

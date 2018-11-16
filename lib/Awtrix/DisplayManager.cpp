@@ -185,29 +185,49 @@ void DisplayManager::drawApp(const uint16_t bmp[], String text, AwtrixPosition p
     int pixelsInText = (text.length() * 6);
     int x = 24;
     int s = map(SCROLL_SPEED,1,100,60,1);
+if (colorCircle==360)colorCircle=0;
 if (autoScroll) {
     if (text.length()>4){
         while(x > (24 - (pixelsInText+24))){
         matrix.clear();
         matrix.setCursor(--x, 0);
+           
+    if(RAINBOW){ 
+        matrix.setTextColor(Wheel(colorCircle,0)) ;
+        }else{
+            matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
+        }
         matrix.print(text);
-        matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
+
         matrix.drawRGBBitmap(0,0,bmp,8,8);
         matrix.drawFastVLine(8, 0, 8, 0);
         matrix.show();
+        ++colorCircle;
         delay(s);
         }
     }else{
-        matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
         matrix.setCursor(position.x+9, position.y);
+                   
+    if(RAINBOW){
+        matrix.setTextColor(Wheel(colorCircle,0));
+         }else{
+             matrix.setTextColor(color({TEXT_COLOR_R,TEXT_COLOR_G,TEXT_COLOR_B}));
+        }
         matrix.print(text);
+        
         matrix.drawRGBBitmap(0,0,bmp,8,8);
         matrix.show();
         matrix.setFont();
+        ++colorCircle;
         }
     }
     delay(wait);
 }
+
+void DisplayManager::drawRGB(const uint16_t bmp[]) {
+     matrix.drawRGBBitmap(0,0,bmp,8,8);
+}
+
 
 
 void DisplayManager::drawBitmap(unsigned char bmp[], AwtrixPosition position , AwtrixColor bmpColor, int16_t width, int16_t height) {
@@ -327,12 +347,15 @@ void DisplayManager::showBoot(){
 }
 
 void DisplayManager::showSave(){
+    /*
+
     matrix.clear();
     matrix.setBrightness(BRIGHTNESS);
     matrix.setTextColor(color({0,255,50}));
     matrix.setCursor(4, 0);
     matrix.print("SAVE");
     matrix.show();
+    */
 }
 
 /*

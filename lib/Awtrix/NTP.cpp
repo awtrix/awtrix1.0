@@ -56,15 +56,4 @@ uint8_t NTP::DSToffset(time_t date)
   return (((date >= beginDST) && (date < endDST))? 1: 0);
 }
 
-void NTP::checkSleepMode(){
-  uint32_t now, start, stop;
-      now = ((hour() * 3600) + (minute() * 60) + second());
-      start = (SLEEP_START_HR * 3600) + (SLEEP_START_MIN * 60);
-      stop = (SLEEP_STOP_HR * 3600) + (SLEEP_STOP_MIN * 60);
 
-      if (start < stop) {
-        SLEEP_MODE = (now >= start && now <= stop ) ? 1 : 0;
-      } else {
-        SLEEP_MODE = (now >= start || now <= stop) ? 1 : 0;
-      }
-}
