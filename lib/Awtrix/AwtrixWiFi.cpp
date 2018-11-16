@@ -5,8 +5,8 @@
 #include "config.h"
 #include <FS.h>
 #include <Settings.h>
-const int FW_VERSION = 8;
-const char* fwUrlBase = "http://blueforcer.de/awtrix/";
+const int FW_VERSION = 11;
+const char* fwUrlBase = "http://awtrix.blueforcer.de/";
 File fsUploadFile;
 
 
@@ -52,7 +52,7 @@ void ICACHE_FLASH_ATTR checkForUpdates() {
       Serial.println(F("Preparing to update"));
       DisplayManager::getInstance().drawText("Update...", {0, 0}, true,true,false);
       DisplayManager::getInstance().show();
-      t_httpUpdate_return ret = ESPhttpUpdate.update("http://blueforcer.de/awtrix/firmware.bin");
+      t_httpUpdate_return ret = ESPhttpUpdate.update("http://awtrix.blueforcer.de/firmware.bin");
 
       switch(ret) {
         case HTTP_UPDATE_FAILED:
