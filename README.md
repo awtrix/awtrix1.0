@@ -1,8 +1,8 @@
-# AWTRIX
 
 # Outdated & no support! Have a look at [Awtrix 2.0](https://docs.blueforcer.de/#/v2/README)   
   
-  
+## AWTRIX
+
   
 ![AWTRIX Preview](assets/awtrix.jpg?raw=true "AWTRIX")
 
