@@ -1,6 +1,6 @@
 # AWTRIX
 
-# no longer maintained! Have a look for Awtrix 2.0 in my Repos
+# no longer maintained! Have a look for [Awtrix 2.0](https://docs.blueforcer.de/#/v2/README) 
 
 ![AWTRIX Preview](assets/awtrix.jpg?raw=true "AWTRIX")
 
