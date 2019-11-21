@@ -1,11 +1,13 @@
 # AWTRIX
 
+###no longer maintained! Have a look for Awtrix 2.0 in my Repos
+
 ![AWTRIX Preview](assets/awtrix.jpg?raw=true "AWTRIX")
 
 OFFICIAL DOCUMENTATION:
-http://docs.awtrix.com/
+https://docs.blueforcer.de/#/v1/README
 
-(It's still under development. Because we have rebuilt everything to Platform.IO and build the code a lot better (thx to padarom for the awesome work), a lot of functions still have to be rebuilt again). Who would like to help can do this gladly
+
 
 AWTRIX is a smart WiFi-capable clock based on an ESP8266.
 
